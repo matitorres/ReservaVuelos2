@@ -5,10 +5,12 @@
  */
 package reservadevuelos.modelo;
 
+import java.sql.Connection;
+
 /**
  *
  * @author asus pc
  */
 public class Conexion {
-    
+    private Connection conexion;
 }
