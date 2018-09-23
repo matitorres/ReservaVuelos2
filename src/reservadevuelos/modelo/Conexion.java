@@ -12,5 +12,13 @@ import java.sql.Connection;
  * @author asus pc
  */
 public class Conexion {
+    
+    // ATRIBUTOS
+    
+    private String url, usuario, password;
     private Connection conexion;
+    
+    // CONSTRUCTOR
+    
+    
 }
