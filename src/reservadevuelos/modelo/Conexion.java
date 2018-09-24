@@ -27,6 +27,5 @@ public class Conexion {
         this.password = password;
 
         Class.forName("org.mariadb.jdbc.Driver");
-
     }
 }
