@@ -20,5 +20,13 @@ public class Conexion {
     
     // CONSTRUCTOR
     
-    
+    public Conexion(String url, String usuario, String password) throws ClassNotFoundException {
+        
+        this.url = url;
+        this.usuario = usuario;
+        this.password = password;
+
+        Class.forName("org.mariadb.jdbc.Driver");
+
+    }
 }
