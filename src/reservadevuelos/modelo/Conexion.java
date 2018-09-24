@@ -13,7 +13,7 @@ import java.sql.Connection;
  */
 public class Conexion {
     
-    // ATRIBUTOS
+    // ATRIBUTOSs
     
     private String url, usuario, password;
     private Connection conexion;
