@@ -10,22 +10,19 @@ import java.sql.SQLException;
  */
 public class Conexion {
     
-    // ATRIBUTOSs
-    private String url;
-    private String usuario;
-    private String password;
-    
+    // ATRIBUTOS
+    private String url, usuario, password;
     private Connection conexion;
     
     // CONSTRUCTOR
-        public Conexion(String url, String usuario, String password) throws ClassNotFoundException {
+    public Conexion(String url, String usuario, String password) throws ClassNotFoundException {
         this.url = url;
         this.usuario = usuario;
         this.password = password;
         Class.forName("org.mariadb.jdbc.Driver");
     }
     
-        //Constructor por default
+    // CONSTRUCTOR POR DEFAULT
     /*public Conexion() throws ClassNotFoundException {
         this.url = "jdbc:mysql://localhost/vuelos";
         this.usuario = "root";
@@ -33,17 +30,13 @@ public class Conexion {
         Class.forName("org.mariadb.jdbc.Driver");
     }*/
     
-    
-    
+    // OBTENER CONEXIÓN
     public Connection getConexion() throws SQLException{
         if(conexion == null){
-                    // Setup the connection with the DB
             conexion = DriverManager
                 .getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC"
                         + "&user=" + usuario + "&password=" + password);
         }
         return conexion;
     }
-    
-     
 }
