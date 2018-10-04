@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,8 +33,9 @@ public class VueloData {
     }
     
     // MÉTODOS
-    public void cargarVuelo(Vuelo vuelo){
+    public void altaVuelo(Vuelo vuelo){
         try {
+            // Crea nuevo vuelo
             String sql = "INSERT INTO vuelo (aerolinea, tipoAeronave,"
                     + "idCiudadOrigen, idCiudadDestino, fechaSalida,"
                     + "fechaArribo, estado)"
@@ -60,7 +62,25 @@ public class VueloData {
                         + "un vuelo");
             }
             statement.close();
-    
+            
+            
+            // Crea los asientos para ese vuelo
+            String sql2 = "INSERT INTO asiento (idVuelo, ubicación, precio,"
+                    + "disponible) VALUES ( ? , ? , ? , ? );";
+            
+            PreparedStatement statement2 = connection.prepareStatement(sql2,
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            for(int i=1;i<=vuelo.getAsientos().size();i++) {
+                statement2.setInt(1, rs.getInt(1));
+                statement2.setString(2, vuelo.getTipoAeronave());
+                statement2.setFloat(3, 33.33f); // No sé cómo hacer acá
+                statement2.setBoolean(4, true);
+                statement2.executeUpdate();
+            }
+            
+            statement2.close();
+            
         } catch (SQLException ex) {
             System.out.println("Error al insertar vuelo: " + ex.getMessage());
         }
