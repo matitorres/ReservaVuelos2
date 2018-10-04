@@ -20,16 +20,11 @@ import java.util.ArrayList;
 public class VueloData {
     
     // ATRIBUTOS
-    private Connection connection = null;
+    private Connection db = null;
 
     // CONSTRUCTOR
     public VueloData(Conexion conexion) {
-        try {
-            connection = conexion.getConexion();
-        } catch (SQLException ex) {
-            System.out.println("Error al abrir al obtener la conexion"
-                    + ex.getMessage());
-        }
+        db = conexion.getConexion();
     }
     
     // MÉTODOS
@@ -41,7 +36,7 @@ public class VueloData {
                     + "fechaArribo, estado)"
                     + "VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 
-            PreparedStatement statement = connection.prepareStatement(sql,
+            PreparedStatement statement = db.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, vuelo.getAerolinea());
             statement.setString(2, vuelo.getTipoAeronave());
@@ -68,12 +63,12 @@ public class VueloData {
             String sql2 = "INSERT INTO asiento (idVuelo, ubicación, precio,"
                     + "disponible) VALUES ( ? , ? , ? , ? );";
             
-            PreparedStatement statement2 = connection.prepareStatement(sql2,
+            PreparedStatement statement2 = db.prepareStatement(sql2,
                     Statement.RETURN_GENERATED_KEYS);
             
             for(int i=1;i<=vuelo.getAsientos().size();i++) {
                 statement2.setInt(1, rs.getInt(1));
-                statement2.setString(2, vuelo.getTipoAeronave());
+                statement2.setString(2, vuelo.getAsientos().get(i));
                 statement2.setFloat(3, 33.33f); // No sé cómo hacer acá
                 statement2.setBoolean(4, true);
                 statement2.executeUpdate();
