@@ -53,8 +53,7 @@ public class VueloData {
             if (rs.next()) {
                 vuelo.setIdVuelo(rs.getInt(1));
             } else {
-                System.out.println("No se pudo obtener el id luego de insertar"
-                        + "un vuelo");
+                System.out.println("No se pudo obtener el id luego de insertar un vuelo");
             }
             statement.close();
             

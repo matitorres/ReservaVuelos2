@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import reservadevuelos.controladores.ClienteData;
+import reservadevuelos.modelo.ClienteData;
 import reservadevuelos.modelo.Cliente;
 
 
@@ -38,9 +38,9 @@ public class VentanaCliente extends javax.swing.JFrame {
      * Creates new form VentanaCliente
      */
     
-     private TableRowSorter filtro;
-     private ClienteData gestorCliente = new ClienteData();
-     private List<Cliente> listaClientes = gestorCliente.getClientes();
+    private TableRowSorter filtro;
+    private ClienteData gestorCliente = new ClienteData();
+    private List<Cliente> listaClientes = gestorCliente.getClientes();
     public VentanaCliente() {
      
         initComponents();
@@ -49,7 +49,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         soloNumeros(cajaDniCliente);
         soloNumeros(cajaPasaporteCliente);
         soloNumeros(cajaTarjetaCliente);
-         pasar_valores_porPasaporte(listaClientes);
+        pasar_valores_porPasaporte(listaClientes);
         
        
     }
@@ -308,7 +308,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-  public void pasar_valores_porPasaporte(List<Cliente> lista){
+    public void pasar_valores_porPasaporte(List<Cliente> lista){
       int i;
       //llamamos a los metodos para conectar ala BASE DE DATOS
       
@@ -331,6 +331,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         
     }
+    
     private void cajaBuscarClientesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBuscarClientesKeyTyped
         cajaBuscarClientes.addKeyListener(new KeyAdapter() {
             public void keyReleased(final KeyEvent e){
@@ -513,7 +514,9 @@ public class VentanaCliente extends javax.swing.JFrame {
         
      
         return hayvacias;
-    }    public void filtro(){
+        }
+        
+        public void filtro(){
         filtro.setRowFilter(RowFilter.regexFilter(cajaBuscarClientes.getText(), 2,3,4));
     } 
     /**
