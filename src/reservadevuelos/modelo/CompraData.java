@@ -49,7 +49,7 @@ public class CompraData {
             statement.close();
     
         } catch (SQLException ex) {
-            System.out.println("Error al insertar un alumno: " + ex.getMessage());
+            System.out.println("Error al insertar una Compra: " + ex.getMessage());
         }
     }
        
