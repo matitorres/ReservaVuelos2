@@ -23,12 +23,8 @@ public class CompraData {
      private Conexion conexion;
      
       public CompraData(Conexion conexion) {
-        try {
-            this.conexion=conexion;
-            connection = conexion.getConexion();
-        } catch (SQLException ex) {
-            System.out.println("Error al abrir al obtener la conexion");
-        }
+          this.conexion=conexion;
+          connection = conexion.getConexion();
     }
 
        public void guardarCompra(Compra compra){
