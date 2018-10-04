@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.controladores;
+package reservadevuelos.modelo;
 
 
 import java.sql.*;
@@ -17,7 +17,6 @@ public class Conexion{
     private String password = "";
     private String url = "";
     private String query;
-    private int id_insertado;
 
     public Conexion() {
         try {
@@ -33,11 +32,6 @@ public class Conexion{
             System.out.println(ex);
         }
     }
-
-    public int getId_insertado() {
-        return id_insertado;
-    }
-
 
     public Connection cerrarConexion() {
         try {
