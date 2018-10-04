@@ -29,9 +29,9 @@ import java.util.ArrayList;
 
 public class TestClaseCompra {
   public static void main(String[] args) throws SQLException  { //throws SQLException                     //argumentos variables del metodo main
-    String url="jdbc:mysql://localhost/reservadevuelos";
+   /* String url="jdbc:mysql://localhost/reservadevuelos";
     String usuario="root";
-    String password="";
+    String password="";*/
     PreparedStatement ps;
     
         
@@ -40,7 +40,7 @@ public class TestClaseCompra {
           //conexion=DriverManager.getConnection(url, usuario, password);
           
           
-          Conexion conexion=new Conexion(url,usuario,password);//Creo la conexion
+          Conexion conexion=new Conexion();//Creo la conexion
           CompraData compraData=new CompraData(conexion);//instancio un ClienteData
          
             //Codigo para Testear el ABM de la clase Compra
@@ -48,16 +48,16 @@ public class TestClaseCompra {
           
            //Instrucciones para Testear dar de Alta una Compra(guardarCompra()) 
            //----------------------------------------------------------- 
-           Compra compra=new Compra(1,2,LocalDate.now());//INSERT(sin id) Instancio una Compra sin id, para insertar
-           compraData.guardarCompra(compra);//INSERT LLamo a guardarCompra-> guarda en la base de datos
+           //Compra compra=new Compra(2,1,LocalDate.now());//INSERT(sin id) Instancio una Compra sin id, para insertar
+           //compraData.guardarCompra(compra);//INSERT LLamo a guardarCompra-> guarda en la base de datos
            //-----------------------------------------------------------           
 
            
 
             //Instrucciones para Testear actualizar una Compra(actualizarCompra()) 
            //----------------------------------------------------------- 
-           //Compra compra=new Compra(2,2,2,LocalDate.now());//UPDATE Instancio una Compra con id para hacer un UPDATE
-           //compraData.actualizarCompra(compra);//UPDATE
+           Compra compra=new Compra(7,2,2,LocalDate.now());//UPDATE Instancio una Compra con id para hacer un UPDATE
+           compraData.actualizarCompra(compra);//UPDATE
            //----------------------------------------------------------- 
            
            
@@ -65,12 +65,12 @@ public class TestClaseCompra {
          
           //BUSCAR COMPRA
           //---------------------------------------------- 
-          //Compra r=compraData.buscarCompra(2);
-          /*
+          /*Compra r=compraData.buscarCompra(7);
+          
             System.out.println(r.getIdCompra()); 
             System.out.println(r.getIdAsiento());
             System.out.println(r.getIdCliente());
-            System.out.println(r.getFechaCompra()); */ 
+            System.out.println(r.getFechaCompra());  */
           //---------------------------------------------- 
           
           
