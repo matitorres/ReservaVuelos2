@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.modelo;
+package accesoabasededatos.modelo;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class TestClaseVuelo {
     public static void main(String[] args) throws SQLException, ClassNotFoundException{        
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
             Conexion conexion = new Conexion();
             VueloData vueloData = new VueloData(conexion);
             
@@ -25,7 +25,7 @@ public class TestClaseVuelo {
             vueloData.altaVuelo(vuelo);
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(reservadevuelos.modelo.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(accesoabasededatos.modelo.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

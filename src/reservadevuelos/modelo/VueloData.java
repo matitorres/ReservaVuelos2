@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.modelo;
+package accesoabasededatos.modelo;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,31 +20,29 @@ import java.util.ArrayList;
 public class VueloData {
     
     // ATRIBUTOS
-    private Connection db = null;
+    private Connection connection = null;
+    private Conexion conexion;
 
     // CONSTRUCTOR
     public VueloData(Conexion conexion) {
-        db = conexion.getConexion();
+     this.conexion=conexion;
+          connection = conexion.getConexion();
     }
     
     // MÉTODOS
     public void altaVuelo(Vuelo vuelo){
         try {
             // Crea nuevo vuelo
-            String sql = "INSERT INTO vuelo (aerolinea, tipoAeronave,"
-                    + "idCiudadOrigen, idCiudadDestino, fechaSalida,"
-                    + "fechaArribo, estado)"
-                    + "VALUES ( ? , ? , ? , ? , ? , ? , ? );";
+            String sql = "INSERT INTO vuelo (aerolinea, tipoAeronave,idCiudadOrigen, idCiudadDestino,fechaSalida,fechaArribo, estado) VALUES ( ? , ? , ? , ? , ? , ? , ? );";
 
-            PreparedStatement statement = db.prepareStatement(sql,
-                    Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, vuelo.getAerolinea());
             statement.setString(2, vuelo.getTipoAeronave());
             statement.setInt(3, vuelo.getCiudadOrigen());
             statement.setInt(4, vuelo.getCiudadDestino());
             statement.setDate(5, Date.valueOf(vuelo.getSalida()));
             statement.setDate(6, Date.valueOf(vuelo.getArribo()));
-            statement.setString(3, vuelo.getEstado());
+            statement.setString(7, vuelo.getEstado());
             
             statement.executeUpdate();
             
@@ -56,25 +54,8 @@ public class VueloData {
                 System.out.println("No se pudo obtener el id luego de insertar un vuelo");
             }
             statement.close();
-            
-            
-            // Crea los asientos para ese vuelo
-            String sql2 = "INSERT INTO asiento (idVuelo, ubicación, precio,"
-                    + "disponible) VALUES ( ? , ? , ? , ? );";
-            
-            PreparedStatement statement2 = db.prepareStatement(sql2,
-                    Statement.RETURN_GENERATED_KEYS);
-            
-            for(int i=1;i<=vuelo.getAsientos().size();i++) {
-                statement2.setInt(1, rs.getInt(1));
-                statement2.setString(2, vuelo.getAsientos().get(i));
-                statement2.setFloat(3, 33.33f); // No sé cómo hacer acá
-                statement2.setBoolean(4, true);
-                statement2.executeUpdate();
-            }
-            
-            statement2.close();
-            
+             
+           
         } catch (SQLException ex) {
             System.out.println("Error al insertar vuelo: " + ex.getMessage());
         }
