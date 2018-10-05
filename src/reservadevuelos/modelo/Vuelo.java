@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package accesoabasededatos.modelo;
+package reservadevuelos.modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,41 +17,264 @@ public class Vuelo {
     // ATRIBUTOS
     private int idVuelo = -1;
     private String aerolinea, tipoAeronave, estado;
-    private int ciudadOrigen, ciudadDestino;
-    private LocalDate salida, arribo;
+    private int idCiudadOrigen, idCiudadDestino;
+    private LocalDate fechaSalida, fechaArribo;
     private ArrayList<String> asientos = new ArrayList<String>();
     
     //CONSTRUCTORES
-    
-    //Constructor con 8 parametros, incluye el id
     public Vuelo(int idVuelo, String aerolinea, String tipoAeronave,
-            int ciudadOrigen, int ciudadDestino, LocalDate salida,
-            LocalDate arribo, String estado) {
+            int idCiudadOrigen, int idCiudadDestino, LocalDate fechaSalida,
+            LocalDate fechaArribo, String estado) {
         this.idVuelo = idVuelo;
         this.aerolinea = aerolinea;
         this.tipoAeronave = tipoAeronave;
-        this.ciudadOrigen = ciudadOrigen;
-        this.ciudadDestino = ciudadDestino;
-        this.salida = salida;
-        this.arribo = arribo;
+        this.idCiudadOrigen = idCiudadOrigen;
+        this.idCiudadDestino = idCiudadDestino;
+        this.fechaSalida = fechaSalida;
+        this.fechaArribo = fechaArribo;
         this.estado = estado;
+        switch (tipoAeronave) {
+            case "Boeing 747": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Boeing 757": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Boeing 767": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A320": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A330": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A340": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            default: 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+        }
     }
     
-    //Constructor con 7 parametros
-    public Vuelo(String aerolinea, String tipoAeronave,
-            int ciudadOrigen,int ciudadDestino,LocalDate salida,LocalDate arribo,
+    public Vuelo(String aerolinea, String tipoAeronave, int idCiudadOrigen,
+            int idCiudadDestino, LocalDate fechaSalida, LocalDate fechaArribo,
             String estado) {
         this.idVuelo = -1;
         this.aerolinea = aerolinea;
         this.tipoAeronave = tipoAeronave;
-        this.ciudadOrigen = ciudadOrigen;
-        this.ciudadDestino = ciudadDestino;
-        this.salida = salida;
-        this.arribo = arribo;
+        this.idCiudadOrigen = idCiudadOrigen;
+        this.idCiudadDestino = idCiudadDestino;
+        this.fechaSalida = fechaSalida;
+        this.fechaArribo = fechaArribo;
         this.estado = estado;
-        
+        switch (tipoAeronave) {
+            case "Boeing 747": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Boeing 757": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Boeing 767": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A320": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A330": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            case "Airbus A340": 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
+            default: 
+                asientos.add("V001");asientos.add("P002");asientos.add("P003");
+                asientos.add("V004");asientos.add("V005");asientos.add("P006");
+                asientos.add("P007");asientos.add("V008");asientos.add("V009");
+                asientos.add("P010");asientos.add("P011");asientos.add("V012");
+                asientos.add("V013");asientos.add("P014");asientos.add("P015");
+                asientos.add("V016");asientos.add("V017");asientos.add("P018");
+                asientos.add("P019");asientos.add("V020");asientos.add("V021");
+                asientos.add("P022");asientos.add("P023");asientos.add("V024");
+                asientos.add("V025");asientos.add("P026");asientos.add("P027");
+                asientos.add("V028");asientos.add("V029");asientos.add("P030");
+                asientos.add("P031");asientos.add("V032");asientos.add("V033");
+                asientos.add("P034");asientos.add("P035");asientos.add("V036");
+                asientos.add("V037");asientos.add("P038");asientos.add("P039");
+                asientos.add("V040");
+                break;
         }
-    
+    }
 
     public Vuelo() {
         this.idVuelo = -1;
@@ -82,36 +305,36 @@ public class Vuelo {
         this.tipoAeronave = tipoAeronave;
     }
 
-    public int getCiudadOrigen() {
-        return ciudadOrigen;
+    public int getIdCiudadOrigen() {
+        return idCiudadOrigen;
     }
 
-    public void setCiudadOrigen(int ciudadOrigen) {
-        this.ciudadOrigen = ciudadOrigen;
+    public void setIdCiudadOrigen(int idCiudadOrigen) {
+        this.idCiudadOrigen = idCiudadOrigen;
     }
 
-    public int getCiudadDestino() {
-        return ciudadDestino;
+    public int getIdCiudadDestino() {
+        return idCiudadDestino;
     }
 
-    public void setCiudadDestino(int ciudadDestino) {
-        this.ciudadDestino = ciudadDestino;
+    public void setIdCiudadDestino(int idCiudadDestino) {
+        this.idCiudadDestino = idCiudadDestino;
     }
 
-    public LocalDate getSalida() {
-        return salida;
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
     }
 
-    public void setSalida(LocalDate salida) {
-        this.salida = salida;
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
-    public LocalDate getArribo() {
-        return arribo;
+    public LocalDate getFechaArribo() {
+        return fechaArribo;
     }
 
-    public void setArribo(LocalDate arribo) {
-        this.arribo = arribo;
+    public void setFechaArribo(LocalDate fechaArribo) {
+        this.fechaArribo = fechaArribo;
     }
 
     public String getEstado() {
