@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.controladores;
+package reservadevuelos.modelo;
 
 /**
  *
@@ -76,8 +76,8 @@ public class ClienteData {
         }
         return p;
     }
-  public int altaCliente(Cliente cliente) throws SQLException {
-String insertTableSQL = "INSERT INTO cliente "
+  public int altaCliente(Cliente cliente) throws SQLException {      
+                String insertTableSQL = "INSERT INTO cliente "
                 + "(nombre, apellido, dni,mail, nroPasaporte, nroTarjeta) VALUES"
                 + "(?,?,?,?,?,?)";
           int exito = 0;
@@ -94,7 +94,9 @@ String insertTableSQL = "INSERT INTO cliente "
 
             //  Ejecutamos el insert
            exito = preparedStatement.executeUpdate();
-           db.cerrarConexion();
+           
+           preparedStatement.close();
+          // db.getConexion().close();
            return exito;
       
     }
@@ -105,7 +107,9 @@ String insertTableSQL = "INSERT INTO cliente "
             PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);
             exito = preparedStatement.executeUpdate();
              // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
-          db.cerrarConexion();
+             
+           preparedStatement.close();
+        //   db.getConexion().close();
       return exito;
               
   }
@@ -120,7 +124,8 @@ String insertTableSQL = "INSERT INTO cliente "
             
           PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
            exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
-           db.cerrarConexion();
+           preparedStatement.close();
+           
            return exito;
   }
   
