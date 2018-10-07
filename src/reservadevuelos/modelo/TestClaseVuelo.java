@@ -22,8 +22,11 @@ public class TestClaseVuelo {
             Conexion conexion = new Conexion();
             VueloData vueloData = new VueloData(conexion);
             
-            /*Vuelo vuelo = new Vuelo("Aerolineas Argentinas", "Boeing 767", 1, 2, LocalDate.now(), LocalDate.now(), "n");
-            vueloData.altaVuelo(vuelo);*/
+            Ciudad ciudadOrigen = new Ciudad(1, "Buenos Aires", "Argentina", true);
+            Ciudad ciudadDestino = new Ciudad(2, "Londres", "Inglaterra", true);
+            Vuelo vuelo = new Vuelo("LATAM", "Boeing 767", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
+            Asiento asiento = new Asiento(3500f);
+            vueloData.altaVuelo(vuelo, asiento);
             
             /*vueloData.bajaVuelo(5);*/
             
