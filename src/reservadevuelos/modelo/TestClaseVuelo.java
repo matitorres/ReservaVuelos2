@@ -22,29 +22,32 @@ public class TestClaseVuelo {
             Conexion conexion = new Conexion();
             VueloData vueloData = new VueloData(conexion);
             
-            Ciudad ciudadOrigen = new Ciudad(1, "Buenos Aires", "Argentina", true);
-            Ciudad ciudadDestino = new Ciudad(2, "Londres", "Inglaterra", true);
+            /*Ciudad ciudadOrigen = new Ciudad(7);
+            Ciudad ciudadDestino = new Ciudad(8);
             Vuelo vuelo = new Vuelo("LATAM", "Boeing 767", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
             Asiento asiento = new Asiento(3500f);
-            vueloData.altaVuelo(vuelo, asiento);
+            vueloData.altaVuelo(vuelo, asiento);*/
             
-            /*vueloData.bajaVuelo(5);*/
+            /*vueloData.bajaVuelo(1);*/
             
-            /*Vuelo vuelo = new Vuelo(6,"LATAM", "Airbus A320", 1, 5, LocalDate.now(), LocalDate.now(), "n");
+            /*Ciudad ciudadOrigen = new Ciudad(1);
+            Ciudad ciudadDestino = new Ciudad(6);
+            Vuelo vuelo = new Vuelo(9,"LATAM", "Airbus A340", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
             vueloData.modificarVuelo(vuelo);*/
             
-            /*Vuelo vuelo = vueloData.buscarVuelo(7);
-            System.out.println("// "+vuelo.getIdVuelo());
-            System.out.println("// "+vuelo.getAerolinea()+" - "+vuelo.getTipoAeronave());
-            System.out.println("// idOrigen:"+vuelo.getIdCiudadOrigen()+" - idDestino:"+vuelo.getIdCiudadDestino());
-            System.out.println("// estado:"+vuelo.getEstado());*/
+            /*Vuelo vuelo = vueloData.buscarVuelo(9);
+            System.out.println("|| "+vuelo.getIdVuelo());
+            System.out.println("|| "+vuelo.getAerolinea()+" - "+vuelo.getTipoAeronave());
+            System.out.println("|| idOrigen: "+vuelo.getCiudadOrigen().getIdCiudad()+" - idDestino: "+vuelo.getCiudadDestino().getIdCiudad());
+            System.out.println("|| estado: "+vuelo.getEstado());*/
             
             /*List<Vuelo> vuelos = vueloData.obtenerVuelos();
             for(int i = 0; i < vuelos.size(); i++){
+                System.out.println("");
                 System.out.println("======================== "+vuelos.get(i).getIdVuelo()+" ==========================");
-                System.out.println("// "+vuelos.get(i).getAerolinea()+" - "+vuelos.get(i).getTipoAeronave());
-                System.out.println("// idOrigen:"+vuelos.get(i).getIdCiudadOrigen()+" - idDestino:"+vuelos.get(i).getIdCiudadDestino());
-                System.out.println("// estado:"+vuelos.get(i).getEstado());
+                System.out.println("|| "+vuelos.get(i).getAerolinea()+" - "+vuelos.get(i).getTipoAeronave());
+                System.out.println("|| idOrigen: "+vuelos.get(i).getCiudadOrigen().getIdCiudad()+" - idDestino: "+vuelos.get(i).getCiudadDestino().getIdCiudad());
+                System.out.println("|| estado: "+vuelos.get(i).getEstado());
                 System.out.println("=====================================================");
             }*/
             
