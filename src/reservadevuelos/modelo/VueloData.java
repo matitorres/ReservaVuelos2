@@ -21,6 +21,8 @@ import java.util.List;
 public class VueloData {
     private Connection db = null;
     private Conexion conexion;
+    
+    
     public VueloData(Conexion conexion){
         this.conexion = conexion;
         db = conexion.getConexion();
@@ -70,8 +72,6 @@ public class VueloData {
             System.out.println("Error al insertar vuelo: " + ex.getMessage());
         }
     }
-    
-    
     public void bajaVuelo(int id){
         try {
             String sql = "DELETE FROM vuelo WHERE idVuelo = ? ;";
@@ -83,8 +83,6 @@ public class VueloData {
             System.out.println("Error al eliminar vuelo: " + ex.getMessage());
         }
     }
-    
-    
     public void modificarVuelo(Vuelo vuelo){
         try {
             String sql = "UPDATE vuelo SET aerolinea = '"+vuelo.getAerolinea()+
@@ -99,11 +97,9 @@ public class VueloData {
             statement.executeUpdate();
             statement.close();
         } catch (SQLException ex) {
-            System.out.println("Error al eliminar vuelo: " + ex.getMessage());
+            System.out.println("Error al modificar vuelo: " + ex.getMessage());
         }
     }
-    
-    
     public Vuelo buscarVuelo(int id){
         Vuelo vuelo = new Vuelo();
         Ciudad ciudadOrigen = new Ciudad();
@@ -126,16 +122,12 @@ public class VueloData {
             }
             statement.close();
         } catch (SQLException ex) {
-            System.out.println("Error al eliminar vuelo: " + ex.getMessage());
+            System.out.println("Error al buscar vuelo: " + ex.getMessage());
         }
         return vuelo;
     }
-    
-    
     public List<Vuelo> obtenerVuelos(){
         List<Vuelo> vuelos = new ArrayList<Vuelo>();
-        Ciudad ciudadOrigen = new Ciudad();
-        Ciudad ciudadDestino = new Ciudad();
         try {
             String sql = "SELECT * FROM vuelo;";
             PreparedStatement statement = db.prepareStatement(sql);
@@ -143,6 +135,8 @@ public class VueloData {
             Vuelo vuelo;
             while(rs.next()){
                 vuelo = new Vuelo();
+                Ciudad ciudadOrigen = new Ciudad();
+                Ciudad ciudadDestino = new Ciudad();
                 vuelo.setIdVuelo(rs.getInt("idVuelo"));
                 vuelo.setAerolinea(rs.getString("aerolinea"));
                 vuelo.setTipoAeronave(rs.getString("tipoAeronave"));
@@ -157,7 +151,7 @@ public class VueloData {
             }
             statement.close();
         } catch (SQLException ex) {
-            System.out.println("Error al eliminar vuelo: " + ex.getMessage());
+            System.out.println("Error al obtener vuelos: " + ex.getMessage());
         }
         return vuelos;
     }
