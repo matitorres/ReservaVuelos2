@@ -6,7 +6,6 @@
 package reservadevuelos.modelo;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,14 +19,15 @@ import java.util.List;
  */
 public class AsientoData {
     private Connection connection = null;
-     private Conexion conexion;
+    private Conexion conexion;
+    
      
-      public AsientoData(Conexion conexion) {
+    public AsientoData(Conexion conexion) {
           this.conexion=conexion;
           connection = conexion.getConexion();
     }
 
-       public void guardarAsiento(Asiento asiento){
+    public void guardarAsiento(Asiento asiento){
         try {
             
             String sql = "INSERT INTO asiento (idVuelo, ubicacion, precio, disponible) VALUES ( ? , ? , ? , ? );";
@@ -53,9 +53,8 @@ public class AsientoData {
         } catch (SQLException ex) {
             System.out.println("Error al insertar un Asiento: " + ex.getMessage());
         }
-    }
-       
-           public void borrarAsiento(int id){
+    }   
+    public void borrarAsiento(int id){
     try {
             
             String sql = "DELETE FROM asiento WHERE idAsiento =?;";
@@ -74,8 +73,7 @@ public class AsientoData {
         
     
     }
-           
-        public Asiento buscarAsiento(int id){
+    public Asiento buscarAsiento(int id){
             Asiento asiento=null;
             Vuelo vuelo = new Vuelo();
     try {
@@ -105,8 +103,7 @@ public class AsientoData {
         
         return asiento;
     }     
-        
-        public void actualizarAsiento(Asiento asiento){
+    public void actualizarAsiento(Asiento asiento){
     
         try {
             
@@ -114,8 +111,8 @@ public class AsientoData {
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            statement.setInt(1, asiento.getIdVuelo());
-            statement.setString(2, asiento.getUbicacion());
+            statement.setInt(1, asiento.getVuelo().getIdVuelo());
+            statement.setString(2, asiento.getCodigoAsiento());
             statement.setFloat(3, asiento.getPrecio());
             statement.setBoolean(4, asiento.getDisponible());
             statement.setInt(5, asiento.getIdAsiento());
@@ -127,9 +124,8 @@ public class AsientoData {
             System.out.println("Error ACTUALIZAR el Asiento : " + ex.getMessage());
         }
     
-    }    
-        
-   public List<Asiento> obtenerAsientos(){
+    }
+    public List<Asiento> obtenerAsientos(){
         List<Asiento> asientos = new ArrayList<Asiento>();
             
 
@@ -140,13 +136,13 @@ public class AsientoData {
             Asiento asiento;
             while(resultSet.next()){
                 asiento = new Asiento();
-                vuelo = new Vuelo();
+                Vuelo vuelo = new Vuelo();
                 asiento.setIdAsiento(resultSet.getInt("idAsiento"));
                 vuelo.setIdVuelo(resultSet.getInt("idVuelo"));
                 asiento.setVuelo(vuelo);
                 asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
                 asiento.setPrecio(resultSet.getFloat("precio"));
-                asiento.setDisponible(resultSet.getBooelan("disponible"));
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
                 
                 asientos.add(asiento);
             }      
@@ -158,6 +154,5 @@ public class AsientoData {
         
         return asientos;
     }     
-        
         
 }
