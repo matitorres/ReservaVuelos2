@@ -30,15 +30,14 @@ public class AsientoData {
        public void guardarAsiento(Asiento asiento){
         try {
             
-            String sql = "INSERT INTO asiento (idVuelo, pasillo, disponible , ubicacion , precio) VALUES ( ? , ? , ? , ? , ? );";
+            String sql = "INSERT INTO asiento (idVuelo, ubicacion, precio, disponible) VALUES ( ? , ? , ? , ? );";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            statement.setInt(1, asiento.getIdVuelo());
-            statement.setInt(2, asiento.getPasillo());
-            statement.setInt(3, asiento.getDisponible());
-            statement.setString(4, asiento.getUbicacion());
-            statement.setDouble(5, asiento.getPrecio());
+            statement.setInt(1, asiento.getVuelo().getIdVuelo());
+            statement.setString(2, asiento.getCodigoAsiento());
+            statement.setFloat(3, asiento.getPrecio());
+            statement.setBoolean(4, asiento.getDisponible());
             
             statement.executeUpdate();
             
@@ -77,7 +76,8 @@ public class AsientoData {
     }
            
         public Asiento buscarAsiento(int id){
-    Asiento asiento=null;
+            Asiento asiento=null;
+            Vuelo vuelo = new Vuelo();
     try {
             
             String sql = "SELECT * FROM asiento WHERE idAsiento =?;";
@@ -91,11 +91,11 @@ public class AsientoData {
             while(resultSet.next()){
                 asiento = new Asiento();
                 asiento.setIdAsiento(resultSet.getInt("idAsiento"));
-                asiento.setIdVuelo(resultSet.getInt("idVuelo"));
-                asiento.setPasillo(resultSet.getInt("pasillo"));
-                asiento.setDisponible(resultSet.getInt("disponible"));
-                asiento.setUbicacion(resultSet.getString("ubicacion"));
-                asiento.setPrecio(resultSet.getDouble("precio"));
+                vuelo.setIdVuelo(resultSet.getInt("idVuelo"));
+                asiento.setVuelo(vuelo);
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
              }      
             statement.close();
                 
@@ -110,16 +110,15 @@ public class AsientoData {
     
         try {
             
-            String sql = "UPDATE asiento SET idVuelo = ? , pasillo =?, disponible=?, ubicacion=?, precio=?  WHERE idAsiento = ?;";
+            String sql = "UPDATE asiento SET idVuelo = ? , ubicacion =?, precio=?, disponible=? WHERE idAsiento = ?;";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             statement.setInt(1, asiento.getIdVuelo());
-            statement.setInt(2, asiento.getPasillo());
-            statement.setInt(3, asiento.getDisponible());
-            statement.setString(4, asiento.getUbicacion());
-            statement.setDouble(5, asiento.getPrecio());
-            statement.setInt(6, asiento.getIdAsiento());
+            statement.setString(2, asiento.getUbicacion());
+            statement.setFloat(3, asiento.getPrecio());
+            statement.setBoolean(4, asiento.getDisponible());
+            statement.setInt(5, asiento.getIdAsiento());
             statement.executeUpdate();
                     
             statement.close();
@@ -141,12 +140,13 @@ public class AsientoData {
             Asiento asiento;
             while(resultSet.next()){
                 asiento = new Asiento();
+                vuelo = new Vuelo();
                 asiento.setIdAsiento(resultSet.getInt("idAsiento"));
-                asiento.setIdVuelo(resultSet.getInt("idVuelo"));
-                asiento.setPasillo(resultSet.getInt("pasillo"));
-                asiento.setDisponible(resultSet.getInt("disponible"));
-                asiento.setUbicacion(resultSet.getString("ubicacion"));
-                asiento.setPrecio(resultSet.getDouble("precio"));
+                vuelo.setIdVuelo(resultSet.getInt("idVuelo"));
+                asiento.setVuelo(vuelo);
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                asiento.setDisponible(resultSet.getBooelan("disponible"));
                 
                 asientos.add(asiento);
             }      
