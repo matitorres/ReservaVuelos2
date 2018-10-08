@@ -40,6 +40,9 @@ public class Vuelo {
         this.fechaArribo = fechaArribo;
         this.estado = estado;
     }
+    public Vuelo(int idVuelo){
+        this.idVuelo = idVuelo;
+    }
     public Vuelo() {
         this.idVuelo = -1;
     }
