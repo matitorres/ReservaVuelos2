@@ -6,14 +6,14 @@
 package reservadevuelos.modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -22,71 +22,109 @@ import java.util.logging.Logger;
 public class CiudadData {
     
     // ATRIBUTOS
-     private Connection connection;
+     private List<Ciudad> listaCiudades;
      private Conexion conexion;
 
-    public CiudadData(Conexion conexion) {
-        try {
-            this.conexion=conexion;
-            connection = conexion.getConexion();
-        } catch (SQLException ex) {
-            System.out.println("Error al abrir al obtener la conexion");
-        }
+    public CiudadData() {
+        conexion = new Conexion();
+        this.listaCiudades = new ArrayList<>();
+        
         }
     
-        public void guardarCiudad(Ciudad ciudad){
-        try {
-            
-            String sql = "INSERT INTO ciudad (idCiudad, String nombre, String pais, int vigencia) VALUES ( ? , ? , ? , ? );";
+ public int guardarCiudad(Ciudad ciudad) throws SQLException {      
+                String insertTableSQL = "INSERT INTO ciudad "
+                + "(nombre, pais, vigencia) VALUES"
+                + "(?,?,?)";
+          int exito = 0;
+     
+        
+           PreparedStatement prepared = conexion.getConexion().prepareStatement(insertTableSQL);
 
-    PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, ciudad.getCiudad());
-            statement.setString(2, ciudad.getNombre());
-            statement.setString(3, ciudad.getPais());
-            statement.setInt(4, ciudad.getVigencia());
-            
-     statement.executeUpdate();
-            
-            ResultSet rs = statement.getGeneratedKeys();       
-            if (rs.next()) {
-                ciudad.setIdCiudad (rs.getInt(1));
-            } else {
-                System.out.println("No se pudo obtener el id luego de insertar una ciudad");
-            }
-            statement.close();
-        
-        } catch (SQLException ex) { 
-             Logger.getLogger(CiudadData.class.getName()).log(Level.SEVERE, null, ex);
-         } 
-}
-        public List<Ciudad> obtenerCiudades(){
-        List<Ciudad> ciudades = new ArrayList<Ciudad>();
-        
-        try {
-            String sql = "SELECT * FROM ciudades;";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            Ciudad ciudades;
-            while(resultSet.next()){
-                ciudad = new Ciudad();
-                ciudad.setId(resultSet.getInt("id"));
-                ciudad.setNombreCiudad(resultSet.getString("nombre"));
-                ciudades.add(ciudad);
-            }      
-            statement.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al obtener las ciudades: " + ex.getMessage());
-        }
-            return ciudades;
-        } 
+            prepared.setString(1, ciudad.getNombre());
+            prepared.setString(2, ciudad.getPais());
+            prepared.setInt(3, ciudad.getVigencia());
 
-            public Ciudad buscarCiudad(int id){
-    
-        CiudadData ad=new CiudadData(conexion);
-        
-        return ad.buscarCiudad(id);
-        
+
+            //  Ejecutamos el insert
+           exito = prepared.executeUpdate();
+           
+           prepared.close();
+          // db.getConexion().close();
+           return exito;
+      
     }
- }
+  public int modificarCiudad(Ciudad c) throws SQLException{
+      int exito = 0;
+   
+     
+      
+          String consulta = "UPDATE ciudad " +
+                    "SET nombre = '"+c.getNombre()+"', pais = '"+c.getPais()+"', vigencia='"+c.getVigencia()+"' where idCiudad= '"+c.getIdCiudad()+"'";
+            ;
+            
+          PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
+           exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
+           preparedStatement.close();
+           
+           return exito;
+  }
+          public int borrarCiudad(int id) throws SQLException{
+      int exito = 0;
+      String consulta = "delete from ciudad WHERE `IdCiudad`=" + id;
+        
+            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            exito = preparedStatement.executeUpdate();
+             // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
+             
+           preparedStatement.close();
+        //   conexion.getConexion().close();
+      return exito;
+              
+  }      
+          public Ciudad getCiudad(int id) {
+    // SERVIRA PARA NO REPETIR CIUDADES CON EL MISMO ID
+        
+         Ciudad p = new Ciudad() ;
+        try {
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `ciudad` WHERE `idCiudad`=" + id;
+           
+            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet != null && resultSet.next()) {
+                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                resultSet.close();
+            }
+            
+            //  db.cerrarConexion();
 
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());//mostrar el Error
+        }
+        return p;
+    }
+        public List getCiudades() {
+        try {
+          
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `ciudad`";
+            
+     
+            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            resultSet = preparedStatement.executeQuery();
+            Ciudad p;
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                    this.listaCiudades.add(p);
+                }
+                resultSet.close();
+            }
+       
 
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());//mostrar el Error
+        }
+        return this.listaCiudades;
+    }  
+}       

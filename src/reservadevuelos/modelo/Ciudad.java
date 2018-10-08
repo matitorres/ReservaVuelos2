@@ -30,6 +30,16 @@ public class Ciudad {
         this.vigencia = vigencia; 
     }
     
+    //CONSTRUCTOR POR DEFECTO
+    
+    public Ciudad (){
+        this.idCiudad = 0;
+        this.nombre = "nombre";
+        this.pais = "pais";
+        this.vigencia = 0; 
+    
+    }
+    
     public int getIdCiudad() {
         return idCiudad;
     }
