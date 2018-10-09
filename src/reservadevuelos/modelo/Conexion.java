@@ -33,16 +33,7 @@ public class Conexion{
         }
     }
 
-    public Connection cerrarConexion() {
-        try {
-            conexion.close();
-            System.out.println("Cerrando conexion a " + url + " . . . . . Ok");
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        conexion = null;
-        return conexion;
-    }
+
 
     public Connection getConexion() {
         return conexion;
