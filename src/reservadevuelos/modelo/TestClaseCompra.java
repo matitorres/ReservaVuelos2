@@ -47,17 +47,22 @@ public class TestClaseCompra {
           
           
            //Instrucciones para Testear dar de Alta una Compra(guardarCompra()) 
+           /*Asiento asiento=new Asiento();
+           asiento.setIdAsiento(1);
+           Cliente cliente=new Cliente();
+           cliente.setId(3);*/
+           
            //----------------------------------------------------------- 
-           //Compra compra=new Compra(2,1,LocalDate.now());//INSERT(sin id) Instancio una Compra sin id, para insertar
-           //compraData.guardarCompra(compra);//INSERT LLamo a guardarCompra-> guarda en la base de datos
+           //Compra compra=new Compra(2, asiento, cliente, LocalDate.now());  //INSERT(sin id) Instancio una Compra sin id, para insertar
+          // compraData.guardarCompra(compra);//INSERT LLamo a guardarCompra-> guarda en la base de datos
            //-----------------------------------------------------------           
 
            
 
             //Instrucciones para Testear actualizar una Compra(actualizarCompra()) 
            //----------------------------------------------------------- 
-           Compra compra=new Compra(7,2,2,LocalDate.now());//UPDATE Instancio una Compra con id para hacer un UPDATE
-           compraData.actualizarCompra(compra);//UPDATE
+           //Compra compra=new Compra(13,asiento, cliente ,LocalDate.now()); //UPDATE Instancio una Compra con id para hacer un UPDATE
+           //compraData.actualizarCompra(compra);//UPDATE
            //----------------------------------------------------------- 
            
            
@@ -65,12 +70,12 @@ public class TestClaseCompra {
          
           //BUSCAR COMPRA
           //---------------------------------------------- 
-          /*Compra r=compraData.buscarCompra(7);
+         /* Compra r=compraData.buscarCompra(9);
           
             System.out.println(r.getIdCompra()); 
-            System.out.println(r.getIdAsiento());
-            System.out.println(r.getIdCliente());
-            System.out.println(r.getFechaCompra());  */
+            System.out.println(r.getAsiento().getIdAsiento());
+            System.out.println(r.getCliente().getId());
+            System.out.println(r.getFechaCompra()); */
           //---------------------------------------------- 
           
           
@@ -78,7 +83,7 @@ public class TestClaseCompra {
           
           //DELETE Tengo que pasar un id registrado en la tabla
           //---------------------------------------------- 
-          //compraData.borrarCompra(6);
+         // compraData.borrarCompra(9);
           //---------------------------------------------- 
                    
  
@@ -103,8 +108,8 @@ public class TestClaseCompra {
        System.out.print("idCliente: ");System.out.println(rs.getInt(3));
        System.out.print("fechaCompra: ");System.out.println(rs.getString(4)+" ");
        System.out.println("____________________");       
-         }
-         */
+         }*/
+         
          // FIN CONSULTA 
                 
         } catch (ClassNotFoundException ex) {

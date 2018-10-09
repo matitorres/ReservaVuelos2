@@ -12,21 +12,23 @@ import java.time.LocalDate;
  * @author Gabriel
  */
 public class Compra {
+           //Atributos
     private int idCompra=-1;
-    private int idAsiento;
-    private int idCliente;
+    private Asiento asiento;
+    private Cliente cliente;
     private LocalDate fechaCompra;
     
-public Compra(int idCompra,int idAsiento ,int idCliente, LocalDate fechaCompra ){
+    //Constructores
+public Compra(int idCompra,Asiento asiento , Cliente cliente , LocalDate fechaCompra ){
     this.idCompra=idCompra;
-    this.idAsiento=idAsiento;
-    this.idCliente=idCliente;
+    this.asiento=asiento;
+    this.cliente=cliente;
     this.fechaCompra=fechaCompra;
 } 
     
-public Compra(int idAsiento ,int idCliente, LocalDate fechaCompra ){
-    this.idAsiento=idAsiento;
-    this.idCliente=idCliente;
+public Compra(Asiento asiento,Cliente cliente, LocalDate fechaCompra ){
+    this.asiento=asiento;
+    this.cliente=cliente;
     this.fechaCompra=fechaCompra;
 }    
 
@@ -37,24 +39,29 @@ public Compra(int idCompra ){
   public  Compra() {
         
     }
-
+//Fin Constructores
+  
+  //Getters and Setters
     public int getIdCompra() {
         return idCompra;
     }
   public void setIdCompra(int idCompra) {
         this.idCompra = idCompra;
     }
-  public int getIdAsiento() {
-        return idAsiento;
+  public Asiento getAsiento() {
+        return asiento;
     }
-    public void setIdAsiento(int idAsiento) {
-        this.idAsiento = idAsiento;
+    public void setAsiento(Asiento asiento) {
+        this.asiento=asiento; 
     }
-    public int getIdCliente() {
-        return idCliente;
+    
+    
+    
+    public Cliente getCliente() {
+        return cliente;
     }
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente=cliente;
     }
     public LocalDate getFechaCompra() {
         return fechaCompra;
