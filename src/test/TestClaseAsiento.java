@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.modelo;
+package test;
 
+
+import clasesData.AsientoData;
+import conexion.Conexion;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -48,7 +51,7 @@ public class TestClaseAsiento {
             }*/
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(reservadevuelos.modelo.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }
 }

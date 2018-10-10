@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.modelo;
+package clasesData;
 
+
+import clases.Asiento;
+import clases.Ciudad;
+import clases.Vuelo;
+import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
