@@ -3,14 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clasesData;
+package reservadevuelos.modelo;
 
-
-import clases.Asiento;
-import clases.Ciudad;
-import clases.Vuelo;
-import conexion.Conexion;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,21 +18,14 @@ import java.util.List;
  * @author asus pc
  */
 public class VueloData {
-    private Connection db = null;
-    private Conexion conexion;
     
-    
-    public VueloData(Conexion conexion){
-        this.conexion = conexion;
-        db = conexion.getConexion();
-    }
-    
-    
+    public VueloData(){}
+        
     public void altaVuelo(Vuelo vuelo, Asiento asiento){
         try {
             // Crea nuevo vuelo
             String sql = "INSERT INTO vuelo (aerolinea, tipoAeronave, idCiudadOrigen, idCiudadDestino, fechaSalida, fechaArribo, estado) VALUES ( ? , ? , ? , ? , ? , ? , ? );";
-            PreparedStatement statement = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, vuelo.getAerolinea());
             statement.setString(2, vuelo.getTipoAeronave());
             statement.setInt(3, vuelo.getCiudadOrigen().getIdCiudad());
@@ -61,7 +48,7 @@ public class VueloData {
             String sql2 = "INSERT INTO asiento (idVuelo, ubicacion, precio,"
                     + "disponible) VALUES ( ? , ? , ? , ? );";
             
-            PreparedStatement statement2 = db.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement2 = Conexion.getConexion().prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
             for(int i=0;i<vuelo.getAsientos().size();i++) {
                 statement2.setInt(1, rs.getInt(1));
                 statement2.setString(2, vuelo.getAsientos().get(i).getCodigoAsiento());
@@ -80,7 +67,7 @@ public class VueloData {
     public void bajaVuelo(int id){
         try {
             String sql = "DELETE FROM vuelo WHERE idVuelo = ? ;";
-            PreparedStatement statement = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             statement.executeUpdate();
             statement.close();
@@ -98,7 +85,7 @@ public class VueloData {
                     "', fechaArribo = '"+vuelo.getFechaArribo()+
                     "', estado = '"+vuelo.getEstado()+
                     "' WHERE idVuelo = '"+vuelo.getIdVuelo()+"';";
-            PreparedStatement statement = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.executeUpdate();
             statement.close();
         } catch (SQLException ex) {
@@ -111,7 +98,7 @@ public class VueloData {
         Ciudad ciudadDestino = new Ciudad();
         try {
             String sql = "SELECT * FROM vuelo WHERE idVuelo = "+id+";";
-            PreparedStatement statement = db.prepareStatement(sql);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while(rs.next()) {
                 vuelo.setIdVuelo(rs.getInt("idVuelo"));
@@ -132,10 +119,10 @@ public class VueloData {
         return vuelo;
     }
     public List<Vuelo> obtenerVuelos(){
-        List<Vuelo> vuelos = new ArrayList<Vuelo>();
+        List<Vuelo> vuelos = new ArrayList<>();
         try {
             String sql = "SELECT * FROM vuelo;";
-            PreparedStatement statement = db.prepareStatement(sql);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             Vuelo vuelo;
             while(rs.next()){
