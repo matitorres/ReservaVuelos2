@@ -18,24 +18,24 @@ import java.util.List;
 public class TestCiudad {
          public static void main(String[] args) throws SQLException{
              
-             //PRUEBAS
+            //PRUEBAS
              
-             //PROBANDO INSERTAR UNA CIUDAD
+            //PROBANDO INSERTAR UNA CIUDAD
              
-             //CREAR UNA CIUDAD
+            //CREAR UNA CIUDAD
             // Ciudad ciudad = new Ciudad(1,"Paris", "Francia", );
-            // Ciudad ciudad2 = new Ciudad(1,"Estambul", "Suecia", true);
+               Ciudad ciudad2 = new Ciudad(1,"Berna", "Suiza", true);
              
-             //LA CARGAMOS EN LA BASE DE DATOS
+            //LA CARGAMOS EN LA BASE DE DATOS
             CiudadData gestor = new CiudadData();
-           //  gestor.guardarCiudad(ciudad2);
+             gestor.guardarCiudad(ciudad2);
              
-             Ciudad ciudad3 = new Ciudad (5,"Paris", "Francia", 0);
+             Ciudad ciudad3 = new Ciudad (1,"Paris", "Francia", 0);
              gestor.modificarCiudad(ciudad3);
              
-             //BORRAR CIUDAD TOMA UN PARAMETRO DEL ID DE LA CIUDAD BORRAR.
+            //BORRAR CIUDAD TOMA UN PARAMETRO DEL ID DE LA CIUDAD BORRAR.
              
-             // gestor.borrarCiudad(4);
+            // gestor.borrarCiudad(4);
              
                       //
             //gestor.consultarCiudad(5);
@@ -51,7 +51,7 @@ public class TestCiudad {
          int i= 0;
          while(i<lista.size()){
              
-              System.out.println("Numero: "+i+"\n");
+            System.out.println("Numero: "+i+"\n");
           
              System.out.println("Nombre : "+lista.get(i).getNombre()+"\n");
                 System.out.println("Pais : "+lista.get(i).getPais()+"\n");
