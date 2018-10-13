@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
+
 
 
 /**
@@ -26,10 +28,10 @@ public class CiudadData {
     
     // ATRIBUTOS
      private List<Ciudad> listaCiudades;
-     private Conexion conexion;
+     
 
     public CiudadData() {
-        conexion = new Conexion();
+        
         this.listaCiudades = new ArrayList<>();
         
         }
@@ -41,7 +43,7 @@ public class CiudadData {
           int exito = 0;
      
         
-           PreparedStatement prepared = conexion.getConexion().prepareStatement(insertTableSQL);
+           PreparedStatement prepared = Conexion.getConexion().prepareStatement(insertTableSQL);
 
             prepared.setString(1, ciudad.getNombre());
             prepared.setString(2, ciudad.getPais());
@@ -52,57 +54,59 @@ public class CiudadData {
            exito = prepared.executeUpdate();
            
            prepared.close();
-          // db.getConexion().close();
+           // Conexion.getConexion().close();
            return exito;
       
     }
-  public int modificarCiudad(Ciudad c) throws SQLException{
+public int modificarCiudad(Ciudad c) throws SQLException{
       int exito = 0;
    
      
       
           String consulta = "UPDATE ciudad " +
                     "SET nombre = '"+c.getNombre()+"', pais = '"+c.getPais()+"', vigencia='"+c.getVigencia()+"' where idCiudad= '"+c.getIdCiudad()+"'";
-            ;
             
-          PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
+            
+          PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+          // con esta sentencia se insertan los datos en la base de datos
            exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
            preparedStatement.close();
            
            return exito;
   }
-          public int borrarCiudad(int id) throws SQLException{
-      int exito = 0;
+    public int borrarCiudad(int id) throws SQLException{
+    int exito = 0;
       String consulta = "delete from ciudad WHERE `IdCiudad`=" + id;
         
-            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             exito = preparedStatement.executeUpdate();
              // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
              
            preparedStatement.close();
-        //   conexion.getConexion().close();
+           // Conexion.getConexion().close();
       return exito;
               
   }      
           public Ciudad getCiudad(int id) {
-    // SERVIRA PARA NO REPETIR CIUDADES CON EL MISMO ID
+         // SERVIRA PARA NO REPETIR CIUDADES CON UN MISMO ID
         
          Ciudad p = new Ciudad() ;
         try {
             ResultSet resultSet = null;
             String consulta = "SELECT * FROM `ciudad` WHERE `idCiudad`=" + id;
            
-            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             if (resultSet != null && resultSet.next()) {
                  p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
                 resultSet.close();
             }
             
-            //  db.cerrarConexion();
+            //  Conexion.cerrarConexion();
 
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());//mostrar el Error
+            System.out.println("Error: " + ex.getMessage());
+            //mostrar el Error
         }
         return p;
     }
@@ -113,7 +117,7 @@ public class CiudadData {
             String consulta = "SELECT * FROM `ciudad`";
             
      
-            PreparedStatement preparedStatement = conexion.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             Ciudad p;
             if (resultSet != null) {
@@ -126,8 +130,9 @@ public class CiudadData {
        
 
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());//mostrar el Error
+            System.out.println("Error: " + ex.getMessage());
+            //mostrar el Error
         }
         return this.listaCiudades;
     }  
-}       
+}     
