@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package reservadevuelos.modelo;
 
-
-import clasesData.VueloData;
-import conexion.Conexion;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,14 +18,13 @@ public class TestClaseVuelo {
     public static void main(String[] args) throws SQLException, ClassNotFoundException{        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Conexion conexion = new Conexion();
-            VueloData vueloData = new VueloData(conexion);
+            VueloData vueloData = new VueloData();
             
-            /*Ciudad ciudadOrigen = new Ciudad(7);
-            Ciudad ciudadDestino = new Ciudad(8);
-            Vuelo vuelo = new Vuelo("LATAM", "Boeing 767", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
-            Asiento asiento = new Asiento(3500f);
-            vueloData.altaVuelo(vuelo, asiento);*/
+            Ciudad ciudadOrigen = new Ciudad(11);
+            Ciudad ciudadDestino = new Ciudad(10);
+            Vuelo vuelo = new Vuelo("Aerolineas Argentinas", "Airbus A320", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
+            Asiento asiento = new Asiento(4320f);
+            vueloData.altaVuelo(vuelo, asiento);
             
             /*vueloData.bajaVuelo(1);*/
             
@@ -55,7 +50,7 @@ public class TestClaseVuelo {
             }*/
             
         } catch (ClassNotFoundException ex) {
-           
+            Logger.getLogger(reservadevuelos.modelo.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
