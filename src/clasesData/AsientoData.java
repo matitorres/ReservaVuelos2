@@ -5,11 +5,9 @@
  */
 package clasesData;
 
-
 import clases.Asiento;
 import clases.Vuelo;
 import conexion.Conexion;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,22 +19,16 @@ import java.util.List;
  *
  * @author Gabriel
  */
-public class AsientoData {
-    private Connection connection = null;
-    private Conexion conexion;
-    
+public class AsientoData {    
      
-    public AsientoData(Conexion conexion) {
-          this.conexion=conexion;
-          connection = conexion.getConexion();
-    }
+    public AsientoData() {}
 
     public void guardarAsiento(Asiento asiento){
         try {
             
             String sql = "INSERT INTO asiento (idVuelo, ubicacion, precio, disponible) VALUES ( ? , ? , ? , ? );";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             statement.setInt(1, asiento.getVuelo().getIdVuelo());
             statement.setString(2, asiento.getCodigoAsiento());
@@ -63,7 +55,7 @@ public class AsientoData {
             
             String sql = "DELETE FROM asiento WHERE idAsiento =?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
                        
             statement.executeUpdate();
@@ -84,7 +76,7 @@ public class AsientoData {
             
             String sql = "SELECT * FROM asiento WHERE idAsiento =?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
            
             
@@ -113,7 +105,7 @@ public class AsientoData {
             
             String sql = "UPDATE asiento SET idVuelo = ? , ubicacion =?, precio=?, disponible=? WHERE idAsiento = ?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             statement.setInt(1, asiento.getVuelo().getIdVuelo());
             statement.setString(2, asiento.getCodigoAsiento());
@@ -135,7 +127,7 @@ public class AsientoData {
 
         try {
             String sql = "SELECT * FROM asiento;";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             Asiento asiento;
             while(resultSet.next()){
