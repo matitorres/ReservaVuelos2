@@ -24,11 +24,10 @@ import java.util.List;
 public class ClienteData {
     
 
-    private Conexion db; //objeto de conexion;
+   //ya no tengo atributo conexion ya que el motodo GetConexion es estatico, quiere decir que lo puedo usar en cualquier otra clase
     private List listaClientes;
 
     public ClienteData() {
-        db = new Conexion();
         this.listaClientes = new ArrayList<>();
     }
 
@@ -38,8 +37,11 @@ public class ClienteData {
             ResultSet resultSet = null;
             String consulta = "SELECT * FROM `cliente`";
             
+            //PARA USAR EL METODO ESTATICO SE PONE EL NOMBRE DE LA CLASE SEGUIDO DE LA FUNCION
+            
+            //EN ESTE CASO: Conexion.getConexion()
      
-            PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             Cliente p;
             if (resultSet != null) {
@@ -65,7 +67,7 @@ public class ClienteData {
             ResultSet resultSet = null;
             String consulta = "SELECT * FROM `cliente` WHERE `idCliente`=" + id;
            
-            PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             if (resultSet != null && resultSet.next()) {
                  p = new Cliente(resultSet.getInt("idCliente"), resultSet.getString("nombre"), resultSet.getString("apellido"), resultSet.getInt("dni"), resultSet.getString("mail"), resultSet.getInt("nroPasaporte"),resultSet.getInt("nroTarjeta"));
@@ -86,7 +88,7 @@ public class ClienteData {
           int exito = 0;
      
         
-           PreparedStatement preparedStatement = db.getConexion().prepareStatement(insertTableSQL);
+           PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(insertTableSQL);
 
             preparedStatement.setString(1, cliente.getNombre());
             preparedStatement.setString(2, cliente.getApellido());
@@ -107,7 +109,7 @@ public class ClienteData {
       int exito = 0;
       String consulta = "delete from cliente WHERE `dni`=" + dni;
         
-            PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             exito = preparedStatement.executeUpdate();
              // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
              
@@ -125,7 +127,7 @@ public class ClienteData {
           String consulta = "UPDATE cliente " +
                     "SET nombre = '"+c.getNombre()+"', apellido = '"+c.getApellido()+"', dni='"+c.getDni()+"', mail='"+c.getMail()+"', nroPasaporte ='"+c.getPasaporte()+"', nroTarjeta ='"+c.getTarjeta()+"' where idCliente= '"+c.getId()+"'";
             
-          PreparedStatement preparedStatement = db.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
+          PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
            exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
            preparedStatement.close();
            
