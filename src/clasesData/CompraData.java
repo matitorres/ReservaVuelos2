@@ -6,14 +6,12 @@
 package clasesData;
 
 
+
+import clases.Asiento;
+import clases.Cliente;
 import clases.Compra;
 import conexion.Conexion;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,21 +21,19 @@ import java.util.List;
  */
 public class CompraData {
                 //Atributos
-    private Connection connection = null;
-     private Conexion conexion;
+    private List listaCompras;
      
      //Constructores
-      public CompraData(Conexion conexion) {
-          this.conexion=conexion;
-          connection = conexion.getConexion();
-    }
+      public CompraData() {
+          this.listaCompras=new ArrayList<>();
+       }
 
        public void guardarCompra(Compra compra){
         try {
             
             String sql = "INSERT INTO compra (idAsiento, idCliente, fechaCompra) VALUES ( ? , ? , ? );";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, compra.getAsiento().getIdAsiento());
             statement.setInt(2, compra.getCliente().getId());
             statement.setDate(3, Date.valueOf(compra.getFechaCompra()));
@@ -63,7 +59,7 @@ public class CompraData {
             
             String sql = "DELETE FROM compra WHERE idCompra =?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
                        
             statement.executeUpdate();
@@ -81,12 +77,12 @@ public class CompraData {
         public Compra buscarCompra(int id){
     Compra compra= new Compra();
     Asiento asiento=new Asiento(1);
-    Cliente cliente=new Cliente(2);
+    Cliente cliente=new Cliente();
     try {
             
             String sql = "SELECT * FROM compra WHERE idCompra =?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             ResultSet resultSet=statement.executeQuery();
             
@@ -113,7 +109,7 @@ public class CompraData {
             
             String sql = "UPDATE compra SET idAsiento = ?, idCliente = ? , fechaCompra =? WHERE idCompra = ?;";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, compra.getAsiento().getIdAsiento());
             statement.setInt(2, compra.getCliente().getId());
             statement.setDate(3, Date.valueOf(compra.getFechaCompra()));
@@ -134,18 +130,26 @@ public class CompraData {
 
         try {
             String sql = "SELECT * FROM compra;";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             Compra compra;
+            Asiento asiento;
+            Cliente cliente;
             while(resultSet.next()){
                 compra = new Compra();
-                compra.setIdCompra(resultSet.getInt("idCompra"));
-                compra.getAsiento().setIdAsiento(resultSet.getInt("idAsiento"));
-                compra.getCliente().setId(resultSet.getInt("idCliente"));
-                compra.setFechaCompra(resultSet.getDate("fechaCompra").toLocalDate());
+                asiento = new Asiento();
+                cliente = new Cliente();
                 
+                compra.setIdCompra(resultSet.getInt("idCompra"));
+                asiento.setIdAsiento(resultSet.getInt("idAsiento"));
+                compra.setAsiento(asiento);
+                cliente.setId(resultSet.getInt("idCliente"));
+                compra.setCliente(cliente);
+                compra.setFechaCompra(resultSet.getDate("fechaCompra").toLocalDate());
+                    
                 compras.add(compra);
             }      
+            
             statement.close();
         } catch (SQLException ex) {
             System.out.println("Error al obtener las compras: " + ex.getMessage());
@@ -156,6 +160,7 @@ public class CompraData {
     }     
         
         
-      
+    
+   
     
 }
