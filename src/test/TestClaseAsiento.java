@@ -5,11 +5,8 @@
  */
 package test;
 
-
 import clasesData.AsientoData;
-import conexion.Conexion;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +18,7 @@ public class TestClaseAsiento {
     public static void main(String[] args) throws SQLException, ClassNotFoundException{        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Conexion conexion = new Conexion();
-            AsientoData asientoData = new AsientoData(conexion);
+            AsientoData asientoData = new AsientoData();
             
             /*Vuelo vuelo = new Vuelo(11);
             Asiento asiento = new Asiento(vuelo, "P016", 1500f, true);
@@ -51,7 +47,7 @@ public class TestClaseAsiento {
             }*/
             
         } catch (ClassNotFoundException ex) {
-           
+            Logger.getLogger(test.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
