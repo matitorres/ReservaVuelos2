@@ -18,7 +18,7 @@ import java.util.List;
 public class TestCiudad {
          public static void main(String[] args) throws SQLException{
              
-            //PRUEBAS
+            /*//PRUEBAS
              
             //PROBANDO INSERTAR UNA CIUDAD
              
@@ -57,7 +57,7 @@ public class TestCiudad {
                 System.out.println("Pais : "+lista.get(i).getPais()+"\n");
                    System.out.println("Vigencia : "+lista.get(i).getVigencia()+"\n");
             i++;
-         }
+         }*/
    
 }
 }

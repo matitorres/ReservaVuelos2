@@ -41,8 +41,6 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         jComboBoxAeronave = new javax.swing.JComboBox<>();
         jComboBoxOrigen = new javax.swing.JComboBox<>();
         jComboBoxDestino = new javax.swing.JComboBox<>();
-        jDateChooserSalida = new com.toedter.calendar.JDateChooser();
-        jDateChooserArribo = new com.toedter.calendar.JDateChooser();
         jComboBoxEstado = new javax.swing.JComboBox<>();
         jComboBoxAsiento = new javax.swing.JComboBox<>();
         jLabelAerolinea = new javax.swing.JLabel();
@@ -178,12 +176,6 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxDestino.setBorder(null);
         JPanel.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
-
-        jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
-        JPanel.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 563, 128, 30));
-
-        jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
-        JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 563, 128, 30));
 
         jComboBoxEstado.setBackground(new java.awt.Color(153, 204, 51));
         jComboBoxEstado.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -344,8 +336,6 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxDestino;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JComboBox<String> jComboBoxOrigen;
-    private com.toedter.calendar.JDateChooser jDateChooserArribo;
-    private com.toedter.calendar.JDateChooser jDateChooserSalida;
     private javax.swing.JLabel jLabelAdministrador;
     private javax.swing.JLabel jLabelAerolinea;
     private javax.swing.JLabel jLabelAeronave;

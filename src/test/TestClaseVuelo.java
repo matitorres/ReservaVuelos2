@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.modelo;
+package test;
 
+import clases.Asiento;
+import clases.Ciudad;
+import clases.Vuelo;
+import clasesData.VueloData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -20,11 +24,11 @@ public class TestClaseVuelo {
             Class.forName("com.mysql.jdbc.Driver");
             VueloData vueloData = new VueloData();
             
-            Ciudad ciudadOrigen = new Ciudad(11);
+            /*Ciudad ciudadOrigen = new Ciudad(11);
             Ciudad ciudadDestino = new Ciudad(10);
             Vuelo vuelo = new Vuelo("Aerolineas Argentinas", "Airbus A320", ciudadOrigen, ciudadDestino, LocalDate.now(), LocalDate.now(), "n");
             Asiento asiento = new Asiento(4320f);
-            vueloData.altaVuelo(vuelo, asiento);
+            vueloData.altaVuelo(vuelo, asiento);*/
             
             /*vueloData.bajaVuelo(1);*/
             
@@ -50,7 +54,7 @@ public class TestClaseVuelo {
             }*/
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(reservadevuelos.modelo.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(test.TestClaseVuelo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
