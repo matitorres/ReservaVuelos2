@@ -99,6 +99,36 @@ public class AsientoData {
         
         return asiento;
     }     
+    
+    public Asiento buscarAsientoPorVuelo(Vuelo vuelo){
+            Asiento asiento=null;
+    try {
+            
+            String sql = "SELECT * FROM asiento WHERE idVuelo =?;";
+
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, vuelo.getIdVuelo());
+           
+            
+            ResultSet resultSet=statement.executeQuery();
+            
+            while(resultSet.next()){
+                asiento = new Asiento();
+                asiento.setIdAsiento(resultSet.getInt("idAsiento"));
+                asiento.setVuelo(vuelo);
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
+             }      
+            statement.close();
+                
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar un Asiento: " + ex.getMessage());
+        }
+        
+        return asiento;
+    }
+    
     public void actualizarAsiento(Asiento asiento){
     
         try {

@@ -5,18 +5,35 @@
  */
 package vistas;
 
+import clases.Asiento;
+import clases.Ciudad;
+import clases.Vuelo;
+import clasesData.AsientoData;
+import clasesData.CiudadData;
+import clasesData.VueloData;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author asus pc
  */
 public class VistaVueloAdmin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VistaVueloAdmin
-     */
+    
+    private VueloData vD = new VueloData();
+    private CiudadData cD = new CiudadData();
+    private AsientoData aD = new AsientoData();
+    private DefaultTableModel modelo;
+    
     public VistaVueloAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.llenarTabla();
     }
 
     /**
@@ -37,12 +54,14 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         jButtonFiltrar = new javax.swing.JButton();
         jScrollPaneVuelos = new javax.swing.JScrollPane();
         jTableVuelos = new javax.swing.JTable();
-        jComboBoxAerolinea = new javax.swing.JComboBox<>();
-        jComboBoxAeronave = new javax.swing.JComboBox<>();
-        jComboBoxOrigen = new javax.swing.JComboBox<>();
-        jComboBoxDestino = new javax.swing.JComboBox<>();
-        jComboBoxEstado = new javax.swing.JComboBox<>();
-        jComboBoxAsiento = new javax.swing.JComboBox<>();
+        jTextFieldAerolinea = new javax.swing.JTextField();
+        jTextFieldAeronave = new javax.swing.JTextField();
+        jTextFieldOrigen = new javax.swing.JTextField();
+        jTextFieldDestino = new javax.swing.JTextField();
+        jDateChooserSalida = new com.toedter.calendar.JDateChooser();
+        jDateChooserArribo = new com.toedter.calendar.JDateChooser();
+        jTextFieldEstado = new javax.swing.JTextField();
+        jTextFieldPrecio = new javax.swing.JTextField();
         jLabelAerolinea = new javax.swing.JLabel();
         jLabelAeronave = new javax.swing.JLabel();
         jLabelOrigen = new javax.swing.JLabel();
@@ -109,37 +128,23 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         jButtonFiltrar.setBorder(null);
         jButtonFiltrar.setBorderPainted(false);
         jButtonFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrarActionPerformed(evt);
+            }
+        });
         JPanel.add(jButtonFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 75, 31));
 
         jTableVuelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "idVuelo", "Aerolinea", "Aeronave", "Origen", "Destino", "Salida", "Arribo", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -149,45 +154,38 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         jTableVuelos.setToolTipText("");
         jTableVuelos.setSelectionBackground(new java.awt.Color(102, 153, 51));
         jTableVuelos.getTableHeader().setReorderingAllowed(false);
+        jTableVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVuelosMouseClicked(evt);
+            }
+        });
         jScrollPaneVuelos.setViewportView(jTableVuelos);
 
         JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 111, 691, 239));
 
-        jComboBoxAerolinea.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxAerolinea.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Seleccionar]", "Aerolineas Argentinas", "LATAM", "Emirates", "CopaAirlines", "AirFrance", "FlyBondi", "Qatar" }));
-        jComboBoxAerolinea.setBorder(null);
-        JPanel.add(jComboBoxAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
+        jTextFieldAerolinea.setBorder(null);
+        JPanel.add(jTextFieldAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
 
-        jComboBoxAeronave.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxAeronave.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Seleccionar]", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A320", "Airbus A330", "Airbus A340" }));
-        jComboBoxAeronave.setBorder(null);
-        JPanel.add(jComboBoxAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
+        jTextFieldAeronave.setBorder(null);
+        JPanel.add(jTextFieldAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
 
-        jComboBoxOrigen.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxOrigen.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxOrigen.setBorder(null);
-        JPanel.add(jComboBoxOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 496, 277, 30));
+        jTextFieldOrigen.setBorder(null);
+        JPanel.add(jTextFieldOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 496, 277, 30));
 
-        jComboBoxDestino.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxDestino.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxDestino.setBorder(null);
-        JPanel.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
+        jTextFieldDestino.setBorder(null);
+        JPanel.add(jTextFieldDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
 
-        jComboBoxEstado.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxEstado.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxEstado.setBorder(null);
-        JPanel.add(jComboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 563, 128, 30));
+        jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
+        JPanel.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 563, 128, 31));
 
-        jComboBoxAsiento.setBackground(new java.awt.Color(153, 204, 51));
-        jComboBoxAsiento.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jComboBoxAsiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxAsiento.setBorder(null);
-        JPanel.add(jComboBoxAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(539, 563, 128, 30));
+        jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
+        JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 563, 128, 31));
+
+        jTextFieldEstado.setBorder(null);
+        JPanel.add(jTextFieldEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 563, 128, 30));
+
+        jTextFieldPrecio.setBorder(null);
+        JPanel.add(jTextFieldPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(539, 563, 128, 30));
 
         jLabelAerolinea.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelAerolinea.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,7 +224,7 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
 
         jLabelAsiento.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelAsiento.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAsiento.setText("Asiento");
+        jLabelAsiento.setText("Precio");
         JPanel.add(jLabelAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 538, -1, -1));
 
         jPanelFondoSeleccion.setBackground(new java.awt.Color(102, 153, 51));
@@ -286,9 +284,58 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
-        System.exit(0);        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
+    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        jTableVuelos.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(jTextFieldFiltrar.getText().toUpperCase()));
+    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+
+    private void jTableVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVuelosMouseClicked
+        llenarCampos();
+    }//GEN-LAST:event_jTableVuelosMouseClicked
+
+    public void llenarTabla() {
+        List<Vuelo> vuelos = vD.obtenerVuelos();
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        Object[] fila = new Object[modelo.getColumnCount()];
+        for (int i = 1 ; i < vuelos.size() ; i++) {
+            fila[0] = vuelos.get(i).getIdVuelo();
+            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+            fila[3] = origen.getNombre().toUpperCase();
+            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+            fila[4] = destino.getNombre().toUpperCase();
+            fila[5] = vuelos.get(i).getFechaSalida().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            fila[6] = vuelos.get(i).getFechaArribo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            fila[7] = vuelos.get(i).getEstado().toUpperCase();
+            modelo.addRow(fila);
+        }       
+    }
+    
+    public void llenarCampos() {
+        int fila = jTableVuelos.getSelectedRow();
+        String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
+        int id= Integer.parseInt(id_aux);
+        
+        Vuelo vuelo = vD.buscarVuelo(id);
+        jTextFieldAerolinea.setText("  "+vuelo.getAerolinea());
+        jTextFieldAeronave.setText("  "+vuelo.getTipoAeronave());
+        Ciudad origen = cD.getCiudad(vuelo.getCiudadOrigen().getIdCiudad());
+        jTextFieldOrigen.setText("  "+origen.getNombre());
+        Ciudad destino = cD.getCiudad(vuelo.getCiudadDestino().getIdCiudad());
+        jTextFieldDestino.setText("  "+destino.getNombre());
+        jDateChooserSalida.setDate(Date.from(vuelo.getFechaSalida().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jDateChooserArribo.setDate(Date.from(vuelo.getFechaArribo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jTextFieldEstado.setText("  "+vuelo.getEstado());
+        Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
+        jTextFieldPrecio.setText("  "+asiento.getPrecio());
+    }
+            
     /**
      * @param args the command line arguments
      */
@@ -330,12 +377,8 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonModificar;
-    private javax.swing.JComboBox<String> jComboBoxAerolinea;
-    private javax.swing.JComboBox<String> jComboBoxAeronave;
-    private javax.swing.JComboBox<String> jComboBoxAsiento;
-    private javax.swing.JComboBox<String> jComboBoxDestino;
-    private javax.swing.JComboBox<String> jComboBoxEstado;
-    private javax.swing.JComboBox<String> jComboBoxOrigen;
+    private com.toedter.calendar.JDateChooser jDateChooserArribo;
+    private com.toedter.calendar.JDateChooser jDateChooserSalida;
     private javax.swing.JLabel jLabelAdministrador;
     private javax.swing.JLabel jLabelAerolinea;
     private javax.swing.JLabel jLabelAeronave;
@@ -351,6 +394,12 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelFondoSeleccion;
     private javax.swing.JScrollPane jScrollPaneVuelos;
     private javax.swing.JTable jTableVuelos;
+    private javax.swing.JTextField jTextFieldAerolinea;
+    private javax.swing.JTextField jTextFieldAeronave;
+    private javax.swing.JTextField jTextFieldDestino;
+    private javax.swing.JTextField jTextFieldEstado;
     private javax.swing.JTextField jTextFieldFiltrar;
+    private javax.swing.JTextField jTextFieldOrigen;
+    private javax.swing.JTextField jTextFieldPrecio;
     // End of variables declaration//GEN-END:variables
 }
