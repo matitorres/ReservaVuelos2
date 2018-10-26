@@ -9,12 +9,12 @@ package vistas;
  *
  * @author asus pc
  */
-public class VistaVueloAdmin extends javax.swing.JFrame {
-
+public class VistaVuelos extends javax.swing.JFrame {
+    public static VistaVuelos ventana = new VistaVuelos();
     /**
      * Creates new form VistaVueloAdmin
      */
-    public VistaVueloAdmin() {
+    public VistaVuelos() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -284,9 +284,12 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   public static void visibilidad(boolean estado){
+       ventana.setVisible(estado);
+   }
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
-        System.exit(0);        // TODO add your handling code here:
+       ventana.setVisible(false);
+       VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
     /**
@@ -306,20 +309,21 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaVueloAdmin().setVisible(true);
+                new VistaVuelos().setVisible(true);
             }
         });
     }

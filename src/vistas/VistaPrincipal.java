@@ -9,12 +9,12 @@ package vistas;
  *
  * @author asus pc
  */
-public class VistaAdminOpciones extends javax.swing.JFrame {
-
+public class VistaPrincipal extends javax.swing.JFrame {
+ private static VistaPrincipal ventana;
     /**
      * Creates new form VistaAdminOpciones
      */
-    public VistaAdminOpciones() {
+    public VistaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -75,6 +75,11 @@ public class VistaAdminOpciones extends javax.swing.JFrame {
         jButtonCiudades.setBorder(null);
         jButtonCiudades.setBorderPainted(false);
         jButtonCiudades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCiudadesActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 111, 198, 42));
 
         jButtonVuelos.setBackground(new java.awt.Color(102, 153, 51));
@@ -84,6 +89,11 @@ public class VistaAdminOpciones extends javax.swing.JFrame {
         jButtonVuelos.setBorder(null);
         jButtonVuelos.setBorderPainted(false);
         jButtonVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonVuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVuelosActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 111, 198, 42));
 
         jButtonClientes.setBackground(new java.awt.Color(102, 153, 51));
@@ -93,6 +103,11 @@ public class VistaAdminOpciones extends javax.swing.JFrame {
         jButtonClientes.setBorder(null);
         jButtonClientes.setBorderPainted(false);
         jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClientesActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 111, 198, 42));
 
         jButtonCompras.setBackground(new java.awt.Color(102, 153, 51));
@@ -128,10 +143,27 @@ public class VistaAdminOpciones extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public static void visibilidad(boolean estado){
+        ventana.setVisible(estado);
+    }
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabelCerrarMouseClicked
+
+    private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
+     ventana.setVisible(false);
+     VistaCliente.visibilidad(true);
+    }//GEN-LAST:event_jButtonClientesActionPerformed
+
+    private void jButtonCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCiudadesActionPerformed
+         ventana.setVisible(false);
+     VistaCiudad.visibilidad(true);
+    }//GEN-LAST:event_jButtonCiudadesActionPerformed
+
+    private void jButtonVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVuelosActionPerformed
+     ventana.setVisible(false);
+     VistaVuelos.visibilidad(true);
+    }//GEN-LAST:event_jButtonVuelosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,20 +182,22 @@ public class VistaAdminOpciones extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaAdminOpciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaAdminOpciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaAdminOpciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaAdminOpciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAdminOpciones().setVisible(true);
+               ventana=  new VistaPrincipal();
+               ventana.setVisible(true);
             }
         });
     }

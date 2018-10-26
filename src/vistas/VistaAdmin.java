@@ -40,7 +40,6 @@ public class VistaAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(756, 290));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 51));
