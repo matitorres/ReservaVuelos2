@@ -29,7 +29,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
     private DefaultTableModel modelo;
-    public static VistaVuelos ventana = new VistaVuelos();
+    private static VistaVuelos ventana = new VistaVuelos();
     
     public VistaVuelos() {
         initComponents();
@@ -96,6 +96,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jLabelAdministrador.setForeground(new java.awt.Color(102, 153, 51));
         jLabelAdministrador.setText("Administrador /");
         jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdministradorMouseClicked(evt);
+            }
+        });
         JPanel.add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
 
         jLabelVuelos.setBackground(new java.awt.Color(102, 153, 51));
@@ -285,8 +290,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
-        ventana.setVisible(false);
-        VistaAdmin.visibilidad(true);
+        System.exit(0);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
     private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
@@ -299,6 +303,11 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jTableVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVuelosMouseClicked
         llenarCampos();
     }//GEN-LAST:event_jTableVuelosMouseClicked
+
+    private void jLabelAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdministradorMouseClicked
+        ventana.setVisible(false);
+        VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_jLabelAdministradorMouseClicked
 
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
