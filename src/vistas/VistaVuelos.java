@@ -289,7 +289,7 @@ public class VistaVuelos extends javax.swing.JFrame {
    }
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
        ventana.setVisible(false);
-       VistaPrincipal.visibilidad(true);
+       VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
     /**

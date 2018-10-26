@@ -483,7 +483,7 @@ public class VistaCliente extends javax.swing.JFrame {
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
      ventana.setVisible(false);
-     VistaPrincipal.visibilidad(true);
+     VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_botonSalirActionPerformed
 
         public void soloLetras(JTextField texto){

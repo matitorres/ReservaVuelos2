@@ -148,7 +148,7 @@ public class VistaCiudad extends javax.swing.JFrame {
 
     private void botonSALIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSALIRActionPerformed
        ventana.setVisible(false);
-       VistaPrincipal.visibilidad(true);
+       VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_botonSALIRActionPerformed
 
     /**
