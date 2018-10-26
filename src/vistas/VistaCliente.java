@@ -33,16 +33,16 @@ import javax.swing.table.TableRowSorter;
  *
  * @author pedro
  */
-public class VentanaCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VentanaCliente
-     */
+public class VistaCliente extends javax.swing.JFrame {
+    
+     private static  VistaCliente ventana = new VistaCliente();
+   
     
      private TableRowSorter filtro;
      private ClienteData gestorCliente = new ClienteData();
      private List<Cliente> listaClientes = gestorCliente.getClientes();
-    public VentanaCliente() {
+     
+    public VistaCliente() {
      
         initComponents();
         soloLetras(cajaNombreCliente);
@@ -51,6 +51,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         soloNumeros(cajaPasaporteCliente);
         soloNumeros(cajaTarjetaCliente);
          pasar_valores_porPasaporte(listaClientes);
+          this.setLocationRelativeTo(null);
         
        
     }
@@ -87,11 +88,13 @@ public class VentanaCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
         cajaBuscarClientes = new javax.swing.JTextField();
+        botonSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("NOMBRE");
 
@@ -238,6 +241,13 @@ public class VentanaCliente extends javax.swing.JFrame {
             }
         });
 
+        botonSalir.setText("SALIR");
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelListadoClientesLayout = new javax.swing.GroupLayout(panelListadoClientes);
         panelListadoClientes.setLayout(panelListadoClientesLayout);
         panelListadoClientesLayout.setHorizontalGroup(
@@ -250,6 +260,10 @@ public class VentanaCliente extends javax.swing.JFrame {
                         .addComponent(cajaBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 569, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoClientesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(317, 317, 317))
         );
         panelListadoClientesLayout.setVerticalGroup(
             panelListadoClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,7 +272,9 @@ public class VentanaCliente extends javax.swing.JFrame {
                 .addComponent(cajaBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonSalir)
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -308,7 +324,9 @@ public class VentanaCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+  public static void visibilidad(boolean estado){
+      ventana.setVisible(estado);
+  }  
   public void pasar_valores_porPasaporte(List<Cliente> lista){
       int i;
       //llamamos a los metodos para conectar ala BASE DE DATOS
@@ -463,6 +481,11 @@ public class VentanaCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAgregarClienteActionPerformed
 
+    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
+     ventana.setVisible(false);
+     VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_botonSalirActionPerformed
+
         public void soloLetras(JTextField texto){
         texto.addKeyListener(new KeyAdapter() {
             @Override
@@ -520,51 +543,13 @@ public class VentanaCliente extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-             
-                    new VentanaCliente().setVisible(true);
-              
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarCliente;
     private javax.swing.JButton botonEliminarCliente;
     private javax.swing.JButton botonModificarCliente;
+    private javax.swing.JButton botonSalir;
     private javax.swing.JButton botonVaciarCliente;
     private javax.swing.JTextField cajaApellidoCliente;
     private javax.swing.JTextField cajaBuscarClientes;

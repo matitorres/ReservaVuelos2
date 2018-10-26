@@ -10,9 +10,9 @@ package vistas;
  * @author asus pc
  */
 public class VistaAdmin extends javax.swing.JFrame {
-
+ private static VistaAdmin ventana;
     /**
-     * Creates new form VistaAdmin
+     * Creates new form VistaAdminOpciones
      */
     public VistaAdmin() {
         initComponents();
@@ -32,20 +32,16 @@ public class VistaAdmin extends javax.swing.JFrame {
         jLabelInicio = new javax.swing.JLabel();
         jLabelAdministrador = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
-        jTextFieldUsuario = new javax.swing.JTextField();
-        jTextFieldContraseña = new javax.swing.JTextField();
-        jButtonIniciarSesion = new javax.swing.JButton();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelContraseña = new javax.swing.JLabel();
+        jButtonCiudades = new javax.swing.JButton();
+        jButtonVuelos = new javax.swing.JButton();
+        jButtonClientes = new javax.swing.JButton();
+        jButtonCompras = new javax.swing.JButton();
+        jButtonAsientos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(756, 290));
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 51));
-        jPanel1.setAlignmentX(0.0F);
-        jPanel1.setAlignmentY(0.0F);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelInicio.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
@@ -72,30 +68,65 @@ public class VistaAdmin extends javax.swing.JFrame {
         });
         jPanel1.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
 
-        jTextFieldUsuario.setBorder(null);
-        jPanel1.add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 108, 321, 31));
+        jButtonCiudades.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonCiudades.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonCiudades.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCiudades.setText("Ciudades");
+        jButtonCiudades.setBorder(null);
+        jButtonCiudades.setBorderPainted(false);
+        jButtonCiudades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCiudadesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 111, 198, 42));
 
-        jTextFieldContraseña.setBorder(null);
-        jPanel1.add(jTextFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 172, 321, 31));
+        jButtonVuelos.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonVuelos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonVuelos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonVuelos.setText("Vuelos");
+        jButtonVuelos.setBorder(null);
+        jButtonVuelos.setBorderPainted(false);
+        jButtonVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonVuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVuelosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 111, 198, 42));
 
-        jButtonIniciarSesion.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonIniciarSesion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonIniciarSesion.setText("Iniciar sesión");
-        jButtonIniciarSesion.setBorder(null);
-        jButtonIniciarSesion.setBorderPainted(false);
-        jButtonIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jButtonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 220, 146, 31));
+        jButtonClientes.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonClientes.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonClientes.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonClientes.setText("Clientes");
+        jButtonClientes.setBorder(null);
+        jButtonClientes.setBorderPainted(false);
+        jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 111, 198, 42));
 
-        jLabelUsuario.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelUsuario.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelUsuario.setText("Usuario");
-        jPanel1.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
+        jButtonCompras.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonCompras.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonCompras.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCompras.setText("Compras");
+        jButtonCompras.setBorder(null);
+        jButtonCompras.setBorderPainted(false);
+        jButtonCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jButtonCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 166, 198, 42));
 
-        jLabelContraseña.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelContraseña.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelContraseña.setText("Contraseña");
-        jPanel1.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 145, -1, -1));
+        jButtonAsientos.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonAsientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonAsientos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAsientos.setText("Asientos");
+        jButtonAsientos.setBorder(null);
+        jButtonAsientos.setBorderPainted(false);
+        jButtonAsientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jButtonAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(385, 166, 198, 42));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,10 +143,27 @@ public class VistaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public static void visibilidad(boolean estado){
+        ventana.setVisible(estado);
+    }
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabelCerrarMouseClicked
+
+    private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
+     ventana.setVisible(false);
+     VistaCliente.visibilidad(true);
+    }//GEN-LAST:event_jButtonClientesActionPerformed
+
+    private void jButtonCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCiudadesActionPerformed
+         ventana.setVisible(false);
+     VistaCiudad.visibilidad(true);
+    }//GEN-LAST:event_jButtonCiudadesActionPerformed
+
+    private void jButtonVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVuelosActionPerformed
+     ventana.setVisible(false);
+     VistaVuelos.visibilidad(true);
+    }//GEN-LAST:event_jButtonVuelosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,24 +191,28 @@ public class VistaAdmin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VistaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAdmin().setVisible(true);
+               ventana=  new VistaAdmin();
+               ventana.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonIniciarSesion;
+    private javax.swing.JButton jButtonAsientos;
+    private javax.swing.JButton jButtonCiudades;
+    private javax.swing.JButton jButtonClientes;
+    private javax.swing.JButton jButtonCompras;
+    private javax.swing.JButton jButtonVuelos;
     private javax.swing.JLabel jLabelAdministrador;
     private javax.swing.JLabel jLabelCerrar;
-    private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelInicio;
-    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldContraseña;
-    private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

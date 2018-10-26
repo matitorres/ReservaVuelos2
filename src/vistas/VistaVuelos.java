@@ -23,14 +23,15 @@ import javax.swing.table.TableRowSorter;
  *
  * @author asus pc
  */
-public class VistaVueloAdmin extends javax.swing.JFrame {
+public class VistaVuelos extends javax.swing.JFrame {
     
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
     private DefaultTableModel modelo;
+    public static VistaVuelos ventana = new VistaVuelos();
     
-    public VistaVueloAdmin() {
+    public VistaVuelos() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.llenarTabla();
@@ -284,7 +285,8 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
-        System.exit(0);
+        ventana.setVisible(false);
+        VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
     private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
@@ -335,6 +337,10 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
         Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
         jTextFieldPrecio.setText("  "+asiento.getPrecio());
     }
+    
+    public static void visibilidad(boolean estado){
+       ventana.setVisible(estado);
+   }
             
     /**
      * @param args the command line arguments
@@ -353,20 +359,21 @@ public class VistaVueloAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaVueloAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaVueloAdmin().setVisible(true);
+                new VistaVuelos().setVisible(true);
             }
         });
     }

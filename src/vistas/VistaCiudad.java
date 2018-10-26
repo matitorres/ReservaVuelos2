@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package reservadevuelos.vistas;
+package vistas;
+
+
 
 /**
  *
  * @author Doris
  */
 public class VistaCiudad extends javax.swing.JFrame {
-
+  private static VistaCiudad ventana = new VistaCiudad();
     /**
      * Creates new form Interfaz
      */
     public VistaCiudad() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /**
@@ -40,8 +43,10 @@ public class VistaCiudad extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabelFondo = new javax.swing.JLabel();
+        botonSALIR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -85,17 +90,17 @@ public class VistaCiudad extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 102, 51));
         jButton1.setText("AGREGAR");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 120, 30));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 120, 30));
 
         jButton2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 102, 51));
         jButton2.setText("BORRAR");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 120, 30));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 120, 30));
 
         jButton3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 102, 51));
         jButton3.setText("MODIFICAR");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 120, 30));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, 120, 30));
 
         jTable1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         jTable1.setForeground(new java.awt.Color(153, 153, 153));
@@ -118,19 +123,33 @@ public class VistaCiudad extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 300, 140));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 300, 140));
 
         jLabelFondo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabelFondo.setForeground(new java.awt.Color(0, 204, 102));
-        jLabelFondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Doris\\Desktop\\Interfaz grafica.jpg")); // NOI18N
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        botonSALIR.setText("SALIR");
+        botonSALIR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSALIRActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonSALIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(361, 480, 70, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     public static void visibilidad(boolean estado){
+       ventana.setVisible(estado);
+   }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void botonSALIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSALIRActionPerformed
+       ventana.setVisible(false);
+       VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_botonSALIRActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +188,7 @@ public class VistaCiudad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSALIR;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
