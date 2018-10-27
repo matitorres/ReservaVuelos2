@@ -110,6 +110,30 @@ public int modificarCiudad(Ciudad c) throws SQLException{
         }
         return p;
     }
+          
+    public Ciudad getCiudadPorNombre(String nombre) {
+         
+        Ciudad p = new Ciudad() ;
+        try {
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `ciudad` WHERE `nombre`='" + nombre + "';";
+           
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet != null && resultSet.next()) {
+                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                resultSet.close();
+            }
+            
+            //  Conexion.cerrarConexion();
+
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            //mostrar el Error
+        }
+        return p;
+    }
+          
         public List getCiudades() {
         try {
           

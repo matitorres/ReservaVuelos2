@@ -11,10 +11,13 @@ import clases.Vuelo;
 import clasesData.AsientoData;
 import clasesData.CiudadData;
 import clasesData.VueloData;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -255,6 +258,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonEliminar.setBorder(null);
         jButtonEliminar.setBorderPainted(false);
         jButtonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
         JPanel.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 660, 159, 31));
 
         jButtonModificar.setBackground(new java.awt.Color(102, 153, 51));
@@ -264,6 +272,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonModificar.setBorder(null);
         jButtonModificar.setBorderPainted(false);
         jButtonModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
         JPanel.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 660, 159, 31));
 
         jButtonAgregar.setBackground(new java.awt.Color(102, 153, 51));
@@ -273,6 +286,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonAgregar.setBorder(null);
         jButtonAgregar.setBorderPainted(false);
         jButtonAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarActionPerformed(evt);
+            }
+        });
         JPanel.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 660, 159, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -309,9 +327,74 @@ public class VistaVuelos extends javax.swing.JFrame {
         VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jLabelAdministradorMouseClicked
 
+    private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
+        if (!camposVacios()) {
+            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de hacer este registro?")) {
+                Ciudad origen = cD.getCiudadPorNombre(jTextFieldOrigen.getText());
+                Ciudad destino = cD.getCiudadPorNombre(jTextFieldDestino.getText());
+                LocalDate salida = jDateChooserSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate arribo = jDateChooserArribo.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Vuelo nuevoVuelo = new Vuelo (jTextFieldAerolinea.getText() , jTextFieldAeronave.getText(), origen , destino , salida , arribo , jTextFieldEstado.getText());
+                float precio = Float.parseFloat(jTextFieldPrecio.getText());
+                Asiento asientoVuelo = new Asiento(precio);
+                try {
+                    vD.altaVuelo(nuevoVuelo, asientoVuelo);
+                    JOptionPane.showMessageDialog(null,"Registro exitoso!");
+                    llenarTabla();
+                } catch (SQLException ex) {
+                          JOptionPane.showMessageDialog(null,"Error al agregar nuevo vuelo a la db!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,"Error. Debe llenar todos los campos");
+        }
+    }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        int fila = jTableVuelos.getSelectedRow();
+        String idAux = jTableVuelos.getValueAt(fila,0).toString();
+        int id = Integer.parseInt(idAux);
+        
+        if (!camposVacios()) {
+            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de hacer esta modificacion?")) {
+                Ciudad origen = cD.getCiudadPorNombre(jTextFieldOrigen.getText());
+                Ciudad destino = cD.getCiudadPorNombre(jTextFieldDestino.getText());
+                LocalDate salida = jDateChooserSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate arribo = jDateChooserArribo.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Vuelo vueloModificado = new Vuelo (id , jTextFieldAerolinea.getText() , jTextFieldAeronave.getText(), origen , destino , salida , arribo , jTextFieldEstado.getText());
+                try {
+                    vD.modificarVuelo(vueloModificado);
+                    JOptionPane.showMessageDialog(null,"Modificación exitosa!");
+                    llenarTabla();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,"No se pudo realizar la modificación");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,"Error. Debe llenar todos los campos");
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int fila = jTableVuelos.getSelectedRow();
+        String idAux = jTableVuelos.getValueAt(fila,0).toString();
+        int id = Integer.parseInt(idAux);
+        
+        if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de eliminar este vuelo?")) {
+            try {
+                vD.bajaVuelo(id);
+                JOptionPane.showMessageDialog(null,"Se ha eliminado el vuelo exitosamente");
+                llenarTabla();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro al eliminar vuelo");
+            }
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
         modelo = (DefaultTableModel) jTableVuelos.getModel();
+        modelo.setRowCount(0);
         Object[] fila = new Object[modelo.getColumnCount()];
         for (int i = 1 ; i < vuelos.size() ; i++) {
             fila[0] = vuelos.get(i).getIdVuelo();
@@ -334,17 +417,28 @@ public class VistaVuelos extends javax.swing.JFrame {
         int id= Integer.parseInt(id_aux);
         
         Vuelo vuelo = vD.buscarVuelo(id);
-        jTextFieldAerolinea.setText("  "+vuelo.getAerolinea());
-        jTextFieldAeronave.setText("  "+vuelo.getTipoAeronave());
+        jTextFieldAerolinea.setText(""+vuelo.getAerolinea());
+        jTextFieldAeronave.setText(""+vuelo.getTipoAeronave());
         Ciudad origen = cD.getCiudad(vuelo.getCiudadOrigen().getIdCiudad());
-        jTextFieldOrigen.setText("  "+origen.getNombre());
+        jTextFieldOrigen.setText(""+origen.getNombre());
         Ciudad destino = cD.getCiudad(vuelo.getCiudadDestino().getIdCiudad());
-        jTextFieldDestino.setText("  "+destino.getNombre());
+        jTextFieldDestino.setText(""+destino.getNombre());
         jDateChooserSalida.setDate(Date.from(vuelo.getFechaSalida().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         jDateChooserArribo.setDate(Date.from(vuelo.getFechaArribo().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        jTextFieldEstado.setText("  "+vuelo.getEstado());
+        jTextFieldEstado.setText(""+vuelo.getEstado());
         Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
-        jTextFieldPrecio.setText("  "+asiento.getPrecio());
+        jTextFieldPrecio.setText(""+asiento.getPrecio());
+    }
+    
+    private boolean camposVacios(){
+        boolean hayVacias = false;
+        if(jTextFieldAerolinea.getText().equals("") || jTextFieldAeronave.getText().equals("") ||
+                jTextFieldOrigen.getText().equals("") || jTextFieldDestino.getText().equals("") ||
+                jDateChooserArribo.getDate() == null || jDateChooserArribo.getDate() == null ||
+                jTextFieldEstado.getText().equals("") || jTextFieldPrecio.getText().equals("")) {
+            hayVacias = true;
+        }
+        return hayVacias;
     }
     
     public static void visibilidad(boolean estado){

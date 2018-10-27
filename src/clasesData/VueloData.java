@@ -25,8 +25,7 @@ public class VueloData {
     
     public VueloData(){}
         
-    public void altaVuelo(Vuelo vuelo, Asiento asiento){
-        try {
+    public void altaVuelo(Vuelo vuelo, Asiento asiento) throws SQLException {
             // Crea nuevo vuelo
             String sql = "INSERT INTO vuelo (aerolinea, tipoAeronave, idCiudadOrigen, idCiudadDestino, fechaSalida, fechaArribo, estado) VALUES ( ? , ? , ? , ? , ? , ? , ? );";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -63,24 +62,15 @@ public class VueloData {
             
             statement.close();
             statement2.close();
-            
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar vuelo: " + ex.getMessage());
-        }
     }
-    public void bajaVuelo(int id){
-        try {
+    public void bajaVuelo(int id) throws SQLException {
             String sql = "DELETE FROM vuelo WHERE idVuelo = ? ;";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             statement.executeUpdate();
             statement.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al eliminar vuelo: " + ex.getMessage());
-        }
     }
-    public void modificarVuelo(Vuelo vuelo){
-        try {
+    public void modificarVuelo(Vuelo vuelo) throws SQLException {
             String sql = "UPDATE vuelo SET aerolinea = '"+vuelo.getAerolinea()+
                     "', tipoAeronave = '"+vuelo.getTipoAeronave()+
                     "', idCiudadOrigen = '"+vuelo.getCiudadOrigen().getIdCiudad()+
@@ -92,9 +82,6 @@ public class VueloData {
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.executeUpdate();
             statement.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al modificar vuelo: " + ex.getMessage());
-        }
     }
     public Vuelo buscarVuelo(int id){
         Vuelo vuelo = new Vuelo();
