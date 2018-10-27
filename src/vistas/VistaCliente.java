@@ -537,7 +537,9 @@ public class VistaCliente extends javax.swing.JFrame {
         
      
         return hayvacias;
-    }    public void filtro(){
+    }    
+        
+        public void filtro(){
         filtro.setRowFilter(RowFilter.regexFilter(cajaBuscarClientes.getText(), 2,3,4));
     } 
     /**
