@@ -99,7 +99,6 @@ public class AsientoData {
         
         return asiento;
     }     
-    
     public Asiento buscarAsientoPorVuelo(Vuelo vuelo){
             Asiento asiento=null;
     try {
@@ -128,7 +127,6 @@ public class AsientoData {
         
         return asiento;
     }
-    
     public void actualizarAsiento(Asiento asiento){
     
         try {
@@ -154,7 +152,6 @@ public class AsientoData {
     public List<Asiento> obtenerAsientos(){
         List<Asiento> asientos = new ArrayList<Asiento>();
             
-
         try {
             String sql = "SELECT * FROM asiento;";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
@@ -179,6 +176,24 @@ public class AsientoData {
         
         
         return asientos;
-    }     
-        
+    }
+    public Asiento obtenerAsientosVueloUbicacion(Vuelo vuelo, String ubicacion) {
+        Asiento asiento = new Asiento();;
+        try {
+            String sql = "SELECT * FROM asiento WHERE idVuelo="+vuelo.getIdVuelo()+" AND ubicacion = '"+ubicacion+"';";
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                asiento.setIdAsiento(resultSet.getInt("idAsiento"));
+                asiento.setVuelo(vuelo);
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
+            }      
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los Asientos: " + ex.getMessage());
+        }
+        return asiento;
+    }
 }

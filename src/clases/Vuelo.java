@@ -116,5 +116,22 @@ public class Vuelo {
         asientos.add(new Asiento (this,"V013",asiento.getPrecio()));
         asientos.add(new Asiento (this,"P014",asiento.getPrecio()));
         asientos.add(new Asiento (this,"P015",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V016",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V017",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P018",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P019",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V020",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V021",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P022",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P023",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V024",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V025",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P026",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P027",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V028",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V029",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P030",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"P031",asiento.getPrecio()));
+        asientos.add(new Asiento (this,"V032",asiento.getPrecio()));
     }
 }
