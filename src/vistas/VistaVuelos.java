@@ -1220,6 +1220,8 @@ public class VistaVuelos extends javax.swing.JFrame {
         Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo,ubicacion);
         if (!asiento.getDisponible()) {
             boton.setBackground(Color.red);
+        } else {
+            boton.setBackground(new java.awt.Color(153, 204, 51));
         }
     }
     
