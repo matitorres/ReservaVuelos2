@@ -13,9 +13,7 @@ import clasesData.CiudadData;
 import clasesData.VueloData;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -30,13 +28,13 @@ import javax.swing.table.TableRowSorter;
  * @author asus pc
  */
 public class VistaVuelos extends javax.swing.JFrame {
-    
+
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
     private DefaultTableModel modelo;
     private static VistaVuelos ventana = new VistaVuelos();
-    
+
     public VistaVuelos() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -99,13 +97,13 @@ public class VistaVuelos extends javax.swing.JFrame {
         jPanelFondoAsientos = new javax.swing.JPanel();
         jScrollPaneVuelos = new javax.swing.JScrollPane();
         jTableVuelos = new javax.swing.JTable();
-        jTextFieldAerolinea = new javax.swing.JTextField();
-        jTextFieldAeronave = new javax.swing.JTextField();
+        jComboBoxAerolinea = new javax.swing.JComboBox<>();
+        jComboBoxAeronave = new javax.swing.JComboBox<>();
         jComboBoxOrigen = new javax.swing.JComboBox<>();
         jComboBoxDestino = new javax.swing.JComboBox<>();
         jDateChooserSalida = new com.toedter.calendar.JDateChooser();
         jDateChooserArribo = new com.toedter.calendar.JDateChooser();
-        jTextFieldEstado = new javax.swing.JTextField();
+        jComboBoxEstado = new javax.swing.JComboBox<>();
         jTextFieldPrecio = new javax.swing.JTextField();
         jLabelAerolinea = new javax.swing.JLabel();
         jLabelAeronave = new javax.swing.JLabel();
@@ -119,6 +117,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
+        jButtonBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 204, 0));
         setUndecorated(true);
@@ -781,11 +780,11 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 111, 691, 239));
 
-        jTextFieldAerolinea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        JPanel.add(jTextFieldAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
+        jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
+        JPanel.add(jComboBoxAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
 
-        jTextFieldAeronave.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        JPanel.add(jTextFieldAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
+        jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
+        JPanel.add(jComboBoxAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
 
         jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxOrigen.setBorder(null);
@@ -803,8 +802,8 @@ public class VistaVuelos extends javax.swing.JFrame {
         jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm:ss");
         JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 563, 200, 31));
 
-        jTextFieldEstado.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        JPanel.add(jTextFieldEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 563, 70, 30));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
+        JPanel.add(jComboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 563, 70, 30));
 
         jTextFieldPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         JPanel.add(jTextFieldPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 563, 70, 30));
@@ -906,6 +905,20 @@ public class VistaVuelos extends javax.swing.JFrame {
         });
         JPanel.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 660, 159, 31));
 
+        jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscar.setText("o Buscar vuelo");
+        jButtonBuscar.setBorder(null);
+        jButtonBuscar.setBorderPainted(false);
+        jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
+        JPanel.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 660, 159, 31));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -937,64 +950,64 @@ public class VistaVuelos extends javax.swing.JFrame {
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         if (!camposVacios()) {
-            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de hacer este registro?")) {
+            if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer este registro?")) {
                 Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
                 Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
-                Vuelo nuevoVuelo = new Vuelo (jTextFieldAerolinea.getText() , jTextFieldAeronave.getText(), origen , destino , salida , arribo , jTextFieldEstado.getText());
+                Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
                 float precio = Float.parseFloat(jTextFieldPrecio.getText());
                 Asiento asientoVuelo = new Asiento(precio);
                 try {
                     vD.altaVuelo(nuevoVuelo, asientoVuelo);
-                    JOptionPane.showMessageDialog(null,"Registro exitoso!");
+                    JOptionPane.showMessageDialog(null, "Registro exitoso!");
                     llenarTabla();
                 } catch (SQLException ex) {
-                          JOptionPane.showMessageDialog(null,"Error al agregar nuevo vuelo a la db!");
+                    JOptionPane.showMessageDialog(null, "Error al agregar nuevo vuelo a la db!");
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null,"Error. Debe llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Error. Debe llenar todos los campos");
         }
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         int fila = jTableVuelos.getSelectedRow();
-        String idAux = jTableVuelos.getValueAt(fila,0).toString();
+        String idAux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(idAux);
-        
+
         if (!camposVacios()) {
-            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de hacer esta modificacion?")) {
+            if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
                 Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
                 Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
-                Vuelo vueloModificado = new Vuelo (id , jTextFieldAerolinea.getText() , jTextFieldAeronave.getText(), origen , destino , salida , arribo , jTextFieldEstado.getText());
+                Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
                 try {
                     vD.modificarVuelo(vueloModificado);
-                    JOptionPane.showMessageDialog(null,"Modificación exitosa!");
+                    JOptionPane.showMessageDialog(null, "Modificación exitosa!");
                     llenarTabla();
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,"No se pudo realizar la modificación");
+                    JOptionPane.showMessageDialog(null, "No se pudo realizar la modificación");
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null,"Error. Debe llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Error. Debe llenar todos los campos");
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int fila = jTableVuelos.getSelectedRow();
-        String idAux = jTableVuelos.getValueAt(fila,0).toString();
+        String idAux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(idAux);
-        
-        if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de eliminar este vuelo?")) {
+
+        if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar este vuelo?")) {
             try {
                 vD.bajaVuelo(id);
-                JOptionPane.showMessageDialog(null,"Se ha eliminado el vuelo exitosamente");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado el vuelo exitosamente");
                 llenarTabla();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,"Erro al eliminar vuelo");
+                JOptionPane.showMessageDialog(null, "Erro al eliminar vuelo");
             }
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
@@ -1144,12 +1157,46 @@ public class VistaVuelos extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.regexFilter(jTextFieldFiltrar.getText().toUpperCase()));
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
 
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        jTableVuelos.setRowSorter(tr);
+        List<RowFilter<DefaultTableModel, Object>> filtros = new ArrayList<>();
+        int i = 0;
+        if (!jComboBoxAerolinea.getSelectedItem().toString().equals("Seleccione una aerolinea")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
+            i += 1;
+        }
+        if (!jComboBoxAeronave.getSelectedItem().toString().equals("Seleccione una aeronave")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
+            i += 1;
+        }
+        if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            i += 1;
+        }
+        if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            i += 1;
+        }
+        if (!jComboBoxEstado.getSelectedItem().toString().equals("Estado")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),7));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),7));
+            i += 1;
+        }
+        tr.setRowFilter(RowFilter.andFilter(filtros));
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         modelo.setRowCount(0);
         Object[] fila = new Object[modelo.getColumnCount()];
-        for (int i = 0 ; i < vuelos.size() ; i++) {
+        for (int i = 0; i < vuelos.size(); i++) {
             fila[0] = vuelos.get(i).getIdVuelo();
             fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
             fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
@@ -1161,44 +1208,44 @@ public class VistaVuelos extends javax.swing.JFrame {
             fila[6] = vuelos.get(i).getFechaArribo();
             fila[7] = vuelos.get(i).getEstado().toUpperCase();
             modelo.addRow(fila);
-        }       
+        }
     }
-    
+
     public void llenarCampos() {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id= Integer.parseInt(id_aux);
-        
+        int id = Integer.parseInt(id_aux);
+
         Vuelo vuelo = vD.buscarVuelo(id);
-        jTextFieldAerolinea.setText(""+vuelo.getAerolinea());
-        jTextFieldAeronave.setText(""+vuelo.getTipoAeronave());
+        jComboBoxAerolinea.setSelectedItem(vuelo.getAerolinea());
+        jComboBoxAeronave.setSelectedItem(vuelo.getTipoAeronave());
         Ciudad origen = cD.getCiudad(vuelo.getCiudadOrigen().getIdCiudad());
         jComboBoxOrigen.setSelectedItem(origen.getNombre());
         Ciudad destino = cD.getCiudad(vuelo.getCiudadDestino().getIdCiudad());
         jComboBoxDestino.setSelectedItem(destino.getNombre());
         jDateChooserSalida.setDate(vuelo.getFechaSalida());
         jDateChooserArribo.setDate(vuelo.getFechaArribo());
-        jTextFieldEstado.setText(""+vuelo.getEstado());
+        jComboBoxEstado.setSelectedItem(vuelo.getEstado());
         Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
-        jTextFieldPrecio.setText(""+asiento.getPrecio());
+        jTextFieldPrecio.setText("" + asiento.getPrecio());
     }
-    
+
     public void llenarComboCiudades() {
-         DefaultComboBoxModel modeloOrigen = new DefaultComboBoxModel();
-         DefaultComboBoxModel modeloDestino = new DefaultComboBoxModel();
-         List<Ciudad> ciudades = cD.getCiudades();
-         modeloOrigen.addElement("Seleccione ciudad de origen");
-         jComboBoxOrigen.setModel(modeloOrigen);
-         modeloDestino.addElement("Seleccione ciudad de destino");
-         jComboBoxDestino.setModel(modeloDestino);
-         for (int i = 0 ; i < ciudades.size() ; i++) {
-             modeloOrigen.addElement(ciudades.get(i).getNombre());
-             jComboBoxOrigen.setModel(modeloOrigen);
-             modeloDestino.addElement(ciudades.get(i).getNombre());
-             jComboBoxDestino.setModel(modeloDestino);
-         }
+        DefaultComboBoxModel modeloOrigen = new DefaultComboBoxModel();
+        DefaultComboBoxModel modeloDestino = new DefaultComboBoxModel();
+        List<Ciudad> ciudades = cD.getCiudades();
+        modeloOrigen.addElement("Seleccione ciudad de origen");
+        jComboBoxOrigen.setModel(modeloOrigen);
+        modeloDestino.addElement("Seleccione ciudad de destino");
+        jComboBoxDestino.setModel(modeloDestino);
+        for (int i = 0; i < ciudades.size(); i++) {
+            modeloOrigen.addElement(ciudades.get(i).getNombre());
+            jComboBoxOrigen.setModel(modeloOrigen);
+            modeloDestino.addElement(ciudades.get(i).getNombre());
+            jComboBoxDestino.setModel(modeloDestino);
+        }
     }
-    
+
     public void mostrarAsientos() {
         pintarBotonAsiento(jButtonV001, "V001");
         pintarBotonAsiento(jButtonP002, "P002");
@@ -1233,26 +1280,26 @@ public class VistaVuelos extends javax.swing.JFrame {
         pintarBotonAsiento(jButtonP031, "P031");
         pintarBotonAsiento(jButtonV032, "V032");
     }
-    
+
     public void pintarBotonAsiento(JButton boton, String ubicacion) {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id= Integer.parseInt(id_aux);
+        int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
-        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo,ubicacion);
+        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
         if (!asiento.getDisponible()) {
             boton.setBackground(Color.red);
         } else {
             boton.setBackground(new java.awt.Color(153, 204, 51));
         }
     }
-    
+
     public void cambiarDisponible(JButton boton, String ubicacion) {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id= Integer.parseInt(id_aux);
+        int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
-        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo,ubicacion);
+        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
         if (asiento.getDisponible()) {
             asiento.setDisponible(false);
             boton.setBackground(Color.red);
@@ -1262,23 +1309,23 @@ public class VistaVuelos extends javax.swing.JFrame {
         }
         aD.actualizarAsiento(asiento);
     }
-    
-    private boolean camposVacios(){
+
+    private boolean camposVacios() {
         boolean hayVacias = false;
-        if(jTextFieldAerolinea.getText().equals("") || jTextFieldAeronave.getText().equals("") ||
-                jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen") ||
-                jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino") ||
-                jDateChooserArribo.getDate() == null || jDateChooserArribo.getDate() == null ||
-                jTextFieldEstado.getText().equals("") || jTextFieldPrecio.getText().equals("")) {
+        if (jComboBoxAerolinea.getSelectedItem().equals("Seleccione una aerolinea") || jComboBoxAeronave.getSelectedItem().equals("Seleccione una aeronave")
+                || jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")
+                || jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")
+                || jDateChooserArribo.getDate() == null || jDateChooserArribo.getDate() == null
+                || jComboBoxEstado.getSelectedItem().equals("Estado") || jTextFieldPrecio.getText().equals("")) {
             hayVacias = true;
         }
         return hayVacias;
     }
-    
-    public static void visibilidad(boolean estado){
-       ventana.setVisible(estado);
-   }
-            
+
+    public static void visibilidad(boolean estado) {
+        ventana.setVisible(estado);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1319,6 +1366,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JPanel JPanel;
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonAsientos;
+    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonModificar;
@@ -1354,7 +1402,10 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonV028;
     private javax.swing.JButton jButtonV029;
     private javax.swing.JButton jButtonV032;
+    private javax.swing.JComboBox<String> jComboBoxAerolinea;
+    private javax.swing.JComboBox<String> jComboBoxAeronave;
     private javax.swing.JComboBox<String> jComboBoxDestino;
+    private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JComboBox<String> jComboBoxOrigen;
     private com.toedter.calendar.JDateChooser jDateChooserArribo;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
@@ -1375,9 +1426,6 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelFondoSeleccion;
     private javax.swing.JScrollPane jScrollPaneVuelos;
     private javax.swing.JTable jTableVuelos;
-    private javax.swing.JTextField jTextFieldAerolinea;
-    private javax.swing.JTextField jTextFieldAeronave;
-    private javax.swing.JTextField jTextFieldEstado;
     private javax.swing.JTextField jTextFieldFiltrar;
     private javax.swing.JTextField jTextFieldPrecio;
     // End of variables declaration//GEN-END:variables
