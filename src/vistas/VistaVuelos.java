@@ -58,8 +58,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jLabelAdministrador = new javax.swing.JLabel();
         jLabelVuelos = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
-        jTextFieldFiltrar = new javax.swing.JTextField();
-        jButtonFiltrar = new javax.swing.JButton();
+        jButtonLimpiarFiltros = new javax.swing.JButton();
         jButtonAsientos = new javax.swing.JButton();
         jPanelAsientos = new javax.swing.JPanel();
         jButtonV001 = new javax.swing.JButton();
@@ -163,26 +162,20 @@ public class VistaVuelos extends javax.swing.JFrame {
         });
         JPanel.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
 
-        jTextFieldFiltrar.setToolTipText("");
-        jTextFieldFiltrar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jTextFieldFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextFieldFiltrar.setSelectionColor(new java.awt.Color(102, 153, 51));
-        JPanel.add(jTextFieldFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 70, 270, 31));
-
-        jButtonFiltrar.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonFiltrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonFiltrar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonFiltrar.setText("Filtrar");
-        jButtonFiltrar.setToolTipText("");
-        jButtonFiltrar.setBorder(null);
-        jButtonFiltrar.setBorderPainted(false);
-        jButtonFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonLimpiarFiltros.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonLimpiarFiltros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonLimpiarFiltros.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonLimpiarFiltros.setText("Limpiar filtros");
+        jButtonLimpiarFiltros.setToolTipText("");
+        jButtonLimpiarFiltros.setBorder(null);
+        jButtonLimpiarFiltros.setBorderPainted(false);
+        jButtonLimpiarFiltros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonLimpiarFiltros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFiltrarActionPerformed(evt);
+                jButtonLimpiarFiltrosActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 75, 31));
+        JPanel.add(jButtonLimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, 31));
 
         jButtonAsientos.setBackground(new java.awt.Color(102, 153, 51));
         jButtonAsientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -908,7 +901,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("o Buscar vuelo");
+        jButtonBuscar.setText("ó Buscar vuelo");
         jButtonBuscar.setBorder(null);
         jButtonBuscar.setBorderPainted(false);
         jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1150,12 +1143,12 @@ public class VistaVuelos extends javax.swing.JFrame {
         cambiarDisponible(jButtonV032, "V032");
     }//GEN-LAST:event_jButtonV032ActionPerformed
 
-    private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+    private void jButtonLimpiarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarFiltrosActionPerformed
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
         jTableVuelos.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(jTextFieldFiltrar.getText().toUpperCase()));
-    }//GEN-LAST:event_jButtonFiltrarActionPerformed
+        tr.setRowFilter(RowFilter.regexFilter(""));
+    }//GEN-LAST:event_jButtonLimpiarFiltrosActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         modelo = (DefaultTableModel) jTableVuelos.getModel();
@@ -1368,7 +1361,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAsientos;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonFiltrar;
+    private javax.swing.JButton jButtonLimpiarFiltros;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonP002;
     private javax.swing.JButton jButtonP003;
@@ -1426,7 +1419,6 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelFondoSeleccion;
     private javax.swing.JScrollPane jScrollPaneVuelos;
     private javax.swing.JTable jTableVuelos;
-    private javax.swing.JTextField jTextFieldFiltrar;
     private javax.swing.JTextField jTextFieldPrecio;
     // End of variables declaration//GEN-END:variables
 }

@@ -137,28 +137,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldFiltrar">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                <EmptyBorder bottom="1" left="5" right="1" top="1"/>
-              </Border>
-            </Property>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor de Texto"/>
-            </Property>
-            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="99" red="66" type="rgb"/>
-            </Property>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="31" y="70" width="270" height="31"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonFiltrar">
+        <Component class="javax.swing.JButton" name="jButtonLimpiarFiltros">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="99" red="66" type="rgb"/>
@@ -169,7 +148,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Filtrar"/>
+            <Property name="text" type="java.lang.String" value="Limpiar filtros"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -180,11 +159,11 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFiltrarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimpiarFiltrosActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="300" y="70" width="75" height="31"/>
+              <AbsoluteConstraints x="500" y="70" width="120" height="31"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -1518,7 +1497,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="o Buscar vuelo"/>
+            <Property name="text" type="java.lang.String" value="&#xf3; Buscar vuelo"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
