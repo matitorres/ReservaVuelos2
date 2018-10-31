@@ -6,7 +6,7 @@
 package clases;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -17,11 +17,11 @@ public class Vuelo {
     private int idVuelo = -1;
     private String aerolinea, tipoAeronave, estado;
     private Ciudad ciudadOrigen, ciudadDestino;
-    private LocalDate fechaSalida, fechaArribo;
+    private Date fechaSalida, fechaArribo;
     private ArrayList<Asiento> asientos = new ArrayList<>();
     
     
-    public Vuelo(int idVuelo, String aerolinea, String tipoAeronave, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaSalida, LocalDate fechaArribo, String estado) {
+    public Vuelo(int idVuelo, String aerolinea, String tipoAeronave, Ciudad ciudadOrigen, Ciudad ciudadDestino, Date fechaSalida, Date fechaArribo, String estado) {
         this.idVuelo = idVuelo;
         this.aerolinea = aerolinea;
         this.tipoAeronave = tipoAeronave;
@@ -31,7 +31,7 @@ public class Vuelo {
         this.fechaArribo = fechaArribo;
         this.estado = estado;
     }
-    public Vuelo(String aerolinea, String tipoAeronave, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaSalida, LocalDate fechaArribo, String estado) {
+    public Vuelo(String aerolinea, String tipoAeronave, Ciudad ciudadOrigen, Ciudad ciudadDestino, Date fechaSalida, Date fechaArribo, String estado) {
         this.idVuelo = -1;
         this.aerolinea = aerolinea;
         this.tipoAeronave = tipoAeronave;
@@ -79,16 +79,16 @@ public class Vuelo {
     public void setCiudadDestino(Ciudad ciudadDestino) {
         this.ciudadDestino = ciudadDestino;
     }
-    public LocalDate getFechaSalida() {
+    public Date getFechaSalida() {
         return fechaSalida;
     }
-    public void setFechaSalida(LocalDate fechaSalida) {
+    public void setFechaSalida(Date fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
-    public LocalDate getFechaArribo() {
+    public Date getFechaArribo() {
         return fechaArribo;
     }
-    public void setFechaArribo(LocalDate fechaArribo) {
+    public void setFechaArribo(Date fechaArribo) {
         this.fechaArribo = fechaArribo;
     }
     public String getEstado() {

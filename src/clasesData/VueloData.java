@@ -33,8 +33,10 @@ public class VueloData {
             statement.setString(2, vuelo.getTipoAeronave());
             statement.setInt(3, vuelo.getCiudadOrigen().getIdCiudad());
             statement.setInt(4, vuelo.getCiudadDestino().getIdCiudad());
-            statement.setDate(5, Date.valueOf(vuelo.getFechaSalida()));
-            statement.setDate(6, Date.valueOf(vuelo.getFechaArribo()));
+            java.sql.Timestamp salida = new java.sql.Timestamp(vuelo.getFechaSalida().getTime());
+            statement.setTimestamp(5, salida);
+            java.sql.Timestamp arribo = new java.sql.Timestamp(vuelo.getFechaArribo().getTime());
+            statement.setTimestamp(6, arribo);
             statement.setString(7, vuelo.getEstado());
             statement.executeUpdate();
             
@@ -75,8 +77,8 @@ public class VueloData {
                     "', tipoAeronave = '"+vuelo.getTipoAeronave()+
                     "', idCiudadOrigen = '"+vuelo.getCiudadOrigen().getIdCiudad()+
                     "', idCiudadDestino = '"+vuelo.getCiudadDestino().getIdCiudad()+
-                    "', fechaSalida = '"+vuelo.getFechaSalida()+
-                    "', fechaArribo = '"+vuelo.getFechaArribo()+
+                    "', fechaSalida = '"+new java.sql.Timestamp(vuelo.getFechaSalida().getTime())+
+                    "', fechaArribo = '"+new java.sql.Timestamp(vuelo.getFechaArribo().getTime())+
                     "', estado = '"+vuelo.getEstado()+
                     "' WHERE idVuelo = '"+vuelo.getIdVuelo()+"';";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -99,8 +101,8 @@ public class VueloData {
                 vuelo.setCiudadOrigen(ciudadOrigen);
                 ciudadDestino.setIdCiudad(rs.getInt("idCiudadDestino"));
                 vuelo.setCiudadDestino(ciudadDestino);
-                vuelo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
-                vuelo.setFechaArribo(rs.getDate("fechaArribo").toLocalDate());
+                vuelo.setFechaSalida(rs.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(rs.getTimestamp("fechaArribo"));
                 vuelo.setEstado(rs.getString("estado"));
             }
             statement.close();
@@ -127,8 +129,8 @@ public class VueloData {
                 vuelo.setCiudadOrigen(ciudadOrigen);
                 ciudadDestino.setIdCiudad(rs.getInt("idCiudadDestino"));
                 vuelo.setCiudadDestino(ciudadDestino);
-                vuelo.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
-                vuelo.setFechaArribo(rs.getDate("fechaArribo").toLocalDate());
+                vuelo.setFechaSalida(rs.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(rs.getTimestamp("fechaArribo"));
                 vuelo.setEstado(rs.getString("estado"));
                 vuelos.add(vuelo);
             }
