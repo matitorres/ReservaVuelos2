@@ -13,6 +13,7 @@ import clasesData.CiudadData;
 import clasesData.VueloData;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -788,11 +789,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         JPanel.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
 
         jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserSalida.setDateFormatString("dd/MM/yyyy HH:mm:ss");
+        jDateChooserSalida.setDateFormatString("dd/MM/yyyy HH:mm");
         JPanel.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 563, 200, 31));
 
         jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm:ss");
+        jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm");
         JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 563, 200, 31));
 
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
@@ -1176,9 +1177,19 @@ public class VistaVuelos extends javax.swing.JFrame {
             filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
             i += 1;
         }
+        if (jDateChooserSalida.getDate() != null) {
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
+            i += 1;
+        }
+        if (jDateChooserArribo.getDate() != null) {
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
+            i += 1;
+        }
         if (!jComboBoxEstado.getSelectedItem().toString().equals("Estado")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),7));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),7));
+            filtros.add(RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
             i += 1;
         }
         tr.setRowFilter(RowFilter.andFilter(filtros));
@@ -1197,8 +1208,8 @@ public class VistaVuelos extends javax.swing.JFrame {
             fila[3] = origen.getNombre().toUpperCase();
             Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
             fila[4] = destino.getNombre().toUpperCase();
-            fila[5] = vuelos.get(i).getFechaSalida();
-            fila[6] = vuelos.get(i).getFechaArribo();
+            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
             fila[7] = vuelos.get(i).getEstado().toUpperCase();
             modelo.addRow(fila);
         }
