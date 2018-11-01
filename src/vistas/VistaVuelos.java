@@ -768,15 +768,22 @@ public class VistaVuelos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "idVuelo", "Aerolinea", "Aeronave", "Origen", "Destino", "Salida", "Arribo", "Estado"
+                "ID", "Aerolinea", "Aeronave", "Origen", "Destino", "Salida", "Arribo", "Estado"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTableVuelos.setToolTipText("");
@@ -788,19 +795,37 @@ public class VistaVuelos extends javax.swing.JFrame {
             }
         });
         jScrollPaneVuelos.setViewportView(jTableVuelos);
+        if (jTableVuelos.getColumnModel().getColumnCount() > 0) {
+            jTableVuelos.getColumnModel().getColumn(0).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTableVuelos.getColumnModel().getColumn(1).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(2).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(3).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(4).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(5).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTableVuelos.getColumnModel().getColumn(6).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(6).setPreferredWidth(100);
+            jTableVuelos.getColumnModel().getColumn(7).setResizable(false);
+            jTableVuelos.getColumnModel().getColumn(7).setPreferredWidth(40);
+        }
 
-        JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 111, 691, 239));
+        JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 105, 691, 245));
 
+        jComboBoxAerolinea.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
         JPanel.add(jComboBoxAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
 
+        jComboBoxAeronave.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
         JPanel.add(jComboBoxAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
 
+        jComboBoxOrigen.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxOrigen.setBorder(null);
         JPanel.add(jComboBoxOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 496, 277, 30));
 
+        jComboBoxDestino.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxDestino.setBorder(null);
         JPanel.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
@@ -813,6 +838,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm");
         JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 563, 200, 31));
 
+        jComboBoxEstado.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
         JPanel.add(jComboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 563, 70, 30));
 
