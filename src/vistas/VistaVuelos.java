@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -59,6 +60,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jLabelAdministrador = new javax.swing.JLabel();
         jLabelVuelos = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
+        jButtonDisponibles = new javax.swing.JButton();
         jButtonLimpiarFiltros = new javax.swing.JButton();
         jButtonAsientos = new javax.swing.JButton();
         jPanelAsientos = new javax.swing.JPanel();
@@ -162,6 +164,21 @@ public class VistaVuelos extends javax.swing.JFrame {
             }
         });
         JPanel.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
+
+        jButtonDisponibles.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonDisponibles.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonDisponibles.setText("Vuelos disponibles");
+        jButtonDisponibles.setToolTipText("");
+        jButtonDisponibles.setBorder(null);
+        jButtonDisponibles.setBorderPainted(false);
+        jButtonDisponibles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDisponiblesActionPerformed(evt);
+            }
+        });
+        JPanel.add(jButtonDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 160, 31));
 
         jButtonLimpiarFiltros.setBackground(new java.awt.Color(102, 153, 51));
         jButtonLimpiarFiltros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -1149,6 +1166,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
         jTableVuelos.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(""));
+        llenarTabla();
     }//GEN-LAST:event_jButtonLimpiarFiltrosActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -1195,8 +1213,38 @@ public class VistaVuelos extends javax.swing.JFrame {
         tr.setRowFilter(RowFilter.andFilter(filtros));
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
+    private void jButtonDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisponiblesActionPerformed
+        llenarTablaDisponibles();
+    }//GEN-LAST:event_jButtonDisponiblesActionPerformed
+
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        modelo.setRowCount(0);
+        Object[] fila = new Object[modelo.getColumnCount()];
+        for (int i = 0; i < vuelos.size(); i++) {
+            fila[0] = vuelos.get(i).getIdVuelo();
+            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+            fila[3] = origen.getNombre().toUpperCase();
+            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+            fila[4] = destino.getNombre().toUpperCase();
+            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
+            fila[7] = vuelos.get(i).getEstado().toUpperCase();
+            modelo.addRow(fila);
+        }
+    }
+    
+    public void llenarTablaDisponibles() {
+        List<Vuelo> vuelos = vD.obtenerVuelos();
+        for (Iterator<Vuelo> iterador = vuelos.iterator(); iterador.hasNext();) {
+            Vuelo vuelo = iterador.next();
+            if (!vuelo.getEstado().equals("c") && vuelo.getFechaSalida().before(new Date())) {
+            iterador.remove();
+            }
+        }
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         modelo.setRowCount(0);
         Object[] fila = new Object[modelo.getColumnCount()];
@@ -1371,6 +1419,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonAsientos;
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonDisponibles;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonLimpiarFiltros;
     private javax.swing.JButton jButtonModificar;
