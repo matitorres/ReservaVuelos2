@@ -56,13 +56,6 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void initComponents() {
 
         JPanel = new javax.swing.JPanel();
-        jLabelInicio = new javax.swing.JLabel();
-        jLabelAdministrador = new javax.swing.JLabel();
-        jLabelVuelos = new javax.swing.JLabel();
-        jLabelCerrar = new javax.swing.JLabel();
-        jButtonDisponibles = new javax.swing.JButton();
-        jButtonLimpiarFiltros = new javax.swing.JButton();
-        jButtonAsientos = new javax.swing.JButton();
         jPanelAsientos = new javax.swing.JPanel();
         jButtonV001 = new javax.swing.JButton();
         jButtonP002 = new javax.swing.JButton();
@@ -97,25 +90,32 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonP031 = new javax.swing.JButton();
         jButtonV032 = new javax.swing.JButton();
         jPanelFondoAsientos = new javax.swing.JPanel();
+        jLabelInicio = new javax.swing.JLabel();
+        jLabelAdministrador = new javax.swing.JLabel();
+        jLabelVuelos = new javax.swing.JLabel();
+        jLabelCerrar = new javax.swing.JLabel();
+        jButtonDisponibles = new javax.swing.JButton();
+        jButtonLimpiarFiltros = new javax.swing.JButton();
+        jButtonAsientos = new javax.swing.JButton();
         jScrollPaneVuelos = new javax.swing.JScrollPane();
         jTableVuelos = new javax.swing.JTable();
+        jPanelFondoSeleccion = new javax.swing.JPanel();
+        jLabelSalida = new javax.swing.JLabel();
+        jDateChooserArribo = new com.toedter.calendar.JDateChooser();
         jComboBoxAerolinea = new javax.swing.JComboBox<>();
         jComboBoxAeronave = new javax.swing.JComboBox<>();
-        jComboBoxOrigen = new javax.swing.JComboBox<>();
         jComboBoxDestino = new javax.swing.JComboBox<>();
-        jDateChooserSalida = new com.toedter.calendar.JDateChooser();
-        jDateChooserArribo = new com.toedter.calendar.JDateChooser();
         jComboBoxEstado = new javax.swing.JComboBox<>();
-        jTextFieldPrecio = new javax.swing.JTextField();
         jLabelAerolinea = new javax.swing.JLabel();
-        jLabelAeronave = new javax.swing.JLabel();
+        jLabelEstado = new javax.swing.JLabel();
+        jDateChooserSalida = new com.toedter.calendar.JDateChooser();
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
-        jLabelSalida = new javax.swing.JLabel();
-        jLabelArribo = new javax.swing.JLabel();
-        jLabelEstado = new javax.swing.JLabel();
         jLabelAsiento = new javax.swing.JLabel();
-        jPanelFondoSeleccion = new javax.swing.JPanel();
+        jComboBoxOrigen = new javax.swing.JComboBox<>();
+        jLabelArribo = new javax.swing.JLabel();
+        jLabelAeronave = new javax.swing.JLabel();
+        jTextFieldPrecio = new javax.swing.JTextField();
         jButtonEliminar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
@@ -123,93 +123,13 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         setBackground(new java.awt.Color(51, 204, 0));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(756, 645));
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
         JPanel.setBackground(new java.awt.Color(153, 204, 51));
         JPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         JPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabelInicio.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabelInicio.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelInicio.setText("Inicio //");
-        jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        JPanel.add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
-
-        jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jLabelAdministrador.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelAdministrador.setText("Administrador /");
-        jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelAdministradorMouseClicked(evt);
-            }
-        });
-        JPanel.add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
-
-        jLabelVuelos.setBackground(new java.awt.Color(102, 153, 51));
-        jLabelVuelos.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jLabelVuelos.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelVuelos.setText("Vuelos");
-        JPanel.add(jLabelVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
-
-        jLabelCerrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabelCerrar.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelCerrar.setText("X");
-        jLabelCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCerrarMouseClicked(evt);
-            }
-        });
-        JPanel.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
-
-        jButtonDisponibles.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonDisponibles.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonDisponibles.setText("Vuelos disponibles");
-        jButtonDisponibles.setToolTipText("");
-        jButtonDisponibles.setBorder(null);
-        jButtonDisponibles.setBorderPainted(false);
-        jButtonDisponibles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonDisponibles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDisponiblesActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 160, 31));
-
-        jButtonLimpiarFiltros.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonLimpiarFiltros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonLimpiarFiltros.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonLimpiarFiltros.setText("Limpiar filtros");
-        jButtonLimpiarFiltros.setToolTipText("");
-        jButtonLimpiarFiltros.setBorder(null);
-        jButtonLimpiarFiltros.setBorderPainted(false);
-        jButtonLimpiarFiltros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonLimpiarFiltros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarFiltrosActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonLimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, 31));
-
-        jButtonAsientos.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonAsientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonAsientos.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAsientos.setText("Asientos");
-        jButtonAsientos.setToolTipText("");
-        jButtonAsientos.setBorder(null);
-        jButtonAsientos.setBorderPainted(false);
-        jButtonAsientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonAsientos.setEnabled(false);
-        jButtonAsientos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAsientosActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 70, 91, 31));
 
         jPanelAsientos.setBackground(new java.awt.Color(102, 153, 51));
         jPanelAsientos.setInheritsPopupMenu(true);
@@ -758,10 +678,91 @@ public class VistaVuelos extends javax.swing.JFrame {
         );
         jPanelFondoAsientosLayout.setVerticalGroup(
             jPanelFondoAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addGap(0, 645, Short.MAX_VALUE)
         );
 
-        JPanel.add(jPanelFondoAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 756, 720));
+        JPanel.add(jPanelFondoAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 756, 645));
+
+        jLabelInicio.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        jLabelInicio.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelInicio.setText("Inicio //");
+        jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        JPanel.add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
+
+        jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        jLabelAdministrador.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelAdministrador.setText("Administrador /");
+        jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdministradorMouseClicked(evt);
+            }
+        });
+        JPanel.add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
+
+        jLabelVuelos.setBackground(new java.awt.Color(102, 153, 51));
+        jLabelVuelos.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        jLabelVuelos.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVuelos.setText("Vuelos");
+        JPanel.add(jLabelVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
+
+        jLabelCerrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabelCerrar.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelCerrar.setText("X");
+        jLabelCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCerrarMouseClicked(evt);
+            }
+        });
+        JPanel.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
+
+        jButtonDisponibles.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonDisponibles.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonDisponibles.setText("Vuelos disponibles");
+        jButtonDisponibles.setToolTipText("");
+        jButtonDisponibles.setBorder(null);
+        jButtonDisponibles.setBorderPainted(false);
+        jButtonDisponibles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDisponiblesActionPerformed(evt);
+            }
+        });
+        JPanel.add(jButtonDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 160, 31));
+
+        jButtonLimpiarFiltros.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonLimpiarFiltros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonLimpiarFiltros.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonLimpiarFiltros.setText("Limpiar filtros");
+        jButtonLimpiarFiltros.setToolTipText("");
+        jButtonLimpiarFiltros.setBorder(null);
+        jButtonLimpiarFiltros.setBorderPainted(false);
+        jButtonLimpiarFiltros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonLimpiarFiltros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarFiltrosActionPerformed(evt);
+            }
+        });
+        JPanel.add(jButtonLimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, 31));
+
+        jButtonAsientos.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonAsientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonAsientos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAsientos.setText("Asientos");
+        jButtonAsientos.setToolTipText("");
+        jButtonAsientos.setBorder(null);
+        jButtonAsientos.setBorderPainted(false);
+        jButtonAsientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAsientos.setEnabled(false);
+        jButtonAsientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsientosActionPerformed(evt);
+            }
+        });
+        JPanel.add(jButtonAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 70, 91, 31));
 
         jTableVuelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -812,93 +813,146 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 105, 691, 245));
 
-        jComboBoxAerolinea.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
-        JPanel.add(jComboBoxAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 277, 30));
-
-        jComboBoxAeronave.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
-        JPanel.add(jComboBoxAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 277, 30));
-
-        jComboBoxOrigen.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxOrigen.setBorder(null);
-        JPanel.add(jComboBoxOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 496, 277, 30));
-
-        jComboBoxDestino.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxDestino.setBorder(null);
-        JPanel.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 496, 277, 30));
-
-        jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserSalida.setDateFormatString("dd/MM/yyyy HH:mm");
-        JPanel.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 563, 200, 31));
-
-        jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm");
-        JPanel.add(jDateChooserArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 563, 200, 31));
-
-        jComboBoxEstado.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
-        JPanel.add(jComboBoxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 563, 70, 30));
-
-        jTextFieldPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        JPanel.add(jTextFieldPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 563, 70, 30));
-
-        jLabelAerolinea.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelAerolinea.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAerolinea.setText("Aerolinea");
-        JPanel.add(jLabelAerolinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 405, -1, -1));
-
-        jLabelAeronave.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelAeronave.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAeronave.setText("Aeronave");
-        JPanel.add(jLabelAeronave, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 405, -1, -1));
-
-        jLabelOrigen.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelOrigen.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelOrigen.setText("Ciudad de Origen");
-        JPanel.add(jLabelOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, -1, -1));
-
-        jLabelDestino.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelDestino.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelDestino.setText("Ciudad de Destino");
-        JPanel.add(jLabelDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, -1, -1));
+        jPanelFondoSeleccion.setBackground(new java.awt.Color(102, 153, 51));
 
         jLabelSalida.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelSalida.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSalida.setText("Salida");
-        JPanel.add(jLabelSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 538, -1, -1));
 
-        jLabelArribo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelArribo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelArribo.setText("Arribo");
-        JPanel.add(jLabelArribo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 538, -1, -1));
+        jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
+        jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm");
+
+        jComboBoxAerolinea.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
+        jComboBoxAerolinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAerolineaActionPerformed(evt);
+            }
+        });
+
+        jComboBoxAeronave.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
+
+        jComboBoxDestino.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDestino.setBorder(null);
+
+        jComboBoxEstado.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
+
+        jLabelAerolinea.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelAerolinea.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAerolinea.setText("Aerolinea");
 
         jLabelEstado.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelEstado.setForeground(new java.awt.Color(255, 255, 255));
         jLabelEstado.setText("Estado");
-        JPanel.add(jLabelEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 538, -1, -1));
+
+        jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
+        jDateChooserSalida.setDateFormatString("dd/MM/yyyy HH:mm");
+
+        jLabelOrigen.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelOrigen.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelOrigen.setText("Ciudad de Origen");
+
+        jLabelDestino.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelDestino.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelDestino.setText("Ciudad de Destino");
 
         jLabelAsiento.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelAsiento.setForeground(new java.awt.Color(255, 255, 255));
         jLabelAsiento.setText("Precio");
-        JPanel.add(jLabelAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 538, -1, -1));
 
-        jPanelFondoSeleccion.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxOrigen.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxOrigen.setBorder(null);
+
+        jLabelArribo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelArribo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelArribo.setText("Arribo");
+
+        jLabelAeronave.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelAeronave.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAeronave.setText("Aeronave");
+
+        jTextFieldPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
 
         javax.swing.GroupLayout jPanelFondoSeleccionLayout = new javax.swing.GroupLayout(jPanelFondoSeleccion);
         jPanelFondoSeleccion.setLayout(jPanelFondoSeleccionLayout);
         jPanelFondoSeleccionLayout.setHorizontalGroup(
             jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jComboBoxAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jComboBoxAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jLabelOrigen)
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabelDestino))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jLabelSalida)
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabelArribo)
+                        .addGap(162, 162, 162)
+                        .addComponent(jLabelEstado)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabelAsiento))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jLabelAerolinea)
+                        .addGap(218, 218, 218)
+                        .addComponent(jLabelAeronave))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jDateChooserArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanelFondoSeleccionLayout.setVerticalGroup(
             jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
+            .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelAerolinea)
+                    .addComponent(jLabelAeronave))
+                .addGap(1, 1, 1)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelOrigen)
+                    .addComponent(jLabelDestino))
+                .addGap(2, 2, 2)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelSalida)
+                    .addComponent(jLabelArribo)
+                    .addComponent(jLabelEstado)
+                    .addComponent(jLabelAsiento))
+                .addGap(1, 1, 1)
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooserArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        JPanel.add(jPanelFondoSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 380, 695, 255));
+        JPanel.add(jPanelFondoSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 360, 695, 220));
 
         jButtonEliminar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -912,7 +966,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 jButtonEliminarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 660, 159, 31));
+        JPanel.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 590, 159, 31));
 
         jButtonModificar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -926,7 +980,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 jButtonModificarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 660, 159, 31));
+        JPanel.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 590, 159, 31));
 
         jButtonAgregar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonAgregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -940,7 +994,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 jButtonAgregarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 660, 159, 31));
+        JPanel.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 159, 31));
 
         jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -954,7 +1008,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 jButtonBuscarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 660, 159, 31));
+        JPanel.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 159, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -964,7 +1018,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -1242,6 +1296,10 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jButtonDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisponiblesActionPerformed
         llenarTablaDisponibles();
     }//GEN-LAST:event_jButtonDisponiblesActionPerformed
+
+    private void jComboBoxAerolineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAerolineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxAerolineaActionPerformed
 
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
