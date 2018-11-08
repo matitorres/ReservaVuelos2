@@ -18,6 +18,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -123,7 +131,6 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         setBackground(new java.awt.Color(51, 204, 0));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(756, 645));
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
@@ -824,11 +831,6 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         jComboBoxAerolinea.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
-        jComboBoxAerolinea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxAerolineaActionPerformed(evt);
-            }
-        });
 
         jComboBoxAeronave.setBackground(new java.awt.Color(102, 153, 51));
         jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
@@ -1066,6 +1068,8 @@ public class VistaVuelos extends javax.swing.JFrame {
         int fila = jTableVuelos.getSelectedRow();
         String idAux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(idAux);
+        
+        List<String> mails = vD.obtenerMailClientesVuelo(vD.buscarVuelo(id));
 
         if (!camposVacios()) {
             if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
@@ -1075,6 +1079,29 @@ public class VistaVuelos extends javax.swing.JFrame {
                 Date arribo = jDateChooserArribo.getDate();
                 Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
                 try {
+                    switch (vueloModificado.getEstado()) {
+                        case "c":
+                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("D")) {
+                                for (int i = 0 ; i < mails.size() ; i++) {
+                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo cancelado" , "Estimado cliente. Lamentamos informale que su vuelo con id: "+id+", ha sido cancelado. Lamentamos las molestias. Saludos. Equipo de Vuelos32");
+                                }
+                            }
+                            break;
+                        case "n":
+                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("D") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
+                                for (int i = 0 ; i < mails.size() ; i++) {
+                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo normalizado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se ha normalizado. Saludos. Equipo de Vuelos32");
+                                }
+                            }
+                            break;
+                        case "d":
+                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
+                                for (int i = 0 ; i < mails.size() ; i++) {
+                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo demorado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se encuentra demorado. Saludos. Equipo de Vuelos32");
+                                }
+                            }
+                            break;
+                    }
                     vD.modificarVuelo(vueloModificado);
                     JOptionPane.showMessageDialog(null, "Modificación exitosa!");
                     llenarTabla();
@@ -1297,10 +1324,6 @@ public class VistaVuelos extends javax.swing.JFrame {
         llenarTablaDisponibles();
     }//GEN-LAST:event_jButtonDisponiblesActionPerformed
 
-    private void jComboBoxAerolineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAerolineaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxAerolineaActionPerformed
-
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
         modelo = (DefaultTableModel) jTableVuelos.getModel();
@@ -1456,6 +1479,37 @@ public class VistaVuelos extends javax.swing.JFrame {
             hayVacias = true;
         }
         return hayVacias;
+    }
+    
+    public void enviarCorreo(String usuario, String contraseña, String destinatario, String asunto, String mensaje) {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(usuario, contraseña);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(usuario));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(destinatario));
+            message.setSubject(asunto);
+            message.setText(mensaje);
+
+            Transport.send(message);
+            JOptionPane.showMessageDialog(this, "Su mensaje ha sido enviado");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void visibilidad(boolean estado) {

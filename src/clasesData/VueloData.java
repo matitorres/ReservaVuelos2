@@ -140,4 +140,18 @@ public class VueloData {
         }
         return vuelos;
     }
+    public List<String> obtenerMailClientesVuelo(Vuelo vuelo) {
+        List<String> mails = new ArrayList<>();
+        try {
+            String sql = "SELECT mail FROM cliente, compra, asiento WHERE cliente.idCliente = compra.idCliente AND asiento.idAsiento = compra.idAsiento AND asiento.idVuelo ="+vuelo.getIdVuelo()+";";
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                mails.add(rs.getString("mail"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener mails: " + ex.getMessage());
+        }
+        return mails;
+    }
 }
