@@ -47,7 +47,7 @@ public class CiudadData {
 
             prepared.setString(1, ciudad.getNombre());
             prepared.setString(2, ciudad.getPais());
-            prepared.setInt(3, ciudad.getVigencia());
+            prepared.setBoolean(3, ciudad.getVigencia());
 
 
             //  Ejecutamos el insert
@@ -93,17 +93,15 @@ public int modificarCiudad(Ciudad c) throws SQLException{
          Ciudad p = new Ciudad() ;
         try {
             ResultSet resultSet = null;
-            String consulta = "SELECT * FROM `ciudad` WHERE `idCiudad`=" + id;
+            String consulta = "SELECT * FROM `ciudad` WHERE `idCiudad`="+id;
            
             PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             if (resultSet != null && resultSet.next()) {
-                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getBoolean("vigencia"));
                 resultSet.close();
             }
-            
             //  Conexion.cerrarConexion();
-
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
             //mostrar el Error
@@ -121,7 +119,7 @@ public int modificarCiudad(Ciudad c) throws SQLException{
             PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             if (resultSet != null && resultSet.next()) {
-                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                 p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getBoolean("vigencia"));
                 resultSet.close();
             }
             
@@ -146,7 +144,7 @@ public int modificarCiudad(Ciudad c) throws SQLException{
             Ciudad p;
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getInt("vigencia"));
+                    p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getBoolean("vigencia"));
                     this.listaCiudades.add(p);
                 }
                 resultSet.close();
