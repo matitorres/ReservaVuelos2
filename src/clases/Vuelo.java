@@ -20,7 +20,6 @@ public class Vuelo {
     private Date fechaSalida, fechaArribo;
     private ArrayList<Asiento> asientos = new ArrayList<>();
     
-    
     public Vuelo(int idVuelo, String aerolinea, String tipoAeronave, Ciudad ciudadOrigen, Ciudad ciudadDestino, Date fechaSalida, Date fechaArribo, String estado) {
         this.idVuelo = idVuelo;
         this.aerolinea = aerolinea;

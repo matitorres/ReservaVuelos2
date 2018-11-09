@@ -10,10 +10,9 @@ package vistas;
  * @author asus pc
  */
 public class LoginAdmin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VistaAdmin
-     */
+    
+    private static LoginAdmin ventana = new LoginAdmin();
+    
     public LoginAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -52,6 +51,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabelInicio.setText("Inicio //");
         jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelInicioMouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
 
         jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
@@ -84,6 +88,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         jButtonIniciarSesion.setBorder(null);
         jButtonIniciarSesion.setBorderPainted(false);
         jButtonIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIniciarSesionActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 220, 146, 31));
 
         jLabelUsuario.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
@@ -116,40 +125,18 @@ public class LoginAdmin extends javax.swing.JFrame {
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
+        ventana.setVisible(false);
+        VistaVueloCliente.visibilidad(true);
+    }//GEN-LAST:event_jLabelInicioMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginAdmin().setVisible(true);
-            }
-        });
+    private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
+        ventana.setVisible(false);
+        VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
+
+    public static void visibilidad(boolean estado) {
+        ventana.setVisible(estado);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

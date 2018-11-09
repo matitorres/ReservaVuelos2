@@ -14,6 +14,7 @@ import clasesData.VueloData;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -669,6 +670,7 @@ public class VistaVueloCliente extends javax.swing.JFrame {
         jPanelBusqueda.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 39, 231, 31));
 
         jDateChooserFecha.setBackground(new java.awt.Color(102, 153, 51));
+        jDateChooserFecha.setMinSelectableDate(new Date());
         jPanelBusqueda.add(jDateChooserFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(537, 39, 119, 31));
 
         jLabelOrigen.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
@@ -945,7 +947,7 @@ public class VistaVueloCliente extends javax.swing.JFrame {
 
     private void jLabelAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdminMouseClicked
         ventana.setVisible(false);
-        VistaAdmin.visibilidad(true);
+        LoginAdmin.visibilidad(true);
     }//GEN-LAST:event_jLabelAdminMouseClicked
 
     private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed

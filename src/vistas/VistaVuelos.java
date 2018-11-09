@@ -695,6 +695,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jLabelInicio.setText("Inicio //");
         jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelInicioMouseClicked(evt);
+            }
+        });
         JPanel.add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
 
         jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
@@ -1323,6 +1328,11 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jButtonDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisponiblesActionPerformed
         llenarTablaDisponibles();
     }//GEN-LAST:event_jButtonDisponiblesActionPerformed
+
+    private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
+        ventana.setVisible(false);
+        VistaVueloCliente.visibilidad(true);
+    }//GEN-LAST:event_jLabelInicioMouseClicked
 
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
