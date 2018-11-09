@@ -116,6 +116,11 @@ public class VistaAdmin extends javax.swing.JFrame {
         jButtonCompras.setBorder(null);
         jButtonCompras.setBorderPainted(false);
         jButtonCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComprasActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(174, 166, 198, 42));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,6 +159,11 @@ public class VistaAdmin extends javax.swing.JFrame {
      ventana.setVisible(false);
      VistaVuelos.visibilidad(true);
     }//GEN-LAST:event_jButtonVuelosActionPerformed
+
+    private void jButtonComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprasActionPerformed
+       ventana.setVisible(false);
+       VistaCompraAdmin.visibilidad(true);
+    }//GEN-LAST:event_jButtonComprasActionPerformed
 
     /**
      * @param args the command line arguments
