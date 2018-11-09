@@ -8,12 +8,18 @@ package clasesData;
 
 
 import clases.Asiento;
+import clases.Ciudad;
 import clases.Cliente;
 import clases.Compra;
+import clases.Vuelo;
 import conexion.Conexion;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -28,17 +34,43 @@ public class CompraData {
           this.listaCompras=new ArrayList<>();
        }
 
-       public void guardarCompra(Compra compra){
+       public Compra getCompra(int id) { // Hay que revisar los parametros de compra pra la variable p
+    // ESTE NOS SERVIRA PARA NO REPETIR CLIENTES CON EL MISMO DNI
+        //ES DECIR Q EN CASO DE Q LA CONSULTA FRACASE SE QUEDARA POR DEFECO CON ESE DNI
+         Compra compra = new Compra() ;
         try {
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `compra` WHERE `idCompra`=" + id;
+           
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet != null && resultSet.next()) {
+                
+                 compra = new Compra(resultSet.getInt("idCompra"));
+                resultSet.close();
+            }
             
+            //  db.cerrarConexion();
+
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());//mostrar el Error
+        }
+        return compra;
+    }//Revisar este metodo falta completar
+
+
+
+
+       public int guardarCompra(Compra compra) throws SQLException{
+            int exito;
             String sql = "INSERT INTO compra (idAsiento, idCliente, fechaCompra) VALUES ( ? , ? , ? );";
 
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, compra.getAsiento().getIdAsiento());
             statement.setInt(2, compra.getCliente().getId());
-            statement.setDate(3, Date.valueOf(compra.getFechaCompra()));
+            statement.setTimestamp(3, (Timestamp) compra.getFechaCompra());
             
-            statement.executeUpdate();
+            exito=statement.executeUpdate();
             
             ResultSet rs = statement.getGeneratedKeys();
 
@@ -48,52 +80,109 @@ public class CompraData {
                 System.out.println("No se pudo obtener el id luego de insertar la Compra");
             }
             statement.close();
-    
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar una Compra: " + ex.getMessage());
-        }
+            return exito; 
+        
     }
        
-           public void borrarCompra(int id){
-    try {
-            
+           public int borrarCompra(int id) throws SQLException{
+            int exito;
             String sql = "DELETE FROM compra WHERE idCompra =?;";
-
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
-                       
-            statement.executeUpdate();
+            exito=statement.executeUpdate();
               //System.out.println(statement.executeUpdate()); Para saber que tipo de valor devuelve 
-                           
             statement.close();
-    
-        } catch (SQLException ex) {
-            System.out.println("Error al Eliminar una Compra " + ex.getMessage());
-        }
-        
-    
-    }
+            return exito;   
+           }
            
         public Compra buscarCompra(int id){
+            DateFormat dateFormat;                
     Compra compra= new Compra();
-    Asiento asiento=new Asiento(1);
+    Asiento asiento=new Asiento();
     Cliente cliente=new Cliente();
-    try {
-            
-            String sql = "SELECT * FROM compra WHERE idCompra =?;";
-
+    Vuelo vuelo=new Vuelo();
+    Ciudad ciudadOrigen, ciudadDestino;
+    Integer idCiudadOrigen, idCiudadDestino;
+    try {   
+            String sql = "SELECT * FROM compra,cliente,asiento,vuelo WHERE compra.idCliente=cliente.idCliente and compra.idAsiento=asiento.idAsiento and asiento.idVuelo=vuelo.idVuelo and idCompra =?;";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             ResultSet resultSet=statement.executeQuery();
             
             while(resultSet.next()){
+                           
+                compra = new Compra();
+                asiento = new Asiento();
+                cliente = new Cliente();
+                vuelo = new Vuelo();
                 compra.setIdCompra(resultSet.getInt("idCompra"));
                 asiento.setIdAsiento(resultSet.getInt("idAsiento"));
+                vuelo.setIdVuelo(resultSet.getInt("idVuelo"));
+                vuelo.setAerolinea(resultSet.getString("aerolinea"));
+                vuelo.setTipoAeronave(resultSet.getString("tipoAeronave"));
+                vuelo.setEstado(resultSet.getString("estado"));
+                vuelo.setFechaSalida(resultSet.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(resultSet.getTimestamp("fechaArribo"));
+                 
+                
+                idCiudadOrigen=resultSet.getInt("idCiudadOrigen");
+                idCiudadDestino=resultSet.getInt("idCiudadDestino");
+                //setear ciudadOrigen y CiudadDestino
+                     ciudadOrigen = new Ciudad();
+                     String sqlCiudad = "SELECT * FROM ciudad WHERE idCiudad =?;";
+                     PreparedStatement statementCiudad = Conexion.getConexion().prepareStatement(sqlCiudad, Statement.RETURN_GENERATED_KEYS);
+                     statementCiudad.setInt(1, idCiudadOrigen);
+                     ResultSet resultSetCiudad=statementCiudad.executeQuery();
+            
+                     while(resultSetCiudad.next()){
+                         ciudadOrigen.setNombre(resultSetCiudad.getString("nombre"));
+                         ciudadOrigen.setPais(resultSetCiudad.getString("pais"));
+                         ciudadOrigen.setVigencia(resultSetCiudad.getBoolean("vigencia"));
+                     }      
+                       statementCiudad.close();
+                       sqlCiudad="";
+                       resultSetCiudad=null;
+                     
+                       
+                     vuelo.setCiudadOrigen(ciudadOrigen);
+                
+                     ciudadDestino = new Ciudad();
+                     sqlCiudad = "SELECT * FROM ciudad WHERE idCiudad =?;";
+                     statementCiudad = Conexion.getConexion().prepareStatement(sqlCiudad, Statement.RETURN_GENERATED_KEYS);
+                     statementCiudad.setInt(1, idCiudadDestino);
+                     resultSetCiudad=statementCiudad.executeQuery();
+            
+                     while(resultSetCiudad.next()){
+                         ciudadDestino.setNombre(resultSetCiudad.getString("nombre"));
+                         ciudadDestino.setPais(resultSetCiudad.getString("pais"));
+                         ciudadDestino.setVigencia(resultSetCiudad.getBoolean("vigencia"));
+                     }      
+                       statementCiudad.close();
+                       sqlCiudad="";
+                       resultSetCiudad=null;
+                       
+                vuelo.setCiudadDestino(ciudadDestino);
+                //Fin setear Ciudades origen y destino
+                
+                asiento.setVuelo(vuelo);
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
                 compra.setAsiento(asiento);
+                
                 cliente.setId(resultSet.getInt("idCliente"));
+                cliente.setNombre(resultSet.getString("nombre"));
+                cliente.setApellido(resultSet.getString("apellido"));
+                cliente.setDni(resultSet.getInt("dni"));
+                cliente.setMail(resultSet.getString("mail"));
+                cliente.setPasaporte(resultSet.getInt("nroPasaporte"));
+                cliente.setTarjeta(resultSet.getInt("nroTarjeta"));
+                
                 compra.setCliente(cliente);
-                compra.setFechaCompra(resultSet.getDate("fechaCompra").toLocalDate());
-             }      
+                //dateFormat= new SimpleDateFormat("dd-MM-yy HH");
+                compra.setFechaCompra(resultSet.getTimestamp("fechaCompra"));
+                                       
+               }      
             statement.close();
                 
         } catch (SQLException ex) {
@@ -103,64 +192,142 @@ public class CompraData {
         return compra;
     }     
         
-        public void actualizarCompra(Compra compra){
-    
-        try {
-            
-            String sql = "UPDATE compra SET idAsiento = ?, idCliente = ? , fechaCompra =? WHERE idCompra = ?;";
+        public int actualizarCompra(Compra compra) throws SQLException{
+               int exito;
+          
+            String sql = "UPDATE compra SET idCompra = ?, idAsiento = ?, idCliente = ? , fechaCompra =? WHERE idCompra = ?;";
 
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, compra.getAsiento().getIdAsiento());
-            statement.setInt(2, compra.getCliente().getId());
-            statement.setDate(3, Date.valueOf(compra.getFechaCompra()));
-            statement.setInt(4, compra.getIdCompra());
-            statement.executeUpdate();
-                    
+            statement.setInt(1, compra.getIdCompra());
+            statement.setInt(2, compra.getAsiento().getIdAsiento());
+            statement.setInt(3, compra.getCliente().getId());
+            statement.setTimestamp(4, (Timestamp) compra.getFechaCompra());
+            statement.setInt(5, compra.getIdCompra());
+            exito=statement.executeUpdate();
             statement.close();
-    
-        } catch (SQLException ex) {
-            System.out.println("Error ACTUALIZAR una Compra: " + ex.getMessage());
-        }
+           return exito;
+        
     
     }    
         
-   public List<Compra> obtenerCompras(){
-        List<Compra> compras = new ArrayList<Compra>();
-            
-
-        try {
-            String sql = "SELECT * FROM compra;";
+   public List obtenerCompras(){
+      DateFormat dateFormat;
+       try {
+            String sql = "SELECT * FROM compra,cliente,asiento,vuelo WHERE compra.idCliente=cliente.idCliente and compra.idAsiento=asiento.idAsiento and asiento.idVuelo=vuelo.idVuelo;";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             Compra compra;
             Asiento asiento;
             Cliente cliente;
+            Vuelo vuelo;
+            Ciudad ciudadOrigen, ciudadDestino;
+            Integer idCiudadOrigen, idCiudadDestino;
+            
             while(resultSet.next()){
                 compra = new Compra();
                 asiento = new Asiento();
                 cliente = new Cliente();
-                
+                vuelo = new Vuelo();
                 compra.setIdCompra(resultSet.getInt("idCompra"));
                 asiento.setIdAsiento(resultSet.getInt("idAsiento"));
-                compra.setAsiento(asiento);
-                cliente.setId(resultSet.getInt("idCliente"));
-                compra.setCliente(cliente);
-                compra.setFechaCompra(resultSet.getDate("fechaCompra").toLocalDate());
-                    
-                compras.add(compra);
-            }      
+                vuelo.setIdVuelo(resultSet.getInt("idVuelo"));
+                vuelo.setAerolinea(resultSet.getString("aerolinea"));
+                vuelo.setTipoAeronave(resultSet.getString("tipoAeronave"));
+                vuelo.setEstado(resultSet.getString("estado"));
+                
+                compra.setFechaCompra(resultSet.getTimestamp("fechaCompra"));
+                
+                vuelo.setFechaSalida(resultSet.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(resultSet.getTimestamp("fechaArribo"));
+                
+                idCiudadOrigen=resultSet.getInt("idCiudadOrigen");
+                idCiudadDestino=resultSet.getInt("idCiudadDestino");
+                //setear ciudadOrigen y CiudadDestino
+                     ciudadOrigen = new Ciudad();
+                     String sqlCiudad = "SELECT * FROM ciudad WHERE idCiudad =?;";
+                     PreparedStatement statementCiudad = Conexion.getConexion().prepareStatement(sqlCiudad, Statement.RETURN_GENERATED_KEYS);
+                     statementCiudad.setInt(1, idCiudadOrigen);
+                     ResultSet resultSetCiudad=statementCiudad.executeQuery();
             
-            statement.close();
+                     while(resultSetCiudad.next()){
+                         ciudadOrigen.setNombre(resultSetCiudad.getString("nombre"));
+                         ciudadOrigen.setPais(resultSetCiudad.getString("pais"));
+                         ciudadOrigen.setVigencia(resultSetCiudad.getBoolean("vigencia"));
+                     }      
+                       statementCiudad.close();
+                       sqlCiudad="";
+                       resultSetCiudad=null;
+                       
+                       
+                vuelo.setCiudadOrigen(ciudadOrigen);
+                
+                     ciudadDestino = new Ciudad();
+                     sqlCiudad = "SELECT * FROM ciudad WHERE idCiudad =?;";
+                     statementCiudad = Conexion.getConexion().prepareStatement(sqlCiudad, Statement.RETURN_GENERATED_KEYS);
+                     statementCiudad.setInt(1, idCiudadDestino);
+                     resultSetCiudad=statementCiudad.executeQuery();
+            
+                     while(resultSetCiudad.next()){
+                         ciudadDestino.setNombre(resultSetCiudad.getString("nombre"));
+                         ciudadDestino.setPais(resultSetCiudad.getString("pais"));
+                         ciudadDestino.setVigencia(resultSetCiudad.getBoolean("vigencia"));
+                     }      
+                       statementCiudad.close();
+                       sqlCiudad="";
+                       resultSetCiudad=null;
+                       
+                vuelo.setCiudadDestino(ciudadDestino);
+                //Fin setear Ciudades origen y destino
+                              
+                asiento.setVuelo(vuelo);
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                compra.setAsiento(asiento);
+                
+                cliente.setId(resultSet.getInt("idCliente"));
+                cliente.setNombre(resultSet.getString("nombre"));
+                cliente.setApellido(resultSet.getString("apellido"));
+                cliente.setDni(resultSet.getInt("dni"));
+                cliente.setMail(resultSet.getString("mail"));
+                cliente.setPasaporte(resultSet.getInt("nroPasaporte"));
+                cliente.setTarjeta(resultSet.getInt("nroTarjeta"));
+                
+                compra.setCliente(cliente);
+                
+                dateFormat= new SimpleDateFormat("dd-MM-yy HH:mm:ss");
+                compra.setFechaCompra(resultSet.getTimestamp("fechaCompra"));
+                
+                this.listaCompras.add(compra);
+            }      
+              statement.close();
         } catch (SQLException ex) {
-            System.out.println("Error al obtener las compras: " + ex.getMessage());
+            System.out.println("Error al obtener las compras:---- " + ex.getMessage());
         }
         
         
-        return compras;
+        return this.listaCompras;
     }     
         
         
-    
+  public boolean existe(int idCompra){
+      //DEBERIA CONTROLAR QUE ESTE DNI NO DEBA EXISTIR EN LA BSE DE DATOS, PARA LUEGO DARLO DE ALTA
+      boolean repetido = false;
+      List<Compra> lista = obtenerCompras(); //LISTA DE CLIENTES EN DONDE VOY A BUSCAR SI YA EXISTE EL DNI
+      int i =0;
+      while(i<lista.size()){
+          if(lista.get(i).getIdCompra() == idCompra){
+              repetido = true;
+          }
+          i++;
+      }
+      return repetido;
+      
+  }    
+
+    private Date get(int DATE) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
     
 }
