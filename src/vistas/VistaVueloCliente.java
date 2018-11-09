@@ -12,23 +12,11 @@ import clasesData.AsientoData;
 import clasesData.CiudadData;
 import clasesData.VueloData;
 import java.awt.Color;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -37,21 +25,23 @@ import javax.swing.table.TableRowSorter;
  *
  * @author asus pc
  */
-public class VistaVuelos extends javax.swing.JFrame {
-
+public class VistaVueloCliente extends javax.swing.JFrame {
+    
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
     private DefaultTableModel modelo;
-    private static VistaVuelos ventana = new VistaVuelos();
+    private static VistaVueloCliente ventana = new VistaVueloCliente();
+    /*private VistaCompraCliente vCC = new VistaCompraCliente();*/
 
-    public VistaVuelos() {
+    /**
+     * Creates new form VistaVueloCliente
+     */
+    public VistaVueloCliente() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.llenarTabla();
-        this.llenarComboCiudades();
+        setLocationRelativeTo(null);
+        llenarComboCiudades();
         jPanelAsientos.setVisible(false);
-        jPanelFondoAsientos.setVisible(false);
     }
 
     /**
@@ -63,7 +53,7 @@ public class VistaVuelos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JPanel = new javax.swing.JPanel();
+        jPanelPrincipal = new javax.swing.JPanel();
         jPanelAsientos = new javax.swing.JPanel();
         jButtonV001 = new javax.swing.JButton();
         jButtonP002 = new javax.swing.JButton();
@@ -97,46 +87,27 @@ public class VistaVuelos extends javax.swing.JFrame {
         jButtonP030 = new javax.swing.JButton();
         jButtonP031 = new javax.swing.JButton();
         jButtonV032 = new javax.swing.JButton();
-        jPanelFondoAsientos = new javax.swing.JPanel();
-        jLabelInicio = new javax.swing.JLabel();
-        jLabelAdministrador = new javax.swing.JLabel();
-        jLabelVuelos = new javax.swing.JLabel();
+        jLabelLogo = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
-        jButtonDisponibles = new javax.swing.JButton();
-        jButtonLimpiarFiltros = new javax.swing.JButton();
-        jButtonAsientos = new javax.swing.JButton();
-        jScrollPaneVuelos = new javax.swing.JScrollPane();
-        jTableVuelos = new javax.swing.JTable();
-        jPanelFondoSeleccion = new javax.swing.JPanel();
-        jLabelSalida = new javax.swing.JLabel();
-        jDateChooserArribo = new com.toedter.calendar.JDateChooser();
-        jComboBoxAerolinea = new javax.swing.JComboBox<>();
-        jComboBoxAeronave = new javax.swing.JComboBox<>();
+        jPanelBusqueda = new javax.swing.JPanel();
+        jComboBoxOrigen = new javax.swing.JComboBox<>();
         jComboBoxDestino = new javax.swing.JComboBox<>();
-        jComboBoxEstado = new javax.swing.JComboBox<>();
-        jLabelAerolinea = new javax.swing.JLabel();
-        jLabelEstado = new javax.swing.JLabel();
-        jDateChooserSalida = new com.toedter.calendar.JDateChooser();
+        jDateChooserFecha = new com.toedter.calendar.JDateChooser();
         jLabelOrigen = new javax.swing.JLabel();
         jLabelDestino = new javax.swing.JLabel();
-        jLabelAsiento = new javax.swing.JLabel();
-        jComboBoxOrigen = new javax.swing.JComboBox<>();
-        jLabelArribo = new javax.swing.JLabel();
-        jLabelAeronave = new javax.swing.JLabel();
-        jTextFieldPrecio = new javax.swing.JTextField();
-        jButtonEliminar = new javax.swing.JButton();
-        jButtonModificar = new javax.swing.JButton();
-        jButtonAgregar = new javax.swing.JButton();
+        jLabelFecha = new javax.swing.JLabel();
         jButtonBuscar = new javax.swing.JButton();
+        jPanelAsientosFondo = new javax.swing.JPanel();
+        jScrollPaneVuelos = new javax.swing.JScrollPane();
+        jTableVuelos = new javax.swing.JTable();
+        jLabelAdmin = new javax.swing.JLabel();
+        jButtonComprar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(51, 204, 0));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setResizable(false);
-        setType(java.awt.Window.Type.POPUP);
 
-        JPanel.setBackground(new java.awt.Color(153, 204, 51));
-        JPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        JPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelPrincipal.setBackground(new java.awt.Color(153, 204, 51));
+        jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelAsientos.setBackground(new java.awt.Color(102, 153, 51));
         jPanelAsientos.setInheritsPopupMenu(true);
@@ -617,7 +588,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jPanelAsientosLayout.setVerticalGroup(
             jPanelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAsientosLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanelAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonV004, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonP003, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -665,54 +636,13 @@ public class VistaVuelos extends javax.swing.JFrame {
                     .addComponent(jButtonV032, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonV029, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonP030, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        JPanel.add(jPanelAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 100, 162, 248));
+        jPanelPrincipal.add(jPanelAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 231, 162, 251));
 
-        jPanelFondoAsientos.setOpaque(false);
-        jPanelFondoAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanelFondoAsientosMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelFondoAsientosLayout = new javax.swing.GroupLayout(jPanelFondoAsientos);
-        jPanelFondoAsientos.setLayout(jPanelFondoAsientosLayout);
-        jPanelFondoAsientosLayout.setHorizontalGroup(
-            jPanelFondoAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 756, Short.MAX_VALUE)
-        );
-        jPanelFondoAsientosLayout.setVerticalGroup(
-            jPanelFondoAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-        );
-
-        JPanel.add(jPanelFondoAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 756, 645));
-
-        jLabelInicio.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
-        jLabelInicio.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelInicio.setText("Inicio //");
-        jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        JPanel.add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
-
-        jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jLabelAdministrador.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelAdministrador.setText("Administrador /");
-        jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelAdministradorMouseClicked(evt);
-            }
-        });
-        JPanel.add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
-
-        jLabelVuelos.setBackground(new java.awt.Color(102, 153, 51));
-        jLabelVuelos.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jLabelVuelos.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelVuelos.setText("Vuelos");
-        JPanel.add(jLabelVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.png"))); // NOI18N
+        jPanelPrincipal.add(jLabelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 22, 176, 37));
 
         jLabelCerrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabelCerrar.setForeground(new java.awt.Color(102, 153, 51));
@@ -723,53 +653,74 @@ public class VistaVuelos extends javax.swing.JFrame {
                 jLabelCerrarMouseClicked(evt);
             }
         });
-        JPanel.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
+        jPanelPrincipal.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
 
-        jButtonDisponibles.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonDisponibles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonDisponibles.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonDisponibles.setText("Vuelos disponibles");
-        jButtonDisponibles.setToolTipText("");
-        jButtonDisponibles.setBorder(null);
-        jButtonDisponibles.setBorderPainted(false);
-        jButtonDisponibles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        jPanelBusqueda.setBackground(new java.awt.Color(102, 153, 51));
+        jPanelBusqueda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jComboBoxOrigen.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxOrigen.setBorder(null);
+        jPanelBusqueda.add(jComboBoxOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 39, 231, 31));
+
+        jComboBoxDestino.setBackground(new java.awt.Color(102, 153, 51));
+        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDestino.setBorder(null);
+        jPanelBusqueda.add(jComboBoxDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 39, 231, 31));
+
+        jDateChooserFecha.setBackground(new java.awt.Color(102, 153, 51));
+        jPanelBusqueda.add(jDateChooserFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(537, 39, 119, 31));
+
+        jLabelOrigen.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelOrigen.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelOrigen.setLabelFor(jComboBoxOrigen);
+        jLabelOrigen.setText("Ciudad de Origen");
+        jPanelBusqueda.add(jLabelOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 15, -1, -1));
+
+        jLabelDestino.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelDestino.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelDestino.setLabelFor(jComboBoxDestino);
+        jLabelDestino.setText("Ciudad de Destino");
+        jPanelBusqueda.add(jLabelDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 15, -1, -1));
+
+        jLabelFecha.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelFecha.setLabelFor(jDateChooserFecha);
+        jLabelFecha.setText("Fecha");
+        jPanelBusqueda.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(537, 15, -1, -1));
+
+        jPanelPrincipal.add(jPanelBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 82, 695, 91));
+
+        jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBuscar.setText("Buscar");
+        jButtonBuscar.setToolTipText("");
+        jButtonBuscar.setBorder(null);
+        jButtonBuscar.setBorderPainted(false);
+        jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDisponiblesActionPerformed(evt);
+                jButtonBuscarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 160, 31));
+        jPanelPrincipal.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 183, 150, 30));
 
-        jButtonLimpiarFiltros.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonLimpiarFiltros.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonLimpiarFiltros.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonLimpiarFiltros.setText("Limpiar filtros");
-        jButtonLimpiarFiltros.setToolTipText("");
-        jButtonLimpiarFiltros.setBorder(null);
-        jButtonLimpiarFiltros.setBorderPainted(false);
-        jButtonLimpiarFiltros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonLimpiarFiltros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarFiltrosActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonLimpiarFiltros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, 31));
+        jPanelAsientosFondo.setBackground(new java.awt.Color(102, 153, 51));
+        jPanelAsientosFondo.setInheritsPopupMenu(true);
 
-        jButtonAsientos.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonAsientos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonAsientos.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAsientos.setText("Asientos");
-        jButtonAsientos.setToolTipText("");
-        jButtonAsientos.setBorder(null);
-        jButtonAsientos.setBorderPainted(false);
-        jButtonAsientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonAsientos.setEnabled(false);
-        jButtonAsientos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAsientosActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 70, 91, 31));
+        javax.swing.GroupLayout jPanelAsientosFondoLayout = new javax.swing.GroupLayout(jPanelAsientosFondo);
+        jPanelAsientosFondo.setLayout(jPanelAsientosFondoLayout);
+        jPanelAsientosFondoLayout.setHorizontalGroup(
+            jPanelAsientosFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 162, Short.MAX_VALUE)
+        );
+        jPanelAsientosFondoLayout.setVerticalGroup(
+            jPanelAsientosFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 251, Short.MAX_VALUE)
+        );
+
+        jPanelPrincipal.add(jPanelAsientosFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 231, 162, 251));
 
         jTableVuelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -803,224 +754,49 @@ public class VistaVuelos extends javax.swing.JFrame {
             }
         });
         jScrollPaneVuelos.setViewportView(jTableVuelos);
-        if (jTableVuelos.getColumnModel().getColumnCount() > 0) {
-            jTableVuelos.getColumnModel().getColumn(0).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTableVuelos.getColumnModel().getColumn(1).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(2).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(3).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(4).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(5).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(5).setPreferredWidth(100);
-            jTableVuelos.getColumnModel().getColumn(6).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(6).setPreferredWidth(100);
-            jTableVuelos.getColumnModel().getColumn(7).setResizable(false);
-            jTableVuelos.getColumnModel().getColumn(7).setPreferredWidth(40);
-        }
 
-        JPanel.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 105, 691, 245));
+        jPanelPrincipal.add(jScrollPaneVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 231, 518, 251));
 
-        jPanelFondoSeleccion.setBackground(new java.awt.Color(102, 153, 51));
-
-        jLabelSalida.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelSalida.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelSalida.setText("Salida");
-
-        jDateChooserArribo.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserArribo.setDateFormatString("dd/MM/yyyy HH:mm");
-
-        jComboBoxAerolinea.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aerolinea", "Aerolineas Argentinas", "FlyBondi", "Emirates", "LATAM", "LAN" }));
-
-        jComboBoxAeronave.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxAeronave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una aeronave", "Boeing 747", "Boeing 757", "Boeing 767", "Airbus A330", "Airbus A340", "Airbus A350" }));
-
-        jComboBoxDestino.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxDestino.setBorder(null);
-
-        jComboBoxEstado.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
-
-        jLabelAerolinea.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelAerolinea.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAerolinea.setText("Aerolinea");
-
-        jLabelEstado.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelEstado.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelEstado.setText("Estado");
-
-        jDateChooserSalida.setBackground(new java.awt.Color(102, 153, 51));
-        jDateChooserSalida.setDateFormatString("dd/MM/yyyy HH:mm");
-
-        jLabelOrigen.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelOrigen.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelOrigen.setText("Ciudad de Origen");
-
-        jLabelDestino.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelDestino.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelDestino.setText("Ciudad de Destino");
-
-        jLabelAsiento.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelAsiento.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAsiento.setText("Precio");
-
-        jComboBoxOrigen.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxOrigen.setBorder(null);
-
-        jLabelArribo.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelArribo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelArribo.setText("Arribo");
-
-        jLabelAeronave.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelAeronave.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelAeronave.setText("Aeronave");
-
-        jTextFieldPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-
-        javax.swing.GroupLayout jPanelFondoSeleccionLayout = new javax.swing.GroupLayout(jPanelFondoSeleccion);
-        jPanelFondoSeleccion.setLayout(jPanelFondoSeleccionLayout);
-        jPanelFondoSeleccionLayout.setHorizontalGroup(
-            jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jComboBoxAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jComboBoxAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jLabelOrigen)
-                        .addGap(146, 146, 146)
-                        .addComponent(jLabelDestino))
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jLabelSalida)
-                        .addGap(156, 156, 156)
-                        .addComponent(jLabelArribo)
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabelEstado)
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabelAsiento))
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jLabelAerolinea)
-                        .addGap(218, 218, 218)
-                        .addComponent(jLabelAeronave))
-                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jDateChooserArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        jPanelFondoSeleccionLayout.setVerticalGroup(
-            jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelAerolinea)
-                    .addComponent(jLabelAeronave))
-                .addGap(1, 1, 1)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelOrigen)
-                    .addComponent(jLabelDestino))
-                .addGap(2, 2, 2)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSalida)
-                    .addComponent(jLabelArribo)
-                    .addComponent(jLabelEstado)
-                    .addComponent(jLabelAsiento))
-                .addGap(1, 1, 1)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooserArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        JPanel.add(jPanelFondoSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 360, 695, 220));
-
-        jButtonEliminar.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonEliminar.setText("- Eliminar vuelo");
-        jButtonEliminar.setBorder(null);
-        jButtonEliminar.setBorderPainted(false);
-        jButtonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarActionPerformed(evt);
+        jLabelAdmin.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabelAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelAdmin.setText("Modo administrador");
+        jLabelAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdminMouseClicked(evt);
             }
         });
-        JPanel.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 590, 159, 31));
+        jPanelPrincipal.add(jLabelAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 510, -1, -1));
 
-        jButtonModificar.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonModificar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonModificar.setText("/ Modificar vuelo");
-        jButtonModificar.setBorder(null);
-        jButtonModificar.setBorderPainted(false);
-        jButtonModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonComprar.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonComprar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonComprar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonComprar.setText("Comprar");
+        jButtonComprar.setToolTipText("");
+        jButtonComprar.setBorder(null);
+        jButtonComprar.setBorderPainted(false);
+        jButtonComprar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonComprar.setEnabled(false);
+        jButtonComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonModificarActionPerformed(evt);
+                jButtonComprarActionPerformed(evt);
             }
         });
-        JPanel.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 590, 159, 31));
-
-        jButtonAgregar.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonAgregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAgregar.setText("+ Agregar vuelo");
-        jButtonAgregar.setBorder(null);
-        jButtonAgregar.setBorderPainted(false);
-        jButtonAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAgregarActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 159, 31));
-
-        jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("ó Buscar vuelo");
-        jButtonBuscar.setBorder(null);
-        jButtonBuscar.setBorderPainted(false);
-        jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 159, 31));
+        jPanelPrincipal.add(jButtonComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 494, 150, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -1030,364 +806,153 @@ public class VistaVuelos extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
-    private void jTableVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVuelosMouseClicked
-        llenarCampos();
-        jButtonAsientos.setEnabled(true);
-        mostrarAsientos();
-    }//GEN-LAST:event_jTableVuelosMouseClicked
-
-    private void jLabelAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdministradorMouseClicked
-        ventana.setVisible(false);
-        VistaAdmin.visibilidad(true);
-    }//GEN-LAST:event_jLabelAdministradorMouseClicked
-
-    private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        if (!camposVacios()) {
-            if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer este registro?")) {
-                Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
-                Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
-                Date salida = jDateChooserSalida.getDate();
-                Date arribo = jDateChooserArribo.getDate();
-                Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
-                float precio = Float.parseFloat(jTextFieldPrecio.getText());
-                Asiento asientoVuelo = new Asiento(precio);
-                try {
-                    vD.altaVuelo(nuevoVuelo, asientoVuelo);
-                    JOptionPane.showMessageDialog(null, "Registro exitoso!");
-                    llenarTabla();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al agregar nuevo vuelo a la db!");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error. Debe llenar todos los campos");
-        }
-    }//GEN-LAST:event_jButtonAgregarActionPerformed
-
-    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        int fila = jTableVuelos.getSelectedRow();
-        String idAux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id = Integer.parseInt(idAux);
-        
-        List<String> mails = vD.obtenerMailClientesVuelo(vD.buscarVuelo(id));
-
-        if (!camposVacios()) {
-            if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
-                Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
-                Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
-                Date salida = jDateChooserSalida.getDate();
-                Date arribo = jDateChooserArribo.getDate();
-                Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
-                try {
-                    switch (vueloModificado.getEstado()) {
-                        case "c":
-                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("D")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo cancelado" , "Estimado cliente. Lamentamos informale que su vuelo con id: "+id+", ha sido cancelado. Lamentamos las molestias. Saludos. Equipo de Vuelos32");
-                                }
-                            }
-                            break;
-                        case "n":
-                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("D") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo normalizado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se ha normalizado. Saludos. Equipo de Vuelos32");
-                                }
-                            }
-                            break;
-                        case "d":
-                            if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo demorado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se encuentra demorado. Saludos. Equipo de Vuelos32");
-                                }
-                            }
-                            break;
-                    }
-                    vD.modificarVuelo(vueloModificado);
-                    JOptionPane.showMessageDialog(null, "Modificación exitosa!");
-                    llenarTabla();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "No se pudo realizar la modificación");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error. Debe llenar todos los campos");
-        }
-    }//GEN-LAST:event_jButtonModificarActionPerformed
-
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        int fila = jTableVuelos.getSelectedRow();
-        String idAux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id = Integer.parseInt(idAux);
-
-        if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar este vuelo?")) {
-            try {
-                vD.bajaVuelo(id);
-                JOptionPane.showMessageDialog(null, "Se ha eliminado el vuelo exitosamente");
-                llenarTabla();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al eliminar vuelo");
-            }
-        }
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
-
-    private void jButtonAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsientosActionPerformed
-        jPanelAsientos.setVisible(true);
-        jPanelFondoAsientos.setVisible(true);
-    }//GEN-LAST:event_jButtonAsientosActionPerformed
-
-    private void jPanelFondoAsientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelFondoAsientosMouseClicked
-        jPanelAsientos.setVisible(false);
-        jPanelFondoAsientos.setVisible(false);
-    }//GEN-LAST:event_jPanelFondoAsientosMouseClicked
-
     private void jButtonV001ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV001ActionPerformed
-        cambiarDisponible(jButtonV001, "V001");
+        seleccionarAsiento("V001");
     }//GEN-LAST:event_jButtonV001ActionPerformed
 
     private void jButtonP002ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP002ActionPerformed
-        cambiarDisponible(jButtonP002, "P002");
+        seleccionarAsiento("P002");
     }//GEN-LAST:event_jButtonP002ActionPerformed
 
-    private void jButtonV004ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV004ActionPerformed
-        cambiarDisponible(jButtonV004, "V004");
-    }//GEN-LAST:event_jButtonV004ActionPerformed
-
     private void jButtonP003ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP003ActionPerformed
-        cambiarDisponible(jButtonP003, "P003");
+        seleccionarAsiento("P003");
     }//GEN-LAST:event_jButtonP003ActionPerformed
 
+    private void jButtonV004ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV004ActionPerformed
+        seleccionarAsiento("V004");
+    }//GEN-LAST:event_jButtonV004ActionPerformed
+
     private void jButtonV005ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV005ActionPerformed
-        cambiarDisponible(jButtonV005, "V005");
+        seleccionarAsiento("V005");
     }//GEN-LAST:event_jButtonV005ActionPerformed
 
     private void jButtonP006ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP006ActionPerformed
-        cambiarDisponible(jButtonP006, "P006");
+        seleccionarAsiento("P006");
     }//GEN-LAST:event_jButtonP006ActionPerformed
 
     private void jButtonP007ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP007ActionPerformed
-        cambiarDisponible(jButtonP007, "P007");
+        seleccionarAsiento("P007");
     }//GEN-LAST:event_jButtonP007ActionPerformed
 
     private void jButtonV008ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV008ActionPerformed
-        cambiarDisponible(jButtonV008, "V008");
+        seleccionarAsiento("V008");
     }//GEN-LAST:event_jButtonV008ActionPerformed
 
     private void jButtonV009ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV009ActionPerformed
-        cambiarDisponible(jButtonV009, "V009");
+        seleccionarAsiento("V009");
     }//GEN-LAST:event_jButtonV009ActionPerformed
 
     private void jButtonP010ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP010ActionPerformed
-        cambiarDisponible(jButtonP010, "P010");
+        seleccionarAsiento("P010");
     }//GEN-LAST:event_jButtonP010ActionPerformed
 
     private void jButtonP011ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP011ActionPerformed
-        cambiarDisponible(jButtonP011, "P011");
+        seleccionarAsiento("P011");
     }//GEN-LAST:event_jButtonP011ActionPerformed
 
     private void jButtonV012ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV012ActionPerformed
-        cambiarDisponible(jButtonV012, "V012");
+        seleccionarAsiento("V012");
     }//GEN-LAST:event_jButtonV012ActionPerformed
 
     private void jButtonV013ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV013ActionPerformed
-        cambiarDisponible(jButtonV013, "V013");
+        seleccionarAsiento("V013");
     }//GEN-LAST:event_jButtonV013ActionPerformed
 
     private void jButtonP014ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP014ActionPerformed
-        cambiarDisponible(jButtonP014, "P014");
+        seleccionarAsiento("P014");
     }//GEN-LAST:event_jButtonP014ActionPerformed
 
     private void jButtonP015ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP015ActionPerformed
-        cambiarDisponible(jButtonP015, "P015");
+        seleccionarAsiento("P015");
     }//GEN-LAST:event_jButtonP015ActionPerformed
 
     private void jButtonV016ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV016ActionPerformed
-        cambiarDisponible(jButtonV016, "V016");
+        seleccionarAsiento("V016");
     }//GEN-LAST:event_jButtonV016ActionPerformed
 
     private void jButtonV017ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV017ActionPerformed
-        cambiarDisponible(jButtonV017, "V017");
+        seleccionarAsiento("V017");
     }//GEN-LAST:event_jButtonV017ActionPerformed
 
     private void jButtonP018ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP018ActionPerformed
-        cambiarDisponible(jButtonP018, "P018");
+        seleccionarAsiento("P018");
     }//GEN-LAST:event_jButtonP018ActionPerformed
 
     private void jButtonP019ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP019ActionPerformed
-        cambiarDisponible(jButtonP019, "P019");
+        seleccionarAsiento("P019");
     }//GEN-LAST:event_jButtonP019ActionPerformed
 
     private void jButtonV020ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV020ActionPerformed
-        cambiarDisponible(jButtonV020, "V020");
+        seleccionarAsiento("V020");
     }//GEN-LAST:event_jButtonV020ActionPerformed
 
     private void jButtonV021ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV021ActionPerformed
-        cambiarDisponible(jButtonV021, "V021");
+        seleccionarAsiento("V021");
     }//GEN-LAST:event_jButtonV021ActionPerformed
 
     private void jButtonP022ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP022ActionPerformed
-        cambiarDisponible(jButtonP022, "P022");
+        seleccionarAsiento("P022");
     }//GEN-LAST:event_jButtonP022ActionPerformed
 
     private void jButtonP023ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP023ActionPerformed
-        cambiarDisponible(jButtonP023, "P023");
+        seleccionarAsiento("P023");
     }//GEN-LAST:event_jButtonP023ActionPerformed
 
     private void jButtonV024ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV024ActionPerformed
-        cambiarDisponible(jButtonV024, "V024");
+        seleccionarAsiento("V024");
     }//GEN-LAST:event_jButtonV024ActionPerformed
 
     private void jButtonV025ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV025ActionPerformed
-        cambiarDisponible(jButtonV025, "V025");
+        seleccionarAsiento("V025");
     }//GEN-LAST:event_jButtonV025ActionPerformed
 
     private void jButtonP026ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP026ActionPerformed
-        cambiarDisponible(jButtonP026, "P026");
+        seleccionarAsiento("P026");
     }//GEN-LAST:event_jButtonP026ActionPerformed
 
     private void jButtonP027ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP027ActionPerformed
-        cambiarDisponible(jButtonP027, "P027");
+        seleccionarAsiento("P027");
     }//GEN-LAST:event_jButtonP027ActionPerformed
 
     private void jButtonV028ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV028ActionPerformed
-        cambiarDisponible(jButtonV028, "V028");
+        seleccionarAsiento("V028");
     }//GEN-LAST:event_jButtonV028ActionPerformed
 
     private void jButtonV029ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV029ActionPerformed
-        cambiarDisponible(jButtonV029, "V029");
+        seleccionarAsiento("V029");
     }//GEN-LAST:event_jButtonV029ActionPerformed
 
     private void jButtonP030ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP030ActionPerformed
-        cambiarDisponible(jButtonP030, "P030");
+        seleccionarAsiento("P030");
     }//GEN-LAST:event_jButtonP030ActionPerformed
 
     private void jButtonP031ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonP031ActionPerformed
-        cambiarDisponible(jButtonP031, "P031");
+        seleccionarAsiento("P031");
     }//GEN-LAST:event_jButtonP031ActionPerformed
 
     private void jButtonV032ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV032ActionPerformed
-        cambiarDisponible(jButtonV032, "V032");
+        seleccionarAsiento("V032");
     }//GEN-LAST:event_jButtonV032ActionPerformed
 
-    private void jButtonLimpiarFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarFiltrosActionPerformed
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
-        jTableVuelos.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(""));
-        llenarTabla();
-    }//GEN-LAST:event_jButtonLimpiarFiltrosActionPerformed
-
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
-        jTableVuelos.setRowSorter(tr);
-        List<RowFilter<DefaultTableModel, Object>> filtros = new ArrayList<>();
-        int i = 0;
-        if (!jComboBoxAerolinea.getSelectedItem().toString().equals("Seleccione una aerolinea")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
-            i += 1;
-        }
-        if (!jComboBoxAeronave.getSelectedItem().toString().equals("Seleccione una aeronave")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
-            i += 1;
-        }
-        if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
-            i += 1;
-        }
-        if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
-            i += 1;
-        }
-        if (jDateChooserSalida.getDate() != null) {
-            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
-            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
-            i += 1;
-        }
-        if (jDateChooserArribo.getDate() != null) {
-            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
-            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
-            i += 1;
-        }
-        if (!jComboBoxEstado.getSelectedItem().toString().equals("Estado")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
-            i += 1;
-        }
-        tr.setRowFilter(RowFilter.andFilter(filtros));
+        llenarTablaDisponibles();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisponiblesActionPerformed
-        llenarTablaDisponibles();
-    }//GEN-LAST:event_jButtonDisponiblesActionPerformed
+    private void jTableVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVuelosMouseClicked
+        jPanelAsientos.setVisible(true);
+        mostrarAsientos();
+    }//GEN-LAST:event_jTableVuelosMouseClicked
 
-    public void llenarTabla() {
-        List<Vuelo> vuelos = vD.obtenerVuelos();
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[modelo.getColumnCount()];
-        for (int i = 0; i < vuelos.size(); i++) {
-            fila[0] = vuelos.get(i).getIdVuelo();
-            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
-            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
-            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
-            fila[3] = origen.getNombre().toUpperCase();
-            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
-            fila[4] = destino.getNombre().toUpperCase();
-            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
-            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-            fila[7] = vuelos.get(i).getEstado().toUpperCase();
-            modelo.addRow(fila);
-        }
-    }
-    
-    public void llenarTablaDisponibles() {
-        List<Vuelo> vuelos = vD.obtenerVuelos();
-        for (Iterator<Vuelo> iterador = vuelos.iterator(); iterador.hasNext();) {
-            Vuelo vuelo = iterador.next();
-            if (!vuelo.getEstado().equals("c") && vuelo.getFechaSalida().before(new Date())) {
-            iterador.remove();
-            }
-        }
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[modelo.getColumnCount()];
-        for (int i = 0; i < vuelos.size(); i++) {
-            fila[0] = vuelos.get(i).getIdVuelo();
-            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
-            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
-            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
-            fila[3] = origen.getNombre().toUpperCase();
-            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
-            fila[4] = destino.getNombre().toUpperCase();
-            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
-            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-            fila[7] = vuelos.get(i).getEstado().toUpperCase();
-            modelo.addRow(fila);
-        }
-    }
+    private void jLabelAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdminMouseClicked
+        ventana.setVisible(false);
+        VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_jLabelAdminMouseClicked
 
-    public void llenarCampos() {
-        int fila = jTableVuelos.getSelectedRow();
-        String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
-        int id = Integer.parseInt(id_aux);
-
-        Vuelo vuelo = vD.buscarVuelo(id);
-        jComboBoxAerolinea.setSelectedItem(vuelo.getAerolinea());
-        jComboBoxAeronave.setSelectedItem(vuelo.getTipoAeronave());
-        Ciudad origen = cD.getCiudad(vuelo.getCiudadOrigen().getIdCiudad());
-        jComboBoxOrigen.setSelectedItem(origen.getNombre());
-        Ciudad destino = cD.getCiudad(vuelo.getCiudadDestino().getIdCiudad());
-        jComboBoxDestino.setSelectedItem(destino.getNombre());
-        jDateChooserSalida.setDate(vuelo.getFechaSalida());
-        jDateChooserArribo.setDate(vuelo.getFechaArribo());
-        jComboBoxEstado.setSelectedItem(vuelo.getEstado());
-        Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
-        jTextFieldPrecio.setText("" + asiento.getPrecio());
-    }
+    private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
+        /*vCC.setAsiento(asiento);
+        ventana.setVisible(false);
+        VistaCompraCliente.visibilidad(true);*/
+    }//GEN-LAST:event_jButtonComprarActionPerformed
 
     public void llenarComboCiudades() {
         DefaultComboBoxModel modeloOrigen = new DefaultComboBoxModel();
@@ -1404,7 +969,56 @@ public class VistaVuelos extends javax.swing.JFrame {
             jComboBoxDestino.setModel(modeloDestino);
         }
     }
-
+    
+    public void llenarTablaDisponibles() {
+        List<Vuelo> vuelos = vD.obtenerVuelos();
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        modelo.setRowCount(0);
+        Object[] fila = new Object[modelo.getColumnCount()];
+        int i = 0;
+        while (i < vuelos.size()) {
+            if (!vuelos.get(i).getEstado().equals("c")) {
+                fila[0] = vuelos.get(i).getIdVuelo();
+                fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+                fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+                Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+                fila[3] = origen.getNombre().toUpperCase();
+                Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+                fila[4] = destino.getNombre().toUpperCase();
+                fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+                fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
+                fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                modelo.addRow(fila);
+            }
+            i++;
+        }
+        filtrarTabla();
+    }
+    
+    private void filtrarTabla() {
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
+        jTableVuelos.setRowSorter(tr);
+        List<RowFilter<DefaultTableModel, Object>> filtros = new ArrayList<>();
+        int i = 0;
+        if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            i++;
+        }
+        if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
+            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            i++;
+        }
+        if (jDateChooserFecha.getDate() != null) {
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()),5));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()),5));
+            i++;
+        }
+        tr.setRowFilter(RowFilter.andFilter(filtros));
+    }
+    
     public void mostrarAsientos() {
         pintarBotonAsiento(jButtonV001, "V001");
         pintarBotonAsiento(jButtonP002, "P002");
@@ -1448,83 +1062,64 @@ public class VistaVuelos extends javax.swing.JFrame {
         Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
         if (!asiento.getDisponible()) {
             boton.setBackground(Color.red);
+            boton.setEnabled(false);
         } else {
             boton.setBackground(new java.awt.Color(153, 204, 51));
         }
     }
-
-    public void cambiarDisponible(JButton boton, String ubicacion) {
+    
+    public void seleccionarAsiento(String ubicacion) {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
         Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
-        if (asiento.getDisponible()) {
-            asiento.setDisponible(false);
-            boton.setBackground(Color.red);
-        } else {
-            asiento.setDisponible(true);
-            boton.setBackground(new java.awt.Color(153, 204, 51));
-        }
-        aD.actualizarAsiento(asiento);
-    }
-
-    private boolean camposVacios() {
-        boolean hayVacias = false;
-        if (jComboBoxAerolinea.getSelectedItem().equals("Seleccione una aerolinea") || jComboBoxAeronave.getSelectedItem().equals("Seleccione una aeronave")
-                || jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")
-                || jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")
-                || jDateChooserArribo.getDate() == null || jDateChooserArribo.getDate() == null
-                || jComboBoxEstado.getSelectedItem().equals("Estado") || jTextFieldPrecio.getText().equals("")) {
-            hayVacias = true;
-        }
-        return hayVacias;
+        jButtonComprar.setEnabled(true);
     }
     
-    public void enviarCorreo(String usuario, String contraseña, String destinatario, String asunto, String mensaje) {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(usuario, contraseña);
-                    }
-                });
-
-        try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(usuario));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(destinatario));
-            message.setSubject(asunto);
-            message.setText(mensaje);
-
-            Transport.send(message);
-            JOptionPane.showMessageDialog(this, "Su mensaje ha sido enviado");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VistaVueloCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VistaVueloCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VistaVueloCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VistaVueloCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ventana = new VistaVueloCliente();
+                ventana.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel JPanel;
-    private javax.swing.JButton jButtonAgregar;
-    private javax.swing.JButton jButtonAsientos;
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonDisponibles;
-    private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonLimpiarFiltros;
-    private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonComprar;
     private javax.swing.JButton jButtonP002;
     private javax.swing.JButton jButtonP003;
     private javax.swing.JButton jButtonP006;
@@ -1557,30 +1152,21 @@ public class VistaVuelos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonV028;
     private javax.swing.JButton jButtonV029;
     private javax.swing.JButton jButtonV032;
-    private javax.swing.JComboBox<String> jComboBoxAerolinea;
-    private javax.swing.JComboBox<String> jComboBoxAeronave;
     private javax.swing.JComboBox<String> jComboBoxDestino;
-    private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JComboBox<String> jComboBoxOrigen;
-    private com.toedter.calendar.JDateChooser jDateChooserArribo;
-    private com.toedter.calendar.JDateChooser jDateChooserSalida;
-    private javax.swing.JLabel jLabelAdministrador;
-    private javax.swing.JLabel jLabelAerolinea;
-    private javax.swing.JLabel jLabelAeronave;
-    private javax.swing.JLabel jLabelArribo;
-    private javax.swing.JLabel jLabelAsiento;
+    private com.toedter.calendar.JDateChooser jDateChooserFecha;
+    private javax.swing.JLabel jLabelAdmin;
     private javax.swing.JLabel jLabelCerrar;
     private javax.swing.JLabel jLabelDestino;
-    private javax.swing.JLabel jLabelEstado;
-    private javax.swing.JLabel jLabelInicio;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelOrigen;
-    private javax.swing.JLabel jLabelSalida;
-    private javax.swing.JLabel jLabelVuelos;
     private javax.swing.JPanel jPanelAsientos;
-    private javax.swing.JPanel jPanelFondoAsientos;
-    private javax.swing.JPanel jPanelFondoSeleccion;
+    private javax.swing.JPanel jPanelAsientosFondo;
+    private javax.swing.JPanel jPanelBusqueda;
+    private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JScrollPane jScrollPaneVuelos;
     private javax.swing.JTable jTableVuelos;
-    private javax.swing.JTextField jTextFieldPrecio;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -9,7 +9,6 @@ import clases.Asiento;
 import clases.Ciudad;
 import clases.Vuelo;
 import conexion.Conexion;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
