@@ -7,7 +7,10 @@ package clases;
 
 
 
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 /**
  *
  * @author Gabriel
@@ -17,17 +20,17 @@ public class Compra {
     private int idCompra=-1;
     private Asiento asiento;
     private Cliente cliente;
-    private LocalDate fechaCompra;
+    private java.util.Date fechaCompra;
     
     //Constructores
-public Compra(int idCompra,Asiento asiento , Cliente cliente , LocalDate fechaCompra ){
+public Compra(int idCompra,Asiento asiento , Cliente cliente , java.util.Date fechaCompra ){
     this.idCompra=idCompra;
     this.asiento=asiento;
     this.cliente=cliente;
     this.fechaCompra=fechaCompra;
 } 
     
-public Compra(Asiento asiento,Cliente cliente, LocalDate fechaCompra ){
+public Compra(Asiento asiento,Cliente cliente, java.util.Date fechaCompra ){
     this.asiento=asiento;
     this.cliente=cliente;
     this.fechaCompra=fechaCompra;
@@ -64,10 +67,10 @@ public Compra(int idCompra ){
     public void setCliente(Cliente cliente) {
         this.cliente=cliente;
     }
-    public LocalDate getFechaCompra() {
+    public java.util.Date getFechaCompra() {
         return fechaCompra;
     }
-    public void setFechaCompra(LocalDate fechaCompra) {
+    public void setFechaCompra(java.util.Date fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 }

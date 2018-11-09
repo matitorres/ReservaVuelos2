@@ -19,12 +19,12 @@ public class Ciudad {
     private int idCiudad;
     private String nombre;
     private String pais;     
-    private int vigencia;
+    private boolean vigencia;
     
     
     // CONSTRUCTORES
     
-    public Ciudad(int idCiudad, String nombre, String pais, int vigencia) {
+    public Ciudad(int idCiudad, String nombre, String pais, boolean vigencia) {
         this.idCiudad = idCiudad;
         this.nombre = nombre;
         this.pais = pais;
@@ -37,7 +37,7 @@ public class Ciudad {
         this.idCiudad = 0;
         this.nombre = "nombre";
         this.pais = "pais";
-        this.vigencia = 0; 
+        this.vigencia = false; 
     
     }
     
@@ -65,11 +65,11 @@ public class Ciudad {
         this.pais = pais;
     }
 
-    public int getVigencia() {
+    public boolean getVigencia() {
         return vigencia;
     }
 
-    public void setVigencia(int vigencia) {
+    public void setVigencia(boolean vigencia) {
         this.vigencia = vigencia;
     }
 
