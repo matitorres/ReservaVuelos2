@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
@@ -1356,27 +1355,25 @@ public class VistaVuelos extends javax.swing.JFrame {
     
     public void llenarTablaDisponibles() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
-        for (Iterator<Vuelo> iterador = vuelos.iterator(); iterador.hasNext();) {
-            Vuelo vuelo = iterador.next();
-            if (!vuelo.getEstado().equals("c") && vuelo.getFechaSalida().before(new Date())) {
-            iterador.remove();
-            }
-        }
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         modelo.setRowCount(0);
         Object[] fila = new Object[modelo.getColumnCount()];
-        for (int i = 0; i < vuelos.size(); i++) {
-            fila[0] = vuelos.get(i).getIdVuelo();
-            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
-            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
-            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
-            fila[3] = origen.getNombre().toUpperCase();
-            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
-            fila[4] = destino.getNombre().toUpperCase();
-            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
-            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-            fila[7] = vuelos.get(i).getEstado().toUpperCase();
-            modelo.addRow(fila);
+        int i = 0;
+        while (i < vuelos.size()) {
+            if (!vuelos.get(i).getEstado().equals("c") && vuelos.get(i).getFechaSalida().after(new Date())) {
+                fila[0] = vuelos.get(i).getIdVuelo();
+                fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+                fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+                Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+                fila[3] = origen.getNombre().toUpperCase();
+                Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+                fila[4] = destino.getNombre().toUpperCase();
+                fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+                fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
+                fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                modelo.addRow(fila);
+            }
+            i++;
         }
     }
 
