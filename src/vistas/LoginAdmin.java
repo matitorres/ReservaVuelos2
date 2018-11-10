@@ -31,11 +31,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabelInicio = new javax.swing.JLabel();
         jLabelAdministrador = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
-        jTextFieldUsuario = new javax.swing.JTextField();
-        jTextFieldContraseña = new javax.swing.JTextField();
-        jButtonIniciarSesion = new javax.swing.JButton();
         jLabelUsuario = new javax.swing.JLabel();
+        jTextFieldUsuario = new javax.swing.JTextField();
         jLabelContraseña = new javax.swing.JLabel();
+        jPasswordFieldContraseña = new javax.swing.JPasswordField();
+        jButtonIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -75,11 +75,26 @@ public class LoginAdmin extends javax.swing.JFrame {
         });
         jPanel1.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
 
-        jTextFieldUsuario.setBorder(null);
+        jLabelUsuario.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelUsuario.setText("Usuario");
+        jPanel1.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
+
+        jTextFieldUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsuarioActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 108, 321, 31));
 
-        jTextFieldContraseña.setBorder(null);
-        jPanel1.add(jTextFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 172, 321, 31));
+        jLabelContraseña.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelContraseña.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelContraseña.setText("Contraseña");
+        jPanel1.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 145, -1, -1));
+
+        jPasswordFieldContraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jPanel1.add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(217, 172, 321, 31));
 
         jButtonIniciarSesion.setBackground(new java.awt.Color(102, 153, 51));
         jButtonIniciarSesion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -94,16 +109,6 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 220, 146, 31));
-
-        jLabelUsuario.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelUsuario.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelUsuario.setText("Usuario");
-        jPanel1.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
-
-        jLabelContraseña.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelContraseña.setForeground(new java.awt.Color(102, 153, 51));
-        jLabelContraseña.setText("Contraseña");
-        jPanel1.add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 145, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,6 +140,10 @@ public class LoginAdmin extends javax.swing.JFrame {
         VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
 
+    private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }
@@ -147,7 +156,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelInicio;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldContraseña;
+    private javax.swing.JPasswordField jPasswordFieldContraseña;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }
