@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -28,6 +29,7 @@ import javax.swing.table.TableRowSorter;
  */
 public class VistaVueloCliente extends javax.swing.JFrame {
     
+    private Asiento asiento;
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
@@ -974,27 +976,34 @@ public class VistaVueloCliente extends javax.swing.JFrame {
     
     public void llenarTablaDisponibles() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[modelo.getColumnCount()];
-        int i = 0;
-        while (i < vuelos.size()) {
-            if (!vuelos.get(i).getEstado().equals("c")) {
-                fila[0] = vuelos.get(i).getIdVuelo();
-                fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
-                fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
-                Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
-                fila[3] = origen.getNombre().toUpperCase();
-                Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
-                fila[4] = destino.getNombre().toUpperCase();
-                fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
-                fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-                fila[7] = vuelos.get(i).getEstado().toUpperCase();
-                modelo.addRow(fila);
+        if (vuelos == null || vuelos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay vuelos cargados en la base de datos");
+        } else {
+            modelo = (DefaultTableModel) jTableVuelos.getModel();
+            modelo.setRowCount(0);
+            Object[] fila = new Object[modelo.getColumnCount()];
+            int i = 0;
+            while (i < vuelos.size()) {
+                if (!vuelos.get(i).getEstado().equals("c") && vuelos.get(i).getFechaSalida().after(new Date())) {
+                    fila[0] = vuelos.get(i).getIdVuelo();
+                    fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+                    fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+                    Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+                    fila[3] = origen.getNombre().toUpperCase();
+                    Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+                    fila[4] = destino.getNombre().toUpperCase();
+                    fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+                    fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
+                    fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                    modelo.addRow(fila);
+                }
+                i++;
             }
-            i++;
+            filtrarTabla();
+            if (jTableVuelos.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No hay vuelos para su búsqueda");
+            }
         }
-        filtrarTabla();
     }
     
     private void filtrarTabla() {
@@ -1022,51 +1031,50 @@ public class VistaVueloCliente extends javax.swing.JFrame {
     }
     
     public void mostrarAsientos() {
-        pintarBotonAsiento(jButtonV001, "V001");
-        pintarBotonAsiento(jButtonP002, "P002");
-        pintarBotonAsiento(jButtonP003, "P003");
-        pintarBotonAsiento(jButtonV004, "V004");
-        pintarBotonAsiento(jButtonV005, "V005");
-        pintarBotonAsiento(jButtonP006, "P006");
-        pintarBotonAsiento(jButtonP007, "P007");
-        pintarBotonAsiento(jButtonV008, "V008");
-        pintarBotonAsiento(jButtonV009, "V009");
-        pintarBotonAsiento(jButtonP010, "P010");
-        pintarBotonAsiento(jButtonP011, "P011");
-        pintarBotonAsiento(jButtonV012, "V012");
-        pintarBotonAsiento(jButtonV013, "V013");
-        pintarBotonAsiento(jButtonP014, "P014");
-        pintarBotonAsiento(jButtonP015, "P015");
-        pintarBotonAsiento(jButtonV016, "V016");
-        pintarBotonAsiento(jButtonV017, "V017");
-        pintarBotonAsiento(jButtonP018, "P018");
-        pintarBotonAsiento(jButtonP019, "P019");
-        pintarBotonAsiento(jButtonV020, "V020");
-        pintarBotonAsiento(jButtonV021, "V021");
-        pintarBotonAsiento(jButtonP022, "P022");
-        pintarBotonAsiento(jButtonP023, "P023");
-        pintarBotonAsiento(jButtonV024, "V024");
-        pintarBotonAsiento(jButtonV025, "V025");
-        pintarBotonAsiento(jButtonP026, "P026");
-        pintarBotonAsiento(jButtonP027, "P027");
-        pintarBotonAsiento(jButtonV028, "V028");
-        pintarBotonAsiento(jButtonV029, "V029");
-        pintarBotonAsiento(jButtonP030, "P030");
-        pintarBotonAsiento(jButtonP031, "P031");
-        pintarBotonAsiento(jButtonV032, "V032");
+        estadoAsiento(jButtonV001, "V001");
+        estadoAsiento(jButtonP002, "P002");
+        estadoAsiento(jButtonP003, "P003");
+        estadoAsiento(jButtonV004, "V004");
+        estadoAsiento(jButtonV005, "V005");
+        estadoAsiento(jButtonP006, "P006");
+        estadoAsiento(jButtonP007, "P007");
+        estadoAsiento(jButtonV008, "V008");
+        estadoAsiento(jButtonV009, "V009");
+        estadoAsiento(jButtonP010, "P010");
+        estadoAsiento(jButtonP011, "P011");
+        estadoAsiento(jButtonV012, "V012");
+        estadoAsiento(jButtonV013, "V013");
+        estadoAsiento(jButtonP014, "P014");
+        estadoAsiento(jButtonP015, "P015");
+        estadoAsiento(jButtonV016, "V016");
+        estadoAsiento(jButtonV017, "V017");
+        estadoAsiento(jButtonP018, "P018");
+        estadoAsiento(jButtonP019, "P019");
+        estadoAsiento(jButtonV020, "V020");
+        estadoAsiento(jButtonV021, "V021");
+        estadoAsiento(jButtonP022, "P022");
+        estadoAsiento(jButtonP023, "P023");
+        estadoAsiento(jButtonV024, "V024");
+        estadoAsiento(jButtonV025, "V025");
+        estadoAsiento(jButtonP026, "P026");
+        estadoAsiento(jButtonP027, "P027");
+        estadoAsiento(jButtonV028, "V028");
+        estadoAsiento(jButtonV029, "V029");
+        estadoAsiento(jButtonP030, "P030");
+        estadoAsiento(jButtonP031, "P031");
+        estadoAsiento(jButtonV032, "V032");
     }
 
-    public void pintarBotonAsiento(JButton boton, String ubicacion) {
+    public void estadoAsiento(JButton boton, String ubicacion) {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
         Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
         if (!asiento.getDisponible()) {
-            boton.setBackground(Color.red);
             boton.setEnabled(false);
         } else {
-            boton.setBackground(new java.awt.Color(153, 204, 51));
+            boton.setEnabled(true);
         }
     }
     
@@ -1075,8 +1083,13 @@ public class VistaVueloCliente extends javax.swing.JFrame {
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
-        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
+        Asiento asientoSelec = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
+        setAsiento(asientoSelec);
         jButtonComprar.setEnabled(true);
+    }
+    
+    public void setAsiento(Asiento asiento) {
+        this.asiento = asiento;
     }
     
     public static void visibilidad(boolean estado) {

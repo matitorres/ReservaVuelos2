@@ -882,6 +882,11 @@ public class VistaVuelos extends javax.swing.JFrame {
         jLabelAeronave.setText("Aeronave");
 
         jTextFieldPrecio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jTextFieldPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldPrecioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelFondoSeleccionLayout = new javax.swing.GroupLayout(jPanelFondoSeleccion);
         jPanelFondoSeleccion.setLayout(jPanelFondoSeleccionLayout);
@@ -1332,6 +1337,20 @@ public class VistaVuelos extends javax.swing.JFrame {
         ventana.setVisible(false);
         VistaVueloCliente.visibilidad(true);
     }//GEN-LAST:event_jLabelInicioMouseClicked
+
+    private void jTextFieldPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecioKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "El campo Precio sólo admite números");
+        }
+        if (jTextFieldPrecio.getText().length() == 10) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(rootPane, "El campo Precio sólo admite números con hasta 10 dígitos");
+        }
+    }//GEN-LAST:event_jTextFieldPrecioKeyTyped
 
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
