@@ -1327,6 +1327,9 @@ public class VistaVuelos extends javax.swing.JFrame {
             i += 1;
         }
         tr.setRowFilter(RowFilter.andFilter(filtros));
+        if (jTableVuelos.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay vuelos para su búsqueda");
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisponiblesActionPerformed
@@ -1354,32 +1357,13 @@ public class VistaVuelos extends javax.swing.JFrame {
 
     public void llenarTabla() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[modelo.getColumnCount()];
-        for (int i = 0; i < vuelos.size(); i++) {
-            fila[0] = vuelos.get(i).getIdVuelo();
-            fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
-            fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
-            Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
-            fila[3] = origen.getNombre().toUpperCase();
-            Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
-            fila[4] = destino.getNombre().toUpperCase();
-            fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
-            fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-            fila[7] = vuelos.get(i).getEstado().toUpperCase();
-            modelo.addRow(fila);
-        }
-    }
-    
-    public void llenarTablaDisponibles() {
-        List<Vuelo> vuelos = vD.obtenerVuelos();
-        modelo = (DefaultTableModel) jTableVuelos.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[modelo.getColumnCount()];
-        int i = 0;
-        while (i < vuelos.size()) {
-            if (!vuelos.get(i).getEstado().equals("c") && vuelos.get(i).getFechaSalida().after(new Date())) {
+        if (vuelos == null || vuelos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay vuelos cargados en la base de datos");
+        } else {
+            modelo = (DefaultTableModel) jTableVuelos.getModel();
+            modelo.setRowCount(0);
+            Object[] fila = new Object[modelo.getColumnCount()];
+            for (int i = 0; i < vuelos.size(); i++) {
                 fila[0] = vuelos.get(i).getIdVuelo();
                 fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
                 fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
@@ -1392,7 +1376,37 @@ public class VistaVuelos extends javax.swing.JFrame {
                 fila[7] = vuelos.get(i).getEstado().toUpperCase();
                 modelo.addRow(fila);
             }
-            i++;
+        }
+    }
+    
+    public void llenarTablaDisponibles() {
+        List<Vuelo> vuelos = vD.obtenerVuelos();
+        if (vuelos == null || vuelos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay vuelos cargados en la base de datos");
+        } else {
+            modelo = (DefaultTableModel) jTableVuelos.getModel();
+            modelo.setRowCount(0);
+            Object[] fila = new Object[modelo.getColumnCount()];
+            int i = 0;
+            while (i < vuelos.size()) {
+                if (!vuelos.get(i).getEstado().equals("c") && vuelos.get(i).getFechaSalida().after(new Date())) {
+                    fila[0] = vuelos.get(i).getIdVuelo();
+                    fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
+                    fila[2] = vuelos.get(i).getTipoAeronave().toUpperCase();
+                    Ciudad origen = cD.getCiudad(vuelos.get(i).getCiudadOrigen().getIdCiudad());
+                    fila[3] = origen.getNombre().toUpperCase();
+                    Ciudad destino = cD.getCiudad(vuelos.get(i).getCiudadDestino().getIdCiudad());
+                    fila[4] = destino.getNombre().toUpperCase();
+                    fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
+                    fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
+                    fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                    modelo.addRow(fila);
+                }
+                i++;
+            }
+            if (jTableVuelos.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No hay vuelos disponibles");
+            }
         }
     }
 
