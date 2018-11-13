@@ -19,8 +19,7 @@ import java.util.List;
  * @author Pamela
  */
 public class CiudadData {
-    
-    // ATRIBUTOS
+
     private List<Ciudad> listaCiudades;
 
     public CiudadData() {
