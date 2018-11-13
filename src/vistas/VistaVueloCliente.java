@@ -1070,8 +1070,8 @@ public class VistaVueloCliente extends javax.swing.JFrame {
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(id_aux);
         Vuelo vuelo = vD.buscarVuelo(id);
-        Asiento asiento = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
-        if (!asiento.getDisponible()) {
+        Asiento asientoSelec = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
+        if (!asientoSelec.getDisponible()) {
             boton.setEnabled(false);
         } else {
             boton.setEnabled(true);
