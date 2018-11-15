@@ -1053,8 +1053,8 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         if (!camposVacios()) {
             if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer este registro?")) {
-                Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
-                Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
+                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
                 Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
@@ -1082,8 +1082,8 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         if (!camposVacios()) {
             if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
-                Ciudad origen = cD.getCiudadPorNombre(jComboBoxOrigen.getSelectedItem().toString());
-                Ciudad destino = cD.getCiudadPorNombre(jComboBoxDestino.getSelectedItem().toString());
+                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
                 Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
@@ -1419,9 +1419,9 @@ public class VistaVuelos extends javax.swing.JFrame {
         jComboBoxAerolinea.setSelectedItem(vuelo.getAerolinea());
         jComboBoxAeronave.setSelectedItem(vuelo.getTipoAeronave());
         Ciudad origen = cD.getCiudad(vuelo.getCiudadOrigen().getIdCiudad());
-        jComboBoxOrigen.setSelectedItem(origen.getNombre());
+        jComboBoxOrigen.setSelectedItem(origen.getIdCiudad() + " - " + origen.getNombre() + ", " + origen.getPais());
         Ciudad destino = cD.getCiudad(vuelo.getCiudadDestino().getIdCiudad());
-        jComboBoxDestino.setSelectedItem(destino.getNombre());
+        jComboBoxDestino.setSelectedItem(destino.getIdCiudad() + " - " + destino.getNombre() + ", " + destino.getPais());
         jDateChooserSalida.setDate(vuelo.getFechaSalida());
         jDateChooserArribo.setDate(vuelo.getFechaArribo());
         jComboBoxEstado.setSelectedItem(vuelo.getEstado());
@@ -1438,9 +1438,9 @@ public class VistaVuelos extends javax.swing.JFrame {
         modeloDestino.addElement("Seleccione ciudad de destino");
         jComboBoxDestino.setModel(modeloDestino);
         for (int i = 0; i < ciudades.size(); i++) {
-            modeloOrigen.addElement(ciudades.get(i).getNombre());
+            modeloOrigen.addElement(ciudades.get(i).getIdCiudad() + " - " + ciudades.get(i).getNombre() + ", " + ciudades.get(i).getPais());
             jComboBoxOrigen.setModel(modeloOrigen);
-            modeloDestino.addElement(ciudades.get(i).getNombre());
+            modeloDestino.addElement(ciudades.get(i).getIdCiudad() + " - " + ciudades.get(i).getNombre() + ", " + ciudades.get(i).getPais());
             jComboBoxDestino.setModel(modeloDestino);
         }
     }
