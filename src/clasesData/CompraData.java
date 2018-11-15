@@ -59,7 +59,21 @@ public class CompraData {
     }//Revisar este metodo falta completar
 
 
-
+  public int modificarCompra(int idCompra, int nuevaTarjeta) throws SQLException{
+      
+      int exito = 0;
+   
+     
+      
+          String consulta = "UPDATE compra " +
+                    "SET nroTarjeta = '"+nuevaTarjeta+"';";
+            
+          PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
+           exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
+           preparedStatement.close();
+           
+           return exito;
+  }
 
        public int guardarCompra(Compra compra) throws SQLException{
             int exito;

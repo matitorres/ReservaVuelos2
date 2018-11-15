@@ -59,13 +59,13 @@ public class ClienteData {
         return this.listaClientes;
     }
 
-    public Cliente getCliente(int id) {
+    public Cliente getCliente(int dni) {
     // ESTE NOS SERVIRA PARA NO REPETIR CLIENTES CON EL MISMO DNI
         //ES DECIR Q EN CASO DE Q LA CONSULTA FRACASE SE QUEDARA POR DEFECO CON ESE DNI
          Cliente p = new Cliente() ;
         try {
             ResultSet resultSet = null;
-            String consulta = "SELECT * FROM `cliente` WHERE `idCliente`=" + id;
+            String consulta = "SELECT * FROM `cliente` WHERE `dni`=" + dni;
            
             PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
@@ -119,13 +119,13 @@ public class ClienteData {
               
   }
   
-  public int modificarCliente(Cliente c) throws SQLException{
+  public int modificarCliente(Cliente c) throws SQLException {
       int exito = 0;
-   
+        int dni = c.getDni();
      
       
           String consulta = "UPDATE cliente " +
-                    "SET nombre = '"+c.getNombre()+"', apellido = '"+c.getApellido()+"', dni='"+c.getDni()+"', mail='"+c.getMail()+"', nroPasaporte ='"+c.getPasaporte()+"', nroTarjeta ='"+c.getTarjeta()+"' where idCliente= '"+c.getId()+"'";
+                    "SET nombre = '"+c.getNombre()+"', apellido = '"+c.getApellido()+"', dni='"+c.getDni()+"', mail='"+c.getMail()+"', nroPasaporte ='"+c.getPasaporte()+"', nroTarjeta ='"+c.getTarjeta()+"' WHERE `dni`='"+dni+"';";
             
           PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);// con esta sentencia se insertan los datos en la base de datos
            exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
@@ -133,6 +133,7 @@ public class ClienteData {
            
            return exito;
   }
+  
   
   public boolean existe(int dni){
       //DEBERIA CONTROLAR QUE ESTE DNI NO DEBA EXISTIR EN LA BSE DE DATOS, PARA LUEGO DARLO DE ALTA
@@ -148,5 +149,6 @@ public class ClienteData {
       return repetido;
       
   }
+
 
 }

@@ -57,6 +57,18 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
         soloNumeros(cajaDniCliente);
         soloLetras(cajaFechaSalida);
         mostrarCompras(listaCompras);
+        
+        //DESHABILITO LOS CAMPOS QUE SOLO SE VISUALIZARAN
+           cajaApellido.setEnabled(false);
+           cajaAsiento.setEnabled(false);
+     
+              cajaCiudadDestino.setEnabled(false);
+                cajaCiudadOrigen.setEnabled(false);
+     cajaDniCliente.setEnabled(false);
+   cajaFechaArribo.setEnabled(false);
+     cajaFechaSalida.setEnabled(false);
+   cajaNombre.setEnabled(false);
+    
            
     }
 
@@ -78,6 +90,7 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
         botonEliminarCompra = new javax.swing.JButton();
         cajaBuscarCompra = new javax.swing.JTextField();
         botonLimpiar = new javax.swing.JButton();
+        botonModificarCompra = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cajaDniCliente = new javax.swing.JTextField();
@@ -97,6 +110,8 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
         cajaCiudadDestino = new javax.swing.JTextField();
         idCompra = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        cajaTarjetaCompra = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -163,6 +178,13 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
             }
         });
 
+        botonModificarCompra.setText("MODIFICAR");
+        botonModificarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonModificarCompraMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelListadoComprasLayout = new javax.swing.GroupLayout(panelListadoCompras);
         panelListadoCompras.setLayout(panelListadoComprasLayout);
         panelListadoComprasLayout.setHorizontalGroup(
@@ -174,9 +196,11 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
                         .addComponent(cajaBuscarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonEliminarCompra)
-                        .addGap(10, 10, 10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonModificarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -188,7 +212,8 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addGroup(panelListadoComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botonEliminarCompra)
-                            .addComponent(botonLimpiar)))
+                            .addComponent(botonLimpiar)
+                            .addComponent(botonModificarCompra)))
                     .addComponent(cajaBuscarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,6 +265,8 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
 
         jLabel9.setText("Nro de Compra:");
 
+        jLabel10.setText("Ingrese su numero de tarjeta:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -249,23 +276,28 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelListadoCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGap(29, 29, 29)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel9)
+                                                .addComponent(jLabel1)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                            .addGap(33, 33, 33)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel1)))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(54, 54, 54)
+                                        .addComponent(jLabel10)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(idCompra)
                                     .addComponent(cajaDniCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                     .addComponent(cajaCiudadOrigen)
-                                    .addComponent(cajaAsiento))
+                                    .addComponent(cajaAsiento)
+                                    .addComponent(cajaTarjetaCompra))
                                 .addGap(36, 36, 36)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
@@ -285,8 +317,11 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
                                 .addGap(26, 26, 26)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cajaFechaArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cajaFechaArribo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelListadoCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(112, 112, 112)
                         .addComponent(panelDatosCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(520, 520, 520)
@@ -325,9 +360,13 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cajaAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(50, 50, 50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cajaTarjetaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
                         .addComponent(panelListadoCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(botonSalir)
                 .addGap(52, 52, 52))
         );
@@ -429,6 +468,42 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
     private void cajaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cajaNombreActionPerformed
+   private static boolean isNumeric(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
+    private void botonModificarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarCompraMouseClicked
+        if(isNumeric(idCompra.getText())){
+        if(!cajaTarjetaCompra.getText().equals("") && cajaTarjetaCompra.getText().length()<10){
+          if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro de modificar esta compra?")) {  
+         
+               int nuevaTarjeta = Integer.parseInt(cajaTarjetaCompra.getText());
+              int id = Integer.parseInt(idCompra.getText());
+             
+              try {
+                  gestorCompra.modificarCompra(id, nuevaTarjeta );
+                   JOptionPane.showMessageDialog(null,"Modificacion exitosa");
+              } catch (SQLException ex) {
+                  Logger.getLogger(VistaCompraAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                   JOptionPane.showMessageDialog(null,"erro en la actualizacion");
+              }
+             
+           }
+          
+       }
+       else{
+            JOptionPane.showMessageDialog(null,"Debe ingresar un nro de tarjeta valido");
+       }
+        }
+        else
+        {
+              JOptionPane.showMessageDialog(null,"Debe seleccionar una compra");
+        }
+    }//GEN-LAST:event_botonModificarCompraMouseClicked
 
      public static void visibilidad(boolean estado){
       ventana.setVisible(estado);
@@ -439,7 +514,7 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
       //llamamos a los metodos para conectar ala BASE DE DATOS
       
         //Collections.sort(lista);
-        String[] columnas = {"id","Dni Cliente","Nombre Cliente","Aerolinea","Ciudad Origen","Ciudad Destino","Fecha de Salida","Fecha de Arribo", "Asiento", "Fecha de Compra"};
+        String[] columnas = {"id","Dni Cliente", "Nombre Cliente","Aerolinea","Ciudad Origen","Ciudad Destino","Fecha de Salida","Fecha de Arribo", "Asiento", "Fecha de Compra"};
         
         DefaultTableModel dtm = new DefaultTableModel(null,columnas);
          int i= 0;
@@ -582,6 +657,38 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -596,6 +703,7 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminarCompra;
     private javax.swing.JButton botonLimpiar;
+    private javax.swing.JButton botonModificarCompra;
     private javax.swing.JButton botonSalir;
     private javax.swing.JTextField cajaApellido;
     private javax.swing.JTextField cajaAsiento;
@@ -606,8 +714,10 @@ public class VistaCompraAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField cajaFechaArribo;
     private javax.swing.JTextField cajaFechaSalida;
     private javax.swing.JTextField cajaNombre;
+    private javax.swing.JTextField cajaTarjetaCompra;
     private javax.swing.JLabel idCompra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
