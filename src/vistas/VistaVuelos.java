@@ -1302,13 +1302,15 @@ public class VistaVuelos extends javax.swing.JFrame {
             i += 1;
         }
         if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+            filtros.add(RowFilter.regexFilter(origen.getNombre().toUpperCase(),3));
+            filtros.set(i, RowFilter.regexFilter(origen.getNombre().toUpperCase(),3));
             i += 1;
         }
         if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
+            filtros.add(RowFilter.regexFilter(destino.getNombre().toUpperCase(),4));
+            filtros.set(i, RowFilter.regexFilter(destino.getNombre().toUpperCase(),4));
             i += 1;
         }
         if (jDateChooserSalida.getDate() != null) {
