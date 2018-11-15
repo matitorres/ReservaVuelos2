@@ -59,16 +59,16 @@ public class CiudadData {
         return exito;
   }
     
-    public int borrarCiudad(int id) throws SQLException{
+    public void borrarCiudad(int id) throws SQLException{
         int exito = 0;
-        String consulta = "delete from ciudad WHERE `IdCiudad`=" + id;
+        String consulta = "delete from ciudad WHERE idCiudad ='"+id+"';";
         
         PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
-        exito = preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
              // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
         preparedStatement.close();
            // Conexion.getConexion().close();
-        return exito;
+       
   }
     
     public Ciudad getCiudad(int id) {
@@ -92,6 +92,23 @@ public class CiudadData {
         return p;
     }
     
+       public boolean existeCiudad(Ciudad c) throws SQLException {
+         // SERVIRA PARA NO REPETIR CIUDADES CON UN MISMO ID
+  
+         boolean exito = false;
+            
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `ciudad` WHERE nombre = '"+c.getNombre()+"' AND pais = '"+c.getPais()+"'";
+           
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+           resultSet = preparedStatement.executeQuery();
+           exito = resultSet.next();
+        
+            //  Conexion.cerrarConexion();
+     
+        return exito;
+    }
+    
     public List getCiudades() {
         try {
             ResultSet resultSet = null;
@@ -111,5 +128,23 @@ public class CiudadData {
             //mostrar el Error
         }
         return this.listaCiudades;
-    }  
+    } 
+    
+       public List filtrarCiudades(String nombreCiudad) throws SQLException {
+     
+            ResultSet resultSet = null;
+            String consulta = "SELECT * FROM `ciudad` where nombre  like '%"+nombreCiudad+"%'";
+            PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+            resultSet = preparedStatement.executeQuery();
+            Ciudad p;
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    p = new Ciudad(resultSet.getInt("idCiudad"), resultSet.getString("nombre"), resultSet.getString("pais"), resultSet.getBoolean("vigencia"));
+                    this.listaCiudades.add(p);
+                }
+                resultSet.close();
+            }
+      
+        return this.listaCiudades;
+    }
 }     
