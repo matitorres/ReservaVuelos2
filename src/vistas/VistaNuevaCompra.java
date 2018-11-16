@@ -187,6 +187,8 @@ import javax.swing.table.TableRowSorter;
         jComboBoxDestino = new javax.swing.JComboBox<>();
         jButtonBuscar = new javax.swing.JButton();
         jButtonMostrarVuelos = new javax.swing.JButton();
+        jLabelVuelta = new javax.swing.JLabel();
+        jDateChooserVuelta = new com.toedter.calendar.JDateChooser();
         jButtonAtras = new javax.swing.JButton();
         limpiarVuelos = new javax.swing.JButton();
         jButtonVerAsientos = new javax.swing.JButton();
@@ -746,7 +748,7 @@ import javax.swing.table.TableRowSorter;
         jLabelComprarAsiento.setBackground(new java.awt.Color(102, 153, 51));
         jLabelComprarAsiento.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
         jLabelComprarAsiento.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelComprarAsiento.setText("Comprar Pasaje");
+        jLabelComprarAsiento.setText("Compra Pasaje");
         JPanel.add(jLabelComprarAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, -1, 30));
         jLabelComprarAsiento.getAccessibleContext().setAccessibleName("Comprar Vuelo");
 
@@ -822,6 +824,21 @@ import javax.swing.table.TableRowSorter;
             }
         });
 
+        jLabelVuelta.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelVuelta.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVuelta.setText("Vuelta");
+
+        jDateChooserVuelta.setBackground(new java.awt.Color(102, 153, 51));
+        jDateChooserVuelta.setToolTipText("");
+        jDateChooserVuelta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateChooserVueltaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jDateChooserVueltaMouseEntered(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelFondoSeleccionLayout = new javax.swing.GroupLayout(jPanelFondoSeleccion);
         jPanelFondoSeleccion.setLayout(jPanelFondoSeleccionLayout);
         jPanelFondoSeleccionLayout.setHorizontalGroup(
@@ -829,22 +846,31 @@ import javax.swing.table.TableRowSorter;
             .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelOrigen)
+                    .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
-                        .addComponent(jLabelOrigen)
-                        .addGap(0, 146, Short.MAX_VALUE))
-                    .addComponent(jComboBoxOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelDestino)
+                        .addGap(47, 47, 47)))
                 .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDestino)
-                    .addComponent(jComboBoxDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelSalida))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonMostrarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooserVuelta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMostrarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
+                        .addComponent(jLabelSalida)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabelVuelta)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelFondoSeleccionLayout.setVerticalGroup(
@@ -855,13 +881,15 @@ import javax.swing.table.TableRowSorter;
                     .addGroup(jPanelFondoSeleccionLayout.createSequentialGroup()
                         .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelSalida)
-                            .addComponent(jLabelDestino))
+                            .addComponent(jLabelDestino)
+                            .addComponent(jLabelVuelta))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jDateChooserSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBoxDestino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(jComboBoxDestino, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxOrigen, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDateChooserVuelta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanelFondoSeleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonMostrarVuelos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -958,11 +986,11 @@ import javax.swing.table.TableRowSorter;
 
             },
             new String [] {
-                "idVuelo", "Aerolinea", "Aeronave", "Origen", "Destino", "Salida", "Arribo", "Estado"
+                "idVuelo", "Aerolinea", "Aeronave", "Origen", "Destino", "Salida", "Arribo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1198,13 +1226,18 @@ import javax.swing.table.TableRowSorter;
                  if(jComboBoxDestino.getSelectedItem().toString()!="Seleccione ciudad de destino"){
                      ciudadDestino=jComboBoxDestino.getSelectedItem().toString();
                  }else{ ciudadDestino=""; }
-                System.out.println(ciudadOrigen);
-                System.out.println(ciudadDestino);
+                //System.out.println(ciudadOrigen);
+                //System.out.println(ciudadDestino);
                 // System.out.println((jDateChooserSalida.getDate()==null));
                  if (jDateChooserSalida.getDate()==null){ fechaSalida=null; }
                  else{ Date date=jDateChooserSalida.getDate();
                  fechaSalida= new Timestamp(date.getTime()); // fechaSalida tiene la fecha en type timestamp con esta comparo la fecha de la base de datos
                   }  
+                 
+                  if (jDateChooserVuelta.getDate()==null){ fechaVuelta=null; }
+                 else{ Date date=jDateChooserVuelta.getDate();
+                 fechaVuelta= new Timestamp(date.getTime()); // fechaSalida tiene la fecha en type timestamp con esta comparo la fecha de la base de datos
+                  } 
                       
                  // Buscar vuelos para la vuelta               
                 /* if(jDateChooserVuelta.getDate()== null){ fechaVuelta=null; }                 
@@ -1217,7 +1250,7 @@ import javax.swing.table.TableRowSorter;
              System.out.println(new SimpleDateFormat("dd/MM/yyy HH:mm").format(currentTimestamp));*/
             
             //modelo.setRowCount(0);
-            listaVuelos=vD.obtenerVuelosPorPreferencia(ciudadOrigen,ciudadDestino,fechaSalida);
+            listaVuelos=vD.obtenerVuelosPorPreferencia(ciudadOrigen, ciudadDestino,fechaSalida, fechaVuelta);
             
             if(listaVuelos.size()>0){  
             llenarTabla(listaVuelos);
@@ -1449,6 +1482,14 @@ import javax.swing.table.TableRowSorter;
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
+
+    private void jDateChooserVueltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooserVueltaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooserVueltaMouseClicked
+
+    private void jDateChooserVueltaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooserVueltaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooserVueltaMouseEntered
      public void llenarDatosVuelo(int idAsiento){
         
      int fila = jTableVuelos.getSelectedRow();
@@ -1511,7 +1552,7 @@ import javax.swing.table.TableRowSorter;
             //System.out.println(formateador.format(vuelos.get(i).getFechaSalida()));
             fila[5] = formateador.format(vuelos.get(i).getFechaSalida());
             fila[6] = formateador.format(vuelos.get(i).getFechaArribo());
-            fila[7] = vuelos.get(i).getEstado().toUpperCase();
+           
             modelo.addRow(fila);
         }       
     }
@@ -1616,6 +1657,7 @@ import javax.swing.table.TableRowSorter;
     private javax.swing.JComboBox<String> jComboBoxDestino;
     private javax.swing.JComboBox<String> jComboBoxOrigen;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
+    private com.toedter.calendar.JDateChooser jDateChooserVuelta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1660,6 +1702,7 @@ import javax.swing.table.TableRowSorter;
     private javax.swing.JLabel jLabelInicio;
     private javax.swing.JLabel jLabelOrigen;
     private javax.swing.JLabel jLabelSalida;
+    private javax.swing.JLabel jLabelVuelta;
     private javax.swing.JPanel jPanelDatosPasaje;
     private javax.swing.JPanel jPanelFondoSeleccion;
     private javax.swing.JScrollPane jScrollPaneVuelos;
