@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,6 +139,38 @@ public class VueloData {
             System.out.println("Error al obtener vuelos: " + ex.getMessage());
         }
         return vuelos;
+    }
+    
+     public List<Vuelo> ejecutarConsulta(String sql) throws SQLException{
+      List<Vuelo> vuelos = new ArrayList<>();
+      Vuelo vuelo; 
+             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+             ResultSet rs = statement.executeQuery();
+             while(rs.next()) {
+                vuelo=new Vuelo();
+                Ciudad ciudadOrigen = new Ciudad();
+                Ciudad ciudadDestino = new Ciudad();
+                vuelo.setIdVuelo(rs.getInt("idVuelo"));
+                vuelo.setAerolinea(rs.getString("aerolinea"));
+                vuelo.setTipoAeronave(rs.getString("tipoAeronave"));
+                ciudadOrigen.setIdCiudad(rs.getInt("idCiudadOrigen"));
+                ciudadOrigen.setNombre(rs.getString("nombre"));
+                ciudadOrigen.setPais(rs.getString("pais"));
+                ciudadOrigen.setVigencia(rs.getBoolean("vigencia")); //con estevalor debo verificar si esta vigente la ciudad
+                vuelo.setCiudadOrigen(ciudadOrigen);
+                
+                ciudadDestino.setIdCiudad(rs.getInt("idCiudadDestino"));
+                ciudadDestino.setNombre(rs.getString("nombre"));
+                ciudadDestino.setPais(rs.getString("pais"));
+                ciudadDestino.setVigencia(rs.getBoolean("vigencia")); //con estevalor debo verificar si esta vigente la ciudad
+                vuelo.setCiudadDestino(ciudadDestino);
+                vuelo.setFechaSalida(rs.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(rs.getTimestamp("fechaArribo"));
+                vuelo.setEstado(rs.getString("estado"));
+                vuelos.add(vuelo);
+            }
+            statement.close();
+            return vuelos;
     }
     
     //Obtener vuelos disponibles en la base de datos
