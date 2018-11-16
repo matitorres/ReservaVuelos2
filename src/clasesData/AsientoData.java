@@ -196,4 +196,27 @@ public class AsientoData {
         }
         return asiento;
     }
+    
+            public List<Asiento> obtenerAsientosPorVuelo(Vuelo vuelo) {
+        List<Asiento> listaAsientos= new ArrayList<>();
+        try {
+            
+            String sql = "SELECT * FROM asiento WHERE asiento.idVuelo="+vuelo.getIdVuelo()+";";
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                Asiento asiento=new Asiento();
+                asiento.setIdAsiento(resultSet.getInt("idAsiento"));
+                asiento.setVuelo(vuelo);
+                asiento.setCodigoAsiento(resultSet.getString("ubicacion"));
+                asiento.setPrecio(resultSet.getFloat("precio"));
+                asiento.setDisponible(resultSet.getBoolean("disponible"));
+                listaAsientos.add(asiento);
+            }      
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los Asientos: " + ex.getMessage());
+        }
+        return listaAsientos;
+    }
 }
