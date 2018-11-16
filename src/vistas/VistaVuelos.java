@@ -844,7 +844,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         jComboBoxDestino.setBorder(null);
 
         jComboBoxEstado.setBackground(new java.awt.Color(102, 153, 51));
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "n", "d", "c" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "NORMAL", "DEMORADO", "CANCELADO" }));
 
         jLabelAerolinea.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabelAerolinea.setForeground(new java.awt.Color(255, 255, 255));
@@ -1057,7 +1057,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
-                Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
+                Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString().substring(0, 1).toLowerCase());
                 float precio = Float.parseFloat(jTextFieldPrecio.getText());
                 Asiento asientoVuelo = new Asiento(precio);
                 try {
@@ -1086,7 +1086,7 @@ public class VistaVuelos extends javax.swing.JFrame {
                 Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
-                Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
+                Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString().substring(0, 1).toLowerCase());
                 try {
                     switch (vueloModificado.getEstado()) {
                         case "c":
@@ -1365,6 +1365,7 @@ public class VistaVuelos extends javax.swing.JFrame {
             modelo = (DefaultTableModel) jTableVuelos.getModel();
             modelo.setRowCount(0);
             Object[] fila = new Object[modelo.getColumnCount()];
+            String estado = "";
             for (int i = 0; i < vuelos.size(); i++) {
                 fila[0] = vuelos.get(i).getIdVuelo();
                 fila[1] = vuelos.get(i).getAerolinea().toUpperCase();
@@ -1375,7 +1376,15 @@ public class VistaVuelos extends javax.swing.JFrame {
                 fila[4] = destino.getNombre().toUpperCase();
                 fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
                 fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-                fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                switch(vuelos.get(i).getEstado()){
+                    case "n": estado = "NORMAL";
+                    break;
+                    case "d": estado = "DEMORADO";
+                    break;
+                    case "c": estado = "CANCELADO";
+                    break;
+                }
+                fila[7] = estado;
                 modelo.addRow(fila);
             }
         }
@@ -1389,6 +1398,7 @@ public class VistaVuelos extends javax.swing.JFrame {
             modelo = (DefaultTableModel) jTableVuelos.getModel();
             modelo.setRowCount(0);
             Object[] fila = new Object[modelo.getColumnCount()];
+            String estado = "";
             int i = 0;
             while (i < vuelos.size()) {
                 if (!vuelos.get(i).getEstado().equals("c") && vuelos.get(i).getFechaSalida().after(new Date())) {
@@ -1401,7 +1411,15 @@ public class VistaVuelos extends javax.swing.JFrame {
                     fila[4] = destino.getNombre().toUpperCase();
                     fila[5] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaSalida());
                     fila[6] = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelos.get(i).getFechaArribo());
-                    fila[7] = vuelos.get(i).getEstado().toUpperCase();
+                    switch(vuelos.get(i).getEstado()){
+                    case "n": estado = "NORMAL";
+                    break;
+                    case "d": estado = "DEMORADO";
+                    break;
+                    case "c": estado = "CANCELADO";
+                    break;
+                    }
+                    fila[7] = estado;
                     modelo.addRow(fila);
                 }
                 i++;
@@ -1416,6 +1434,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(id_aux);
+        String estado = "";
 
         Vuelo vuelo = vD.buscarVuelo(id);
         jComboBoxAerolinea.setSelectedItem(vuelo.getAerolinea());
@@ -1426,7 +1445,15 @@ public class VistaVuelos extends javax.swing.JFrame {
         jComboBoxDestino.setSelectedItem(destino.getIdCiudad() + " - " + destino.getNombre() + ", " + destino.getPais());
         jDateChooserSalida.setDate(vuelo.getFechaSalida());
         jDateChooserArribo.setDate(vuelo.getFechaArribo());
-        jComboBoxEstado.setSelectedItem(vuelo.getEstado());
+        switch(vuelo.getEstado()){
+            case "n": estado = "NORMAL";
+            break;
+            case "d": estado = "DEMORADO";
+            break;
+            case "c": estado = "CANCELADO";
+            break;
+        }
+        jComboBoxEstado.setSelectedItem(estado);
         Asiento asiento = aD.buscarAsientoPorVuelo(vuelo);
         jTextFieldPrecio.setText("" + asiento.getPrecio());
     }
