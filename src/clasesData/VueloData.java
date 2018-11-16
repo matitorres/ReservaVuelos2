@@ -139,6 +139,94 @@ public class VueloData {
         }
         return vuelos;
     }
+    
+    //Obtener vuelos disponibles en la base de datos
+     public List<Vuelo> obtenerVuelosDisponiblesEnBD(){
+        List<Vuelo> vuelos = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM vuelo where fechaSalida > CURDATE();";
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            Vuelo vuelo;
+            while(rs.next()){
+                vuelo = new Vuelo();
+                Ciudad ciudadOrigen = new Ciudad();
+                Ciudad ciudadDestino = new Ciudad();
+                vuelo.setIdVuelo(rs.getInt("idVuelo"));
+                vuelo.setAerolinea(rs.getString("aerolinea"));
+                vuelo.setTipoAeronave(rs.getString("tipoAeronave"));
+                ciudadOrigen.setIdCiudad(rs.getInt("idCiudadOrigen"));
+                vuelo.setCiudadOrigen(ciudadOrigen);
+                ciudadDestino.setIdCiudad(rs.getInt("idCiudadDestino"));
+                vuelo.setCiudadDestino(ciudadDestino);
+                vuelo.setFechaSalida(rs.getTimestamp("fechaSalida"));
+                vuelo.setFechaArribo(rs.getTimestamp("fechaArribo"));
+                vuelo.setEstado(rs.getString("estado"));
+                vuelos.add(vuelo);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener vuelos: " + ex.getMessage());
+        }
+        return vuelos;
+    }
+    
+    //fin obtenervuelos disponibles en base de taos
+    
+    
+    //Agrego este metodo, para poder buscar vuelos por preferencias del usuario(Origen, Destino, Salida)
+    
+    public List<Vuelo> obtenerVuelosPorPreferencia(String nombreCiudadOrigen,String nombreCiudadDestino,Timestamp fechaSalida){
+          List<Vuelo> vuelos = new ArrayList<>();
+           String sql;
+           
+           
+        try {
+               if (  ((nombreCiudadOrigen!=null) && (!nombreCiudadOrigen.isEmpty())) &&
+                   ((nombreCiudadDestino!=null) && (!nombreCiudadDestino.isEmpty())) &&
+                   ((fechaSalida!=null) && (!fechaSalida.toString().isEmpty()))   ){
+                     sql="SELECT *\n" +
+                     "FROM vuelo,ciudad cO, ciudad cD\n" +
+                     "WHERE vuelo.idCiudadOrigen=cO.idCiudad\n" +
+                     "AND vuelo.idCiudadDestino=cD.idCiudad \n" +
+                     "AND cO.nombre \n" +
+                     "LIKE '%"+nombreCiudadOrigen+"%'\n" +
+                     "AND cD.nombre \n" +
+                     "LIKE '%"+nombreCiudadDestino+"%'\n" +
+                     "AND (vuelo.fechaSalida > CURDATE()"
+                            + " AND vuelo.fechaSalida >'"+fechaSalida+"')\n";
+                     vuelos=ejecutarConsulta(sql);
+                     System.out.println(sql);
+                    
+            }else{   sql="SELECT *"
+                     + "FROM vuelo, ciudad cO, ciudad cD "
+                     + "WHERE vuelo.idCiudadOrigen=cO.idCiudad "
+                     + "AND vuelo.idCiudadDestino=cD.idCiudad ";      
+              
+                     if ((nombreCiudadOrigen!=null) && (!nombreCiudadOrigen.isEmpty())){
+                     sql=sql+" AND cO.nombre LIKE '%"+nombreCiudadOrigen+"%'";
+                     }else {sql=sql+"";}
+            
+                      if ((nombreCiudadDestino!=null) && (!nombreCiudadDestino.isEmpty())){
+                      sql=sql+" AND cD.nombre LIKE '%"+nombreCiudadDestino+"%'";
+                      }else {sql=sql+""; }
+             
+                      if ((fechaSalida!=null)) {
+                       // ts tiene la fecha en type timestamp con esta comparo la fecha de la base de datos
+                      sql=sql +"AND (vuelo.fechaSalida > CURDATE()"
+                            + " AND vuelo.fechaSalida >'"+fechaSalida+"')\n";
+                      // System.out.println(new SimpleDateFormat("dd/MM/yyy HH:mm").format(fechaSalida)); //formateo la fecha para mostrarla por pantalla
+                      //vuelos=ejecutarConsulta(sql);
+                      }else {sql=sql+"AND vuelo.fechaSalida > CURDATE()"; }
+                      vuelos=ejecutarConsulta(sql);
+                      System.out.println(sql);
+                 }//fin else  
+                    
+         } catch (SQLException ex) {
+            System.out.println("Error al buscar vuelo: " + ex.getMessage());
+           } 
+        return vuelos;
+ }
     public List<String> obtenerMailClientesVuelo(Vuelo vuelo) {
         List<String> mails = new ArrayList<>();
         try {
