@@ -149,6 +149,22 @@ public class ClienteData {
       return repetido;
       
   }
-
+   public Cliente buscarClientePorDni(int dniCliente){
+          Cliente cliente = new Cliente() ;
+        try {
+            String sql = "SELECT * FROM cliente WHERE dni = "+dniCliente+";";
+            PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+              if (resultSet != null && resultSet.next()) {
+                 cliente = new Cliente(resultSet.getInt("idCliente"), resultSet.getString("nombre"), resultSet.getString("apellido"), resultSet.getInt("dni"), resultSet.getString("mail"), resultSet.getInt("nroPasaporte"),resultSet.getInt("nroTarjeta"));
+                resultSet.close();
+            }
+            
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar vuelo: " + ex.getMessage());
+        }
+        return cliente;
+    }
 
 }
