@@ -8,6 +8,7 @@ package vistas;
 import clases.Ciudad;
 import clasesData.CiudadData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,8 +23,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Doris
  */
 public class VistaCiudad extends javax.swing.JFrame {
-  private static VistaCiudad ventana = new VistaCiudad();
-  private CiudadData gestor;
+    
+    private static VistaCiudad ventana = new VistaCiudad();
+    private CiudadData gestor;
+    private DefaultTableModel modelo;
+    
     /**
      * Creates new form Interfaz
      */
@@ -31,7 +35,7 @@ public class VistaCiudad extends javax.swing.JFrame {
         initComponents();
         gestor = new CiudadData();
         cajaId.setEnabled(false);
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -50,28 +54,32 @@ public class VistaCiudad extends javax.swing.JFrame {
         cajaPais = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         botonAgregarCiudad = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonBorrar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCiudades = new javax.swing.JTable();
         jLabelFondo = new javax.swing.JLabel();
-        botonSALIR = new javax.swing.JButton();
         comboVigencia = new javax.swing.JComboBox<>();
         buscarCiudad = new javax.swing.JTextField();
         verCiudades = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cajaId = new javax.swing.JTextField();
+        jLabelInicio = new javax.swing.JLabel();
+        jLabelAdministrador = new javax.swing.JLabel();
+        jLabelVuelos = new javax.swing.JLabel();
+        jLabelCerrar = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("NOMBRE");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 100, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 135, 110, 20));
 
         cajaCiudad.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         cajaCiudad.setForeground(new java.awt.Color(0, 102, 51));
@@ -82,49 +90,57 @@ public class VistaCiudad extends javax.swing.JFrame {
         });
         getContentPane().add(cajaCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 220, 30));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("PAIS ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 90, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 175, 110, 20));
 
         cajaPais.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         cajaPais.setForeground(new java.awt.Color(0, 102, 51));
         getContentPane().add(cajaPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 220, 30));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("VIGENCIA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 110, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 110, 30));
 
-        botonAgregarCiudad.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        botonAgregarCiudad.setForeground(new java.awt.Color(0, 102, 51));
+        botonAgregarCiudad.setBackground(new java.awt.Color(102, 153, 51));
+        botonAgregarCiudad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botonAgregarCiudad.setForeground(new java.awt.Color(255, 255, 255));
         botonAgregarCiudad.setText("AGREGAR");
+        botonAgregarCiudad.setBorder(null);
         botonAgregarCiudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonAgregarCiudadMouseClicked(evt);
             }
         });
-        getContentPane().add(botonAgregarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, 120, 30));
+        getContentPane().add(botonAgregarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 120, 30));
 
-        jButton2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 102, 51));
-        jButton2.setText("BORRAR");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+        jButtonBorrar.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonBorrar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonBorrar.setText("BORRAR");
+        jButtonBorrar.setBorder(null);
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, 120, 30));
+        getContentPane().add(jButtonBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 120, 30));
 
-        jButton3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 102, 51));
-        jButton3.setText("MODIFICAR");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonModificar.setBackground(new java.awt.Color(102, 153, 51));
+        jButtonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonModificar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonModificar.setText("MODIFICAR");
+        jButtonModificar.setBorder(null);
+        jButtonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                jButtonModificarMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 120, 30));
+        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 120, 30));
 
         tablaCiudades.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         tablaCiudades.setForeground(new java.awt.Color(153, 153, 153));
@@ -152,45 +168,88 @@ public class VistaCiudad extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaCiudades);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 560, 120));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 560, 120));
 
         jLabelFondo.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabelFondo.setForeground(new java.awt.Color(0, 204, 102));
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        botonSALIR.setText("SALIR");
-        botonSALIR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSALIRActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonSALIR, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 70, -1));
-
         comboVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        getContentPane().add(comboVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 90, -1));
+        getContentPane().add(comboVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 90, 30));
 
-        buscarCiudad.setText("Buscar..por nombre..");
-        getContentPane().add(buscarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 140, -1));
+        buscarCiudad.setText("Buscar por nombre");
+        buscarCiudad.setToolTipText("");
+        getContentPane().add(buscarCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 140, 30));
 
+        verCiudades.setBackground(new java.awt.Color(102, 153, 51));
+        verCiudades.setForeground(new java.awt.Color(255, 255, 255));
         verCiudades.setText("VER");
+        verCiudades.setBorder(null);
         verCiudades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 verCiudadesMouseClicked(evt);
             }
         });
-        getContentPane().add(verCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, -1, -1));
+        getContentPane().add(verCiudades, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 50, 30));
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("ID");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 60, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 95, 110, 20));
         getContentPane().add(cajaId, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 220, 30));
+
+        jLabelInicio.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
+        jLabelInicio.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelInicio.setText("Inicio //");
+        jLabelInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelInicio.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelInicioMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 20, 98, 30));
+
+        jLabelAdministrador.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        jLabelAdministrador.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelAdministrador.setText("Administrador /");
+        jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdministradorMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
+
+        jLabelVuelos.setBackground(new java.awt.Color(102, 153, 51));
+        jLabelVuelos.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        jLabelVuelos.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelVuelos.setText("Ciudades");
+        getContentPane().add(jLabelVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
+
+        jLabelCerrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabelCerrar.setForeground(new java.awt.Color(102, 153, 51));
+        jLabelCerrar.setText("X");
+        jLabelCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCerrarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
+
+        jPanel1.setBackground(new java.awt.Color(153, 204, 51));
+        jPanel1.setLayout(new javax.swing.OverlayLayout(jPanel1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 756, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     public static void visibilidad(boolean estado){
+    public static void visibilidad(boolean estado){
        ventana.setVisible(estado);
    }
      
-   public void pasar_ciudades(List<Ciudad> lista){
+    public void pasar_ciudades(List<Ciudad> lista){
       int i;
       //llamamos a los metodos para conectar ala BASE DE DATOS
            DefaultTableModel dm = (DefaultTableModel) tablaCiudades.getModel();
@@ -228,14 +287,10 @@ public class VistaCiudad extends javax.swing.JFrame {
 
         
     }
+    
     private void cajaCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCiudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cajaCiudadActionPerformed
-
-    private void botonSALIRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSALIRActionPerformed
-       ventana.setVisible(false);
-       VistaAdmin.visibilidad(true);
-    }//GEN-LAST:event_botonSALIRActionPerformed
 
     private void botonAgregarCiudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarCiudadMouseClicked
   // FALTA AGREGAR METODO QUE SOLO PERMITA INGRESAR STRINGS EN ESTOS CAMPOS
@@ -290,14 +345,9 @@ public class VistaCiudad extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAgregarCiudadMouseClicked
 
     private void verCiudadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verCiudadesMouseClicked
-        // BORRO LAS CIUDADES DE LA BUSQUEDA ANTERIOR, SI LAS HAY
-        
-      
-                
-                
         if(!buscarCiudad.getText().equals("")){
            try {
-               List <Ciudad> lista = gestor.filtrarCiudades(buscarCiudad.getText());
+               List<Ciudad> lista = gestor.filtrarCiudades(buscarCiudad.getText());
                pasar_ciudades(lista);
            } catch (SQLException ex) {
                Logger.getLogger(VistaCiudad.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,124 +382,85 @@ public class VistaCiudad extends javax.swing.JFrame {
                  
     }//GEN-LAST:event_tablaCiudadesMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-      if(!cajaId.getText().equals("")){
-            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro?")) {
-                int id =  Integer.parseInt(cajaId.getText());
-        
-                try {
-                    gestor.borrarCiudad(id);
-                     
-                    JOptionPane.showMessageDialog(null,"Se ha borrado la ciudad");
-                     
-        
-                  
-             
-                } catch (SQLException ex) {
-                    Logger.getLogger(VistaCiudad.class.getName()).log(Level.SEVERE, null, ex);
-                       JOptionPane.showMessageDialog(null,"Error al borrar la ciudad de la base de datos");
-                }
-              
-            }
-          
-      }
-      else{
-              JOptionPane.showMessageDialog(null,"Seleccione una ciudad");
-      }
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-            if(!cajaId.getText().equals("") && !cajaCiudad.getText().equals("") && !cajaPais.getText().equals("")){
-            if (0 == JOptionPane.showConfirmDialog(this,"¿Esta seguro?")) {
-                int id =  Integer.parseInt(cajaId.getText());
-            String combo =(String) comboVigencia.getSelectedItem();
-            boolean vigencia = false;
-             switch(combo){
+    private void jButtonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModificarMouseClicked
+        int id = Integer.parseInt(cajaId.getText());
+        boolean vigencia = true;
+        switch(comboVigencia.getSelectedItem().toString()){
               case "NO": vigencia = false;
               break;
               case "SI": vigencia = true;
               break;
-              
-          }
-     
-                
-                Ciudad ciudad = new Ciudad(id, cajaCiudad.getText(), cajaPais.getText(),vigencia );
-        
-                
-                try {
-                    gestor.modificarCiudad(ciudad);
-                     JOptionPane.showMessageDialog(null,"Se ha modificado la ciudad");
-                } catch (SQLException ex) {
-                    Logger.getLogger(VistaCiudad.class.getName()).log(Level.SEVERE, null, ex);
-                     JOptionPane.showMessageDialog(null,"Error al modificar la ciudad");
-                }
-     
-              
-            }
-          
-      }
-      else{
-              JOptionPane.showMessageDialog(null,"Seleccione una ciudad");
-      }
-    }//GEN-LAST:event_jButton3MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaCiudad().setVisible(true);
+        if (!camposVacios()) {
+            if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
+                Ciudad ciudadModificada = new Ciudad(id , cajaCiudad.getText() , cajaPais.getText() , vigencia);
+                try {
+                    gestor.modificarCiudad(ciudadModificada);
+                    JOptionPane.showMessageDialog(null, "Modificación exitosa!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "No se pudo realizar la modificación");
+                }
             }
-        });
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error. Debe llenar todos los campos");
+        }
+    }//GEN-LAST:event_jButtonModificarMouseClicked
 
+    private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
+        ventana.setVisible(false);
+        VistaVueloCliente.visibilidad(true);
+    }//GEN-LAST:event_jLabelInicioMouseClicked
+
+    private void jLabelAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdministradorMouseClicked
+        ventana.setVisible(false);
+        VistaAdmin.visibilidad(true);
+    }//GEN-LAST:event_jLabelAdministradorMouseClicked
+
+    private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabelCerrarMouseClicked
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        int id = Integer.parseInt(cajaId.getText());
+        modelo = (DefaultTableModel) tablaCiudades.getModel();
+        modelo.setRowCount(0); 
+        if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar esta ciudad?")) {
+            try {
+                gestor.borrarCiudad(id);
+                JOptionPane.showMessageDialog(null, "Se ha eliminado la ciudad exitosamente");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al eliminar ciudad");
+            }
+        }
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
+
+    private boolean camposVacios() {
+        boolean hayVacias = false;
+        if (cajaCiudad.getText().equals("") || cajaPais.getText().equals("") || comboVigencia.getSelectedItem().equals(null)) {
+            hayVacias = true;
+        }
+        return hayVacias;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregarCiudad;
-    private javax.swing.JButton botonSALIR;
     private javax.swing.JTextField buscarCiudad;
     private javax.swing.JTextField cajaCiudad;
     private javax.swing.JTextField cajaId;
     private javax.swing.JTextField cajaPais;
     private javax.swing.JComboBox<String> comboVigencia;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonBorrar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelAdministrador;
+    private javax.swing.JLabel jLabelCerrar;
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelInicio;
+    private javax.swing.JLabel jLabelVuelos;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablaCiudades;

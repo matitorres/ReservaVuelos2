@@ -48,27 +48,25 @@ public class CiudadData {
          return exito;
     }
     
-    public int modificarCiudad(Ciudad c) throws SQLException{
-        int exito = 0;
-        String consulta = "UPDATE ciudad SET nombre = '"+c.getNombre()+"', pais = '"+c.getPais()+"', vigencia='"+c.getVigencia()+"' where idCiudad= '"+c.getIdCiudad()+"'";
-        PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
+    public void modificarCiudad(Ciudad c) throws SQLException{
+        // String consulta = "UPDATE ciudad SET nombre = '"+c.getNombre()+"', pais = '"+c.getPais()+"', vigencia='"+c.getVigencia()+"' WHERE idCiudad= '"+c.getIdCiudad()+"';";
+        String consulta = "UPDATE ciudad SET nombre = ?, pais = ?, vigencia= ? WHERE idCiudad= ? ;";
+        PreparedStatement stmt = Conexion.getConexion().prepareStatement(consulta);
+        stmt.setString(1,c.getNombre());
+        stmt.setString(2,c.getPais());
+        stmt.setBoolean(3,c.getVigencia());
+        stmt.setInt(4,c.getIdCiudad());
           // con esta sentencia se insertan los datos en la base de datos
-        exito = preparedStatement.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
-        preparedStatement.close();
-           
-        return exito;
+        stmt.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se guardaron
+        stmt.close();
   }
     
     public void borrarCiudad(int id) throws SQLException{
-        int exito = 0;
-        String consulta = "delete from ciudad WHERE idCiudad ='"+id+"';";
-        
-        PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
-        preparedStatement.executeUpdate();
-             // SI EXITO ES MAYOR QUE 0 SIGINIFICA QUE EL DELETE FUE EXITOSO, ESTO SE CONTROLARA DESDE LA INTERFAZ GRAFICA
-        preparedStatement.close();
-           // Conexion.getConexion().close();
-       
+        String sql = "DELETE FROM ciudad WHERE idCiudad = ? ;";
+        PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.executeUpdate();
+        statement.close();
   }
     
     public Ciudad getCiudad(int id) {
@@ -92,7 +90,7 @@ public class CiudadData {
         return p;
     }
     
-       public boolean existeCiudad(Ciudad c) throws SQLException {
+    public boolean existeCiudad(Ciudad c) throws SQLException {
          // SERVIRA PARA NO REPETIR CIUDADES CON UN MISMO ID
   
          boolean exito = false;
@@ -130,7 +128,7 @@ public class CiudadData {
         return this.listaCiudades;
     } 
     
-       public List filtrarCiudades(String nombreCiudad) throws SQLException {
+    public List filtrarCiudades(String nombreCiudad) throws SQLException {
      
             ResultSet resultSet = null;
             String consulta = "SELECT * FROM `ciudad` where nombre  like '%"+nombreCiudad+"%'";
