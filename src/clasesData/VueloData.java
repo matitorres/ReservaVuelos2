@@ -177,7 +177,7 @@ public class VueloData {
      public List<Vuelo> obtenerVuelosDisponiblesEnBD(){
         List<Vuelo> vuelos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM vuelo where fechaSalida > CURDATE();";
+            String sql = "SELECT * FROM vuelo where estado='n' AND fechaSalida > CURDATE();";
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             Vuelo vuelo;
@@ -209,12 +209,12 @@ public class VueloData {
     
     //Agrego este metodo, para poder buscar vuelos por preferencias del usuario(Origen, Destino, Salida)
     
-    public List<Vuelo> obtenerVuelosPorPreferencia(String nombreCiudadOrigen,String nombreCiudadDestino,Timestamp fechaSalida){
+    public List<Vuelo> obtenerVuelosPorPreferencia(String nombreCiudadOrigen,String nombreCiudadDestino,Timestamp fechaSalida,Timestamp fechaVuelta){
           List<Vuelo> vuelos = new ArrayList<>();
            String sql;
            
            
-        try {
+        try{
                if (  ((nombreCiudadOrigen!=null) && (!nombreCiudadOrigen.isEmpty())) &&
                    ((nombreCiudadDestino!=null) && (!nombreCiudadDestino.isEmpty())) &&
                    ((fechaSalida!=null) && (!fechaSalida.toString().isEmpty()))   ){
@@ -226,16 +226,18 @@ public class VueloData {
                      "LIKE '%"+nombreCiudadOrigen+"%'\n" +
                      "AND cD.nombre \n" +
                      "LIKE '%"+nombreCiudadDestino+"%'\n" +
-                     "AND (vuelo.fechaSalida > CURDATE()"
-                            + " AND vuelo.fechaSalida >'"+fechaSalida+"')\n";
+                     "AND vuelo.estado='n' \n"+        
+                     "AND (vuelo.fechaSalida > CURDATE()" +
+                     "AND vuelo.fechaSalida BETWEEN '"+fechaSalida+"' AND '"+fechaVuelta+"'  )\n";
                      vuelos=ejecutarConsulta(sql);
                      System.out.println(sql);
                     
             }else{   sql="SELECT *"
                      + "FROM vuelo, ciudad cO, ciudad cD "
                      + "WHERE vuelo.idCiudadOrigen=cO.idCiudad "
-                     + "AND vuelo.idCiudadDestino=cD.idCiudad ";      
-              
+                     + "AND vuelo.idCiudadDestino=cD.idCiudad "      
+                     + "AND vuelo.estado='n'";
+                     
                      if ((nombreCiudadOrigen!=null) && (!nombreCiudadOrigen.isEmpty())){
                      sql=sql+" AND cO.nombre LIKE '%"+nombreCiudadOrigen+"%'";
                      }else {sql=sql+"";}
@@ -244,13 +246,15 @@ public class VueloData {
                       sql=sql+" AND cD.nombre LIKE '%"+nombreCiudadDestino+"%'";
                       }else {sql=sql+""; }
              
-                      if ((fechaSalida!=null)) {
+                      if ((fechaSalida!=null &&  fechaVuelta!=null)) {
                        // ts tiene la fecha en type timestamp con esta comparo la fecha de la base de datos
-                      sql=sql +"AND (vuelo.fechaSalida > CURDATE()"
-                            + " AND vuelo.fechaSalida >'"+fechaSalida+"')\n";
+                      sql=sql +" AND (vuelo.fechaSalida >= CURDATE()"
+                            + " AND vuelo.fechaSalida BETWEEN '"+fechaSalida+"' AND '"+fechaVuelta+"');\n";
                       // System.out.println(new SimpleDateFormat("dd/MM/yyy HH:mm").format(fechaSalida)); //formateo la fecha para mostrarla por pantalla
                       //vuelos=ejecutarConsulta(sql);
                       }else {sql=sql+"AND vuelo.fechaSalida > CURDATE()"; }
+                                            
+                      
                       vuelos=ejecutarConsulta(sql);
                       System.out.println(sql);
                  }//fin else  
@@ -260,6 +264,11 @@ public class VueloData {
            } 
         return vuelos;
  }
+    
+    
+    
+    
+    
     public List<String> obtenerMailClientesVuelo(Vuelo vuelo) {
         List<String> mails = new ArrayList<>();
         try {
