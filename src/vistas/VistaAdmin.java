@@ -172,7 +172,7 @@ public class VistaAdmin extends javax.swing.JFrame {
 
     private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
         ventana.setVisible(false);
-        VistaVueloCliente.visibilidad(true);
+        VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jLabelInicioMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -51,8 +51,8 @@ import javax.swing.table.TableRowSorter;
  *
  * @author asus pc
  */
-    public class VistaNuevaCompra extends javax.swing.JFrame {
-    private static VistaNuevaCompra ventana = new VistaNuevaCompra();
+    public class VistaPrincipal extends javax.swing.JFrame {
+    private static VistaPrincipal ventana = null;
     private TableRowSorter filtro;
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
@@ -68,9 +68,10 @@ import javax.swing.table.TableRowSorter;
 
     private List<Vuelo> listaVuelos;    
 //Constructor
-    public VistaNuevaCompra() {
+    public VistaPrincipal() {
         initComponents();
         llenarComboCiudades();
+             setLocationRelativeTo(null);
         //this.setLocationRelativeTo(null);
         //listaVuelos=vD.obtenerVuelos(); 
         //this.llenarTabla(listaVuelos);
@@ -187,7 +188,6 @@ import javax.swing.table.TableRowSorter;
         jComboBoxDestino = new javax.swing.JComboBox<>();
         jButtonBuscar = new javax.swing.JButton();
         jButtonMostrarVuelos = new javax.swing.JButton();
-        jButtonAtras = new javax.swing.JButton();
         limpiarVuelos = new javax.swing.JButton();
         jButtonVerAsientos = new javax.swing.JButton();
         panelContenedorAsientos = new javax.swing.JPanel();
@@ -200,6 +200,8 @@ import javax.swing.table.TableRowSorter;
         jTableVuelos = new javax.swing.JTable();
         jButtonDisponible = new javax.swing.JButton();
         jButtonOcupado = new javax.swing.JButton();
+        labelAdministrador = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 204, 0));
         setUndecorated(true);
@@ -404,11 +406,12 @@ import javax.swing.table.TableRowSorter;
                     .addComponent(nombreCiudadDestino1)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32)
-                    .addComponent(fechaArribo1)
-                    .addComponent(fechaSalida1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel32)
+                        .addComponent(fechaArribo1)
+                        .addComponent(fechaSalida1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
@@ -418,7 +421,7 @@ import javax.swing.table.TableRowSorter;
                 .addGap(33, 33, 33)
                 .addComponent(jLabel36)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -870,20 +873,6 @@ import javax.swing.table.TableRowSorter;
 
         JPanel.add(jPanelFondoSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 870, 80));
 
-        jButtonAtras.setBackground(new java.awt.Color(102, 153, 51));
-        jButtonAtras.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonAtras.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAtras.setText("Salir");
-        jButtonAtras.setBorder(null);
-        jButtonAtras.setBorderPainted(false);
-        jButtonAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAtrasActionPerformed(evt);
-            }
-        });
-        JPanel.add(jButtonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 550, 80, 31));
-
         limpiarVuelos.setText("Limpiar");
         limpiarVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -997,6 +986,24 @@ import javax.swing.table.TableRowSorter;
             }
         });
         JPanel.add(jButtonOcupado, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 510, -1, 40));
+
+        labelAdministrador.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        labelAdministrador.setForeground(new java.awt.Color(255, 255, 255));
+        labelAdministrador.setText("Modo administrador");
+        labelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelAdministradorMouseClicked(evt);
+            }
+        });
+        JPanel.add(labelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 614, 210, 20));
+
+        jButton2.setText("SALIR");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        JPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 610, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1234,11 +1241,6 @@ import javax.swing.table.TableRowSorter;
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMostrarVuelosActionPerformed
-
-    private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
-       ventana.setVisible(false);
-       VistaCompraAdmin.visibilidad(true);  // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAtrasActionPerformed
 /**/
     private void jDateChooserSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooserSalidaMouseClicked
        //LocalDate salida = jDateChooserSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -1381,7 +1383,7 @@ import javax.swing.table.TableRowSorter;
         try {
             gestorCliente.altaCliente(clienteNuevo);
         } catch (SQLException ex) {
-            Logger.getLogger(VistaNuevaCompra.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         nombreAerolinea1.setText(nombreAerolinea.getText());
         nombreAeronave1.setText(nombreAeronave.getText());
@@ -1437,7 +1439,7 @@ import javax.swing.table.TableRowSorter;
             }else{
             }
         } catch (SQLException ex) {
-            Logger.getLogger(VistaNuevaCompra.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1448,6 +1450,16 @@ import javax.swing.table.TableRowSorter;
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
+
+    private void labelAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAdministradorMouseClicked
+      this.ventana.setVisible(false);
+      LoginAdmin.visibilidad(true);
+        
+    }//GEN-LAST:event_labelAdministradorMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+       System.exit(0);
+    }//GEN-LAST:event_jButton2MouseClicked
      public void llenarDatosVuelo(int idAsiento){
         
      int fila = jTableVuelos.getSelectedRow();
@@ -1543,6 +1555,9 @@ import javax.swing.table.TableRowSorter;
     }
     */
     public static void visibilidad(boolean estado){
+        if(ventana == null){
+            ventana = new VistaPrincipal();
+        }
        ventana.setVisible(estado);
    }
       public void filtro(){
@@ -1586,7 +1601,8 @@ import javax.swing.table.TableRowSorter;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaNuevaCompra().setVisible(true);
+               ventana =  new VistaPrincipal();
+               ventana.setVisible(true);
             }
         });
     }
@@ -1605,8 +1621,8 @@ import javax.swing.table.TableRowSorter;
     private javax.swing.JLabel fechaSalida1;
     private javax.swing.JLabel idAsientoComprado;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonDisponible;
     private javax.swing.JButton jButtonMostrarVuelos;
@@ -1663,6 +1679,7 @@ import javax.swing.table.TableRowSorter;
     private javax.swing.JPanel jPanelFondoSeleccion;
     private javax.swing.JScrollPane jScrollPaneVuelos;
     private javax.swing.JTable jTableVuelos;
+    private javax.swing.JLabel labelAdministrador;
     private javax.swing.JButton limpiarVuelos;
     private javax.swing.JLabel mailCliente;
     private javax.swing.JLabel nombre;

@@ -77,12 +77,14 @@ public class CompraData {
 
        public int guardarCompra(Compra compra) throws SQLException{
             int exito;
-            String sql = "INSERT INTO compra (idAsiento, idCliente, fechaCompra) VALUES ( ? , ? , ? );";
+            String sql = "INSERT INTO compra (idAsiento, idCliente, fechaCompra, nroTarjeta) VALUES ( ? , ? , ?, ? );";
 
             PreparedStatement statement = Conexion.getConexion().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, compra.getAsiento().getIdAsiento());
             statement.setInt(2, compra.getCliente().getId());
             statement.setTimestamp(3, (Timestamp) compra.getFechaCompra());
+            
+               statement.setInt(4, compra.getNroTarjeta());
             
             exito=statement.executeUpdate();
             

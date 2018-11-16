@@ -1147,6 +1147,8 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jPanelFondoAsientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelFondoAsientosMouseClicked
         jPanelAsientos.setVisible(false);
         jPanelFondoAsientos.setVisible(false);
+        ventana.setVisible(false);
+        VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jPanelFondoAsientosMouseClicked
 
     private void jButtonV001ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV001ActionPerformed
@@ -1340,7 +1342,7 @@ public class VistaVuelos extends javax.swing.JFrame {
 
     private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
         ventana.setVisible(false);
-        VistaVueloCliente.visibilidad(true);
+        VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jLabelInicioMouseClicked
 
     private void jTextFieldPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecioKeyTyped

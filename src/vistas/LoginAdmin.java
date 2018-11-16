@@ -132,11 +132,12 @@ public class LoginAdmin extends javax.swing.JFrame {
 
     private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked
         ventana.setVisible(false);
-        VistaVueloCliente.visibilidad(true);
+        VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jLabelInicioMouseClicked
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
         ventana.setVisible(false);
+   
         VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
 
