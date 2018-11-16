@@ -21,6 +21,7 @@ public class Compra {
     private Asiento asiento;
     private Cliente cliente;
     private java.util.Date fechaCompra;
+    private int nroTarjeta;
     
     //Constructores
 public Compra(int idCompra,Asiento asiento , Cliente cliente , java.util.Date fechaCompra ){
@@ -72,5 +73,13 @@ public Compra(int idCompra ){
     }
     public void setFechaCompra(java.util.Date fechaCompra) {
         this.fechaCompra = fechaCompra;
+    }
+    
+     public void setNroTarjeta(int nro) {
+        this.nroTarjeta = nro;
+    }
+    
+    public int getNroTarjeta(){
+    return this.nroTarjeta;
     }
 }
