@@ -16,8 +16,9 @@ public class Cliente implements Comparable <Cliente>{
     private int pasaporte;
     private int dni;
     private String mail;
+    private String contraseña;
 
-    public Cliente(int id, String nombre, String apellido, int dni, String mail, int pasaporte, int tarjeta) {
+    public Cliente(int id, String nombre, String apellido, int dni, String mail, int pasaporte, int tarjeta, String contraseña) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -25,6 +26,7 @@ public class Cliente implements Comparable <Cliente>{
         this.pasaporte = pasaporte;
         this.dni = dni;
         this.mail = mail;
+        this.contraseña = contraseña;
     }
     
     //CONSTRUCTOR POR DEFECTO, UTILIZADO PARA LUEGO MODIFICARLO CAMPO POR CAMPO
@@ -35,14 +37,22 @@ public class Cliente implements Comparable <Cliente>{
         this.tarjeta = 0;
         this.pasaporte = 0;
         this.dni = 0;
+        this.contraseña = "";
         
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public void setMail(String mail) {
         this.mail = mail;
     }
     
-
     public String getMail() {
         return mail;
     }

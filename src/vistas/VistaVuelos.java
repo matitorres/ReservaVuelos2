@@ -1147,8 +1147,6 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jPanelFondoAsientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelFondoAsientosMouseClicked
         jPanelAsientos.setVisible(false);
         jPanelFondoAsientos.setVisible(false);
-        ventana.setVisible(false);
-        VistaPrincipal.visibilidad(true);
     }//GEN-LAST:event_jPanelFondoAsientosMouseClicked
 
     private void jButtonV001ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonV001ActionPerformed

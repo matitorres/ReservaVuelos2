@@ -9,11 +9,11 @@ package vistas;
  *
  * @author asus pc
  */
-public class VistaCliente extends javax.swing.JFrame {
+public class VistaCompra extends javax.swing.JFrame {
 
-    private static VistaCliente ventana = new VistaCliente();
+    private static VistaCompra ventana = new VistaCompra();
     
-    public VistaCliente() {
+    public VistaCompra() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -30,23 +30,17 @@ public class VistaCliente extends javax.swing.JFrame {
         jPanelFondo = new javax.swing.JPanel();
         jLabelInicio = new javax.swing.JLabel();
         jLabelAdministrador = new javax.swing.JLabel();
-        jLabelClientes = new javax.swing.JLabel();
+        jLabelCompras = new javax.swing.JLabel();
         jLabelCerrar = new javax.swing.JLabel();
-        jScrollPaneClientes = new javax.swing.JScrollPane();
-        jTableClientes = new javax.swing.JTable();
+        jScrollPaneCompras = new javax.swing.JScrollPane();
+        jTableCompras = new javax.swing.JTable();
         jPanelSeleccion = new javax.swing.JPanel();
-        jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldApellido = new javax.swing.JTextField();
-        jLabelDni = new javax.swing.JLabel();
-        jLabelApellido = new javax.swing.JLabel();
-        jLabelNombre = new javax.swing.JLabel();
-        jTextFieldDni = new javax.swing.JTextField();
-        jTextFieldMail = new javax.swing.JTextField();
-        jTextFieldPasaporte = new javax.swing.JTextField();
-        jTextFieldTarjeta = new javax.swing.JTextField();
-        jLabePasaporte = new javax.swing.JLabel();
-        jLabelMail = new javax.swing.JLabel();
-        jLabelTarjeta = new javax.swing.JLabel();
+        jTextFieldCliente = new javax.swing.JTextField();
+        jTextFieldAsiento = new javax.swing.JTextField();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabelIdCliente = new javax.swing.JLabel();
+        jLabelIdAsiento = new javax.swing.JLabel();
+        jLabelFecha = new javax.swing.JLabel();
         jButtonEliminar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
@@ -81,11 +75,11 @@ public class VistaCliente extends javax.swing.JFrame {
         });
         jPanelFondo.add(jLabelAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 20, -1, 30));
 
-        jLabelClientes.setBackground(new java.awt.Color(102, 153, 51));
-        jLabelClientes.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
-        jLabelClientes.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelClientes.setText("Clientes");
-        jPanelFondo.add(jLabelClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
+        jLabelCompras.setBackground(new java.awt.Color(102, 153, 51));
+        jLabelCompras.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        jLabelCompras.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCompras.setText("Compras");
+        jPanelFondo.add(jLabelCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, 30));
 
         jLabelCerrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabelCerrar.setForeground(new java.awt.Color(102, 153, 51));
@@ -98,19 +92,19 @@ public class VistaCliente extends javax.swing.JFrame {
         });
         jPanelFondo.add(jLabelCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 15, 15));
 
-        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "DNI", "Mail", "Pasaporte", "Nro Tarjeta"
+                "Id", "Id Cliente", "Id Asiento", "Fecha / Hora"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -121,107 +115,79 @@ public class VistaCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableClientes.setToolTipText("");
-        jTableClientes.setSelectionBackground(new java.awt.Color(102, 153, 51));
-        jTableClientes.getTableHeader().setReorderingAllowed(false);
-        jScrollPaneClientes.setViewportView(jTableClientes);
+        jTableCompras.setToolTipText("");
+        jTableCompras.setSelectionBackground(new java.awt.Color(102, 153, 51));
+        jTableCompras.getTableHeader().setReorderingAllowed(false);
+        jScrollPaneCompras.setViewportView(jTableCompras);
 
-        jPanelFondo.add(jScrollPaneClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 75, 691, 240));
+        jPanelFondo.add(jScrollPaneCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 75, 691, 240));
 
         jPanelSeleccion.setBackground(new java.awt.Color(102, 153, 51));
         jPanelSeleccion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextFieldNombre.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 44, 228, 31));
+        jTextFieldCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextFieldCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jPanelSeleccion.add(jTextFieldCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 44, 228, 31));
 
-        jTextFieldApellido.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 44, 228, 31));
+        jTextFieldAsiento.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextFieldAsiento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        jPanelSeleccion.add(jTextFieldAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 44, 228, 31));
 
-        jLabelDni.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelDni.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelDni.setText("DNI");
-        jPanelSeleccion.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 20, -1, -1));
+        jDateChooser.setBackground(new java.awt.Color(102, 153, 51));
+        jPanelSeleccion.add(jDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 44, 105, 31));
 
-        jLabelApellido.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelApellido.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelApellido.setText("Apellido");
-        jPanelSeleccion.add(jLabelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 20, -1, -1));
+        jLabelIdCliente.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelIdCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelIdCliente.setText("Fecha");
+        jPanelSeleccion.add(jLabelIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 20, -1, -1));
 
-        jLabelNombre.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelNombre.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelNombre.setText("Nombre");
-        jPanelSeleccion.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 20, -1, -1));
+        jLabelIdAsiento.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelIdAsiento.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelIdAsiento.setText("Id Asiento");
+        jPanelSeleccion.add(jLabelIdAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 20, -1, -1));
 
-        jTextFieldDni.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldDni.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(543, 44, 105, 31));
+        jLabelFecha.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabelFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelFecha.setText("Id Cliente");
+        jPanelSeleccion.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 20, -1, -1));
 
-        jTextFieldMail.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldMail.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 114, 228, 31));
-
-        jTextFieldPasaporte.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldPasaporte.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldPasaporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 114, 170, 31));
-
-        jTextFieldTarjeta.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jTextFieldTarjeta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        jPanelSeleccion.add(jTextFieldTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 114, 165, 31));
-
-        jLabePasaporte.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabePasaporte.setForeground(new java.awt.Color(255, 255, 255));
-        jLabePasaporte.setText("N° Pasaporte");
-        jPanelSeleccion.add(jLabePasaporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 90, -1, -1));
-
-        jLabelMail.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelMail.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelMail.setText("Mail");
-        jPanelSeleccion.add(jLabelMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 90, -1, -1));
-
-        jLabelTarjeta.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        jLabelTarjeta.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTarjeta.setText("N° Tarjeta");
-        jPanelSeleccion.add(jLabelTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 90, -1, -1));
-
-        jPanelFondo.add(jPanelSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 341, 691, 170));
+        jPanelFondo.add(jPanelSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 341, 691, 100));
 
         jButtonEliminar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonEliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButtonEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonEliminar.setText("- Eliminar cliente");
+        jButtonEliminar.setText("- Eliminar compra");
         jButtonEliminar.setBorder(null);
         jButtonEliminar.setBorderPainted(false);
         jButtonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelFondo.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 530, 168, 31));
+        jPanelFondo.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 460, 168, 31));
 
         jButtonModificar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonModificar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButtonModificar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonModificar.setText("/ Modificar cliente");
+        jButtonModificar.setText("/ Modificar compra");
         jButtonModificar.setBorder(null);
         jButtonModificar.setBorderPainted(false);
         jButtonModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelFondo.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 530, 168, 31));
+        jPanelFondo.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 168, 31));
 
         jButtonAgregar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonAgregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButtonAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonAgregar.setText("+ Agregar cliente");
+        jButtonAgregar.setText("+ Agregar compra");
         jButtonAgregar.setBorder(null);
         jButtonAgregar.setBorderPainted(false);
         jButtonAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelFondo.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 530, 168, 31));
+        jPanelFondo.add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 460, 168, 31));
 
         jButtonBuscar.setBackground(new java.awt.Color(102, 153, 51));
         jButtonBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButtonBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonBuscar.setText("ó Buscar cliente");
+        jButtonBuscar.setText("ó Buscar compra");
         jButtonBuscar.setBorder(null);
         jButtonBuscar.setBorderPainted(false);
         jButtonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelFondo.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 530, 168, 31));
+        jPanelFondo.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 460, 168, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,11 +202,11 @@ public class VistaCliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 585, Short.MAX_VALUE)
+            .addGap(0, 513, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -270,25 +236,19 @@ public class VistaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonModificar;
-    private javax.swing.JLabel jLabePasaporte;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabelAdministrador;
-    private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelCerrar;
-    private javax.swing.JLabel jLabelClientes;
-    private javax.swing.JLabel jLabelDni;
+    private javax.swing.JLabel jLabelCompras;
+    private javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelIdAsiento;
+    private javax.swing.JLabel jLabelIdCliente;
     private javax.swing.JLabel jLabelInicio;
-    private javax.swing.JLabel jLabelMail;
-    private javax.swing.JLabel jLabelNombre;
-    private javax.swing.JLabel jLabelTarjeta;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelSeleccion;
-    private javax.swing.JScrollPane jScrollPaneClientes;
-    private javax.swing.JTable jTableClientes;
-    private javax.swing.JTextField jTextFieldApellido;
-    private javax.swing.JTextField jTextFieldDni;
-    private javax.swing.JTextField jTextFieldMail;
-    private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldPasaporte;
-    private javax.swing.JTextField jTextFieldTarjeta;
+    private javax.swing.JScrollPane jScrollPaneCompras;
+    private javax.swing.JTable jTableCompras;
+    private javax.swing.JTextField jTextFieldAsiento;
+    private javax.swing.JTextField jTextFieldCliente;
     // End of variables declaration//GEN-END:variables
 }
