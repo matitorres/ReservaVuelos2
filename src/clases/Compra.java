@@ -24,24 +24,29 @@ public class Compra {
     private int nroTarjeta;
     
     //Constructores
-public Compra(int idCompra,Asiento asiento , Cliente cliente , java.util.Date fechaCompra ){
-    this.idCompra=idCompra;
-    this.asiento=asiento;
-    this.cliente=cliente;
-    this.fechaCompra=fechaCompra;
-} 
+    public Compra(int idCompra,Asiento asiento , Cliente cliente , java.util.Date fechaCompra ){
+        this.idCompra=idCompra;
+        this.asiento=asiento;
+        this.cliente=cliente;
+        this.fechaCompra=fechaCompra;
+    } 
     
-public Compra(Asiento asiento,Cliente cliente, java.util.Date fechaCompra ){
-    this.asiento=asiento;
-    this.cliente=cliente;
-    this.fechaCompra=fechaCompra;
-}    
+    public Compra(Asiento asiento,Cliente cliente, java.util.Date fechaCompra ){
+        this.asiento=asiento;
+        this.cliente=cliente;
+        this.fechaCompra=fechaCompra;
+    }    
 
-public Compra(int idCompra ){
-    this.idCompra=idCompra;    
-}   
+    public Compra(Asiento asiento,Cliente cliente) {
+        this.asiento=asiento;
+        this.cliente=cliente;
+    } 
 
-  public  Compra() {
+    public Compra(int idCompra ){
+        this.idCompra=idCompra;    
+    }   
+
+    public  Compra() {
         
     }
 //Fin Constructores

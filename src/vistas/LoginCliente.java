@@ -126,7 +126,9 @@ public class LoginCliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,6 +146,7 @@ public class LoginCliente extends javax.swing.JFrame {
     private void jButtonRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistroActionPerformed
         ventana.setVisible(false);
         RegistroCliente.visibilidad(true);
+        limpiarCampos();
     }//GEN-LAST:event_jButtonRegistroActionPerformed
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
@@ -155,7 +158,9 @@ public class LoginCliente extends javax.swing.JFrame {
                 Cliente cliente = cD.getCliente(mail);
                 if (contraseña.equals(cliente.getContraseña())) {
                     this.cliente = cliente;
-                    JOptionPane.showMessageDialog(null, "Joya");
+                    ventana.setVisible(false);
+                    VistaPago.visibilidad(true);
+                    limpiarCampos();
                 } else {
                     JOptionPane.showMessageDialog(null, "La contraseña es incorrecta. Pongase en contacto con nuestros representantes.");
                 }

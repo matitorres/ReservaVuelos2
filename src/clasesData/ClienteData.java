@@ -34,11 +34,7 @@ public class ClienteData {
           
             ResultSet resultSet = null;
             String consulta = "SELECT * FROM `cliente`";
-            
-            //PARA USAR EL METODO ESTATICO SE PONE EL NOMBRE DE LA CLASE SEGUIDO DE LA FUNCION
-            
-            //EN ESTE CASO: Conexion.getConexion()
-     
+                 
             PreparedStatement preparedStatement = Conexion.getConexion().prepareStatement(consulta);
             resultSet = preparedStatement.executeQuery();
             Cliente p;

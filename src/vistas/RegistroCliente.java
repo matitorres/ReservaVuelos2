@@ -18,7 +18,6 @@ public class RegistroCliente extends javax.swing.JFrame {
     public RegistroCliente() {
         initComponents();
         setLocationRelativeTo(null);
-        limpiarCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -212,6 +211,7 @@ public class RegistroCliente extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Registro exitoso!");
                             ventana.setVisible(false);
                             LoginCliente.visibilidad(true);
+                            limpiarCampos();
                         } catch (SQLException ex) {
                             JOptionPane.showMessageDialog(null, "Error al registrar");
                         }

@@ -859,6 +859,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
         ventana.setVisible(false);
         LoginCliente.visibilidad(true);
+        limpiarCampos();
     }//GEN-LAST:event_jButtonComprarActionPerformed
 
     public void llenarComboCiudades() {
@@ -900,6 +901,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
             i++;
         }
         filtrarTabla();
+    }
+    
+    public void limpiarCampos() {
+        modelo = (DefaultTableModel) jTableVuelos.getModel();
+        modelo.setRowCount(0);
+        jPanelAsientos.setVisible(false);
+        jComboBoxOrigen.setSelectedItem("Seleccione ciudad de origen");
+        jComboBoxDestino.setSelectedItem("Seleccione ciudad de destino");
+        jDateChooserFecha.setCalendar(null);
     }
     
     private void filtrarTabla() {
