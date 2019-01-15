@@ -12,7 +12,7 @@ package vistas;
 public class VistaCliente extends javax.swing.JFrame {
 
     private static VistaCliente ventana = new VistaCliente();
-    
+
     public VistaCliente() {
         initComponents();
         this.setLocationRelativeTo(null);

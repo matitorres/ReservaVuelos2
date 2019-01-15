@@ -5,10 +5,8 @@
  */
 package clases;
 
+public class Cliente implements Comparable<Cliente> {
 
-
-
-public class Cliente implements Comparable <Cliente>{
     private int id;
     private String nombre;
     private String apellido;
@@ -28,9 +26,9 @@ public class Cliente implements Comparable <Cliente>{
         this.mail = mail;
         this.contraseña = contraseña;
     }
-    
+
     //CONSTRUCTOR POR DEFECTO, UTILIZADO PARA LUEGO MODIFICARLO CAMPO POR CAMPO
-    public Cliente(){
+    public Cliente() {
         this.id = 0;
         this.nombre = "defecto";
         this.apellido = "defecto";
@@ -38,7 +36,7 @@ public class Cliente implements Comparable <Cliente>{
         this.pasaporte = 0;
         this.dni = 0;
         this.contraseña = "";
-        
+
     }
 
     public String getContraseña() {
@@ -52,11 +50,10 @@ public class Cliente implements Comparable <Cliente>{
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
+
     public String getMail() {
         return mail;
     }
-    
 
     public int getId() {
         return id;
@@ -105,12 +102,9 @@ public class Cliente implements Comparable <Cliente>{
     public void setDni(int dni) {
         this.dni = dni;
     }
-    
-    
-     public int compareTo(Cliente o) {
-        return(this.dni - o.getPasaporte());
+
+    public int compareTo(Cliente o) {
+        return (this.dni - o.getPasaporte());
     }
-    
- 
 
 }

@@ -12,7 +12,7 @@ package vistas;
 public class VistaCompra extends javax.swing.JFrame {
 
     private static VistaCompra ventana = new VistaCompra();
-    
+
     public VistaCompra() {
         initComponents();
         this.setLocationRelativeTo(null);

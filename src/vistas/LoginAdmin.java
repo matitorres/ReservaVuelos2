@@ -10,9 +10,9 @@ package vistas;
  * @author asus pc
  */
 public class LoginAdmin extends javax.swing.JFrame {
-    
+
     private static LoginAdmin ventana = new LoginAdmin();
-    
+
     public LoginAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -139,7 +139,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
     private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
         ventana.setVisible(false);
-   
+
         VistaAdmin.visibilidad(true);
     }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
 

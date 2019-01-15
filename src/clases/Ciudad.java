@@ -7,37 +7,33 @@ package clases;
 
 /**
  *
- @author Pamela
+ * @author Pamela
  */
 public class Ciudad {
-    
+
     //ATRIBUTOS
-    
     private int idCiudad;
     private String nombre;
-    private String pais;     
+    private String pais;
     private boolean vigencia;
-    
-    
+
     // CONSTRUCTORES
-    
     public Ciudad(int idCiudad, String nombre, String pais, boolean vigencia) {
         this.idCiudad = idCiudad;
         this.nombre = nombre;
         this.pais = pais;
-        this.vigencia = vigencia; 
+        this.vigencia = vigencia;
     }
-    
+
     //CONSTRUCTOR POR DEFECTO
-    
-    public Ciudad (){
+    public Ciudad() {
         this.idCiudad = 0;
         this.nombre = "nombre";
         this.pais = "pais";
-        this.vigencia = false; 
-    
+        this.vigencia = false;
+
     }
-    
+
     public int getIdCiudad() {
         return idCiudad;
     }
@@ -70,13 +66,4 @@ public class Ciudad {
         this.vigencia = vigencia;
     }
 
-
-   }
-         
-        
-        
-         
-
-     
-
-
+}

@@ -13,7 +13,7 @@ public class LoginCliente extends javax.swing.JFrame {
     private static LoginCliente ventana = new LoginCliente();
     private ClienteData cD = new ClienteData();
     public static Cliente cliente = null;
-    
+
     public LoginCliente() {
         initComponents();
         setLocationRelativeTo(null);
@@ -179,12 +179,12 @@ public class LoginCliente extends javax.swing.JFrame {
         }
         return hayVacias;
     }
-    
+
     private void limpiarCampos() {
         jTextFieldUsuario.setText("");
         jPasswordFieldContraseña.setText("");
     }
-    
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }

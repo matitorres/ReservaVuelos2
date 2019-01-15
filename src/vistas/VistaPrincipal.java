@@ -21,7 +21,7 @@ import javax.swing.table.TableRowSorter;
  * @author asus pc
  */
 public class VistaPrincipal extends javax.swing.JFrame {
-    
+
     private VueloData vD = new VueloData();
     private CiudadData cD = new CiudadData();
     private AsientoData aD = new AsientoData();
@@ -877,7 +877,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             jComboBoxDestino.setModel(modeloDestino);
         }
     }
-    
+
     public void llenarTablaDisponibles() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
         modelo = (DefaultTableModel) jTableVuelos.getModel();
@@ -902,7 +902,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
         filtrarTabla();
     }
-    
+
     public void limpiarCampos() {
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         modelo.setRowCount(0);
@@ -911,7 +911,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jComboBoxDestino.setSelectedItem("Seleccione ciudad de destino");
         jDateChooserFecha.setCalendar(null);
     }
-    
+
     private void filtrarTabla() {
         modelo = (DefaultTableModel) jTableVuelos.getModel();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(modelo);
@@ -919,23 +919,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
         List<RowFilter<DefaultTableModel, Object>> filtros = new ArrayList<>();
         int i = 0;
         if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(),3));
+            filtros.add(RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(), 3));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxOrigen.getSelectedItem().toString().toUpperCase(), 3));
             i++;
         }
         if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(),4));
+            filtros.add(RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(), 4));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxDestino.getSelectedItem().toString().toUpperCase(), 4));
             i++;
         }
         if (jDateChooserFecha.getDate() != null) {
-            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()),5));
-            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()),5));
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()), 5));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserFecha.getDate()), 5));
             i++;
         }
         tr.setRowFilter(RowFilter.andFilter(filtros));
     }
-    
+
     public void mostrarAsientos() {
         pintarBotonAsiento(jButtonV001, "V001");
         pintarBotonAsiento(jButtonP002, "P002");
@@ -983,7 +983,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             boton.setEnabled(true);
         }
     }
-    
+
     public void seleccionarAsiento(String ubicacion) {
         int fila = jTableVuelos.getSelectedRow();
         String id_aux = jTableVuelos.getValueAt(fila, 0).toString();
@@ -991,14 +991,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Vuelo vuelo = vD.buscarVuelo(id);
         Asiento asientoSelec = aD.obtenerAsientosVueloUbicacion(vuelo, ubicacion);
         this.asiento = asientoSelec;
-        jLabelPrecio.setText("$"+Float.toString(asiento.getPrecio()));
+        jLabelPrecio.setText("$" + Float.toString(asiento.getPrecio()));
         jButtonComprar.setEnabled(true);
     }
-    
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }
-    
+
     /**
      * @param args the command line arguments
      */

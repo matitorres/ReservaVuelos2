@@ -1053,8 +1053,8 @@ public class VistaVuelos extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         if (!camposVacios()) {
             if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer este registro?")) {
-                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
-                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0, jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0, jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
                 Vuelo nuevoVuelo = new Vuelo(jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
@@ -1077,13 +1077,13 @@ public class VistaVuelos extends javax.swing.JFrame {
         int fila = jTableVuelos.getSelectedRow();
         String idAux = jTableVuelos.getValueAt(fila, 0).toString();
         int id = Integer.parseInt(idAux);
-        
+
         List<String> mails = vD.obtenerMailClientesVuelo(vD.buscarVuelo(id));
 
         if (!camposVacios()) {
             if (0 == JOptionPane.showConfirmDialog(this, "¿Esta seguro de hacer esta modificacion?")) {
-                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
-                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0, jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+                Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0, jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
                 Date salida = jDateChooserSalida.getDate();
                 Date arribo = jDateChooserArribo.getDate();
                 Vuelo vueloModificado = new Vuelo(id, jComboBoxAerolinea.getSelectedItem().toString(), jComboBoxAeronave.getSelectedItem().toString(), origen, destino, salida, arribo, jComboBoxEstado.getSelectedItem().toString());
@@ -1091,22 +1091,22 @@ public class VistaVuelos extends javax.swing.JFrame {
                     switch (vueloModificado.getEstado()) {
                         case "c":
                             if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("D")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo cancelado" , "Estimado cliente. Lamentamos informale que su vuelo con id: "+id+", ha sido cancelado. Lamentamos las molestias. Saludos. Equipo de Vuelos32");
+                                for (int i = 0; i < mails.size(); i++) {
+                                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", mails.get(i), "Vuelo cancelado", "Estimado cliente. Lamentamos informale que su vuelo con id: " + id + ", ha sido cancelado. Lamentamos las molestias. Saludos. Equipo de Vuelos32");
                                 }
                             }
                             break;
                         case "n":
                             if (jTableVuelos.getValueAt(fila, 7).toString().equals("D") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo normalizado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se ha normalizado. Saludos. Equipo de Vuelos32");
+                                for (int i = 0; i < mails.size(); i++) {
+                                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", mails.get(i), "Vuelo normalizado", "Estimado cliente. Le informamos que su vuelo con id: " + id + ", se ha normalizado. Saludos. Equipo de Vuelos32");
                                 }
                             }
                             break;
                         case "d":
                             if (jTableVuelos.getValueAt(fila, 7).toString().equals("N") || jTableVuelos.getValueAt(fila, 7).toString().equals("C")) {
-                                for (int i = 0 ; i < mails.size() ; i++) {
-                                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , mails.get(i) , "Vuelo demorado" , "Estimado cliente. Le informamos que su vuelo con id: "+id+", se encuentra demorado. Saludos. Equipo de Vuelos32");
+                                for (int i = 0; i < mails.size(); i++) {
+                                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", mails.get(i), "Vuelo demorado", "Estimado cliente. Le informamos que su vuelo con id: " + id + ", se encuentra demorado. Saludos. Equipo de Vuelos32");
                                 }
                             }
                             break;
@@ -1292,40 +1292,40 @@ public class VistaVuelos extends javax.swing.JFrame {
         List<RowFilter<DefaultTableModel, Object>> filtros = new ArrayList<>();
         int i = 0;
         if (!jComboBoxAerolinea.getSelectedItem().toString().equals("Seleccione una aerolinea")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(),1));
+            filtros.add(RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(), 1));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxAerolinea.getSelectedItem().toString().toUpperCase(), 1));
             i += 1;
         }
         if (!jComboBoxAeronave.getSelectedItem().toString().equals("Seleccione una aeronave")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(),2));
+            filtros.add(RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(), 2));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxAeronave.getSelectedItem().toString().toUpperCase(), 2));
             i += 1;
         }
         if (!jComboBoxOrigen.getSelectedItem().toString().equals("Seleccione ciudad de origen")) {
-            Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0 , jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
-            filtros.add(RowFilter.regexFilter(origen.getNombre().toUpperCase(),3));
-            filtros.set(i, RowFilter.regexFilter(origen.getNombre().toUpperCase(),3));
+            Ciudad origen = cD.getCiudad(Integer.parseInt(jComboBoxOrigen.getSelectedItem().toString().substring(0, jComboBoxOrigen.getSelectedItem().toString().indexOf("-") - 1)));
+            filtros.add(RowFilter.regexFilter(origen.getNombre().toUpperCase(), 3));
+            filtros.set(i, RowFilter.regexFilter(origen.getNombre().toUpperCase(), 3));
             i += 1;
         }
         if (!jComboBoxDestino.getSelectedItem().toString().equals("Seleccione ciudad de destino")) {
-            Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0 , jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
-            filtros.add(RowFilter.regexFilter(destino.getNombre().toUpperCase(),4));
-            filtros.set(i, RowFilter.regexFilter(destino.getNombre().toUpperCase(),4));
+            Ciudad destino = cD.getCiudad(Integer.parseInt(jComboBoxDestino.getSelectedItem().toString().substring(0, jComboBoxDestino.getSelectedItem().toString().indexOf("-") - 1)));
+            filtros.add(RowFilter.regexFilter(destino.getNombre().toUpperCase(), 4));
+            filtros.set(i, RowFilter.regexFilter(destino.getNombre().toUpperCase(), 4));
             i += 1;
         }
         if (jDateChooserSalida.getDate() != null) {
-            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
-            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()),5));
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()), 5));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserSalida.getDate()), 5));
             i += 1;
         }
         if (jDateChooserArribo.getDate() != null) {
-            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
-            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()),6));
+            filtros.add(RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()), 6));
+            filtros.set(i, RowFilter.regexFilter(new SimpleDateFormat("dd/MM/yyyy").format(jDateChooserArribo.getDate()), 6));
             i += 1;
         }
         if (!jComboBoxEstado.getSelectedItem().toString().equals("Estado")) {
-            filtros.add(RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
-            filtros.set(i, RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(),7));
+            filtros.add(RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(), 7));
+            filtros.set(i, RowFilter.regexFilter(jComboBoxEstado.getSelectedItem().toString().toUpperCase(), 7));
             i += 1;
         }
         tr.setRowFilter(RowFilter.andFilter(filtros));
@@ -1345,7 +1345,7 @@ public class VistaVuelos extends javax.swing.JFrame {
 
     private void jTextFieldPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecioKeyTyped
         char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)){
+        if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
             JOptionPane.showMessageDialog(rootPane, "El campo Precio sólo admite números");
@@ -1380,7 +1380,7 @@ public class VistaVuelos extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public void llenarTablaDisponibles() {
         List<Vuelo> vuelos = vD.obtenerVuelos();
         if (vuelos == null || vuelos.isEmpty()) {
@@ -1522,7 +1522,7 @@ public class VistaVuelos extends javax.swing.JFrame {
         }
         return hayVacias;
     }
-    
+
     public void enviarCorreo(String usuario, String contraseña, String destinatario, String asunto, String mensaje) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -1532,10 +1532,10 @@ public class VistaVuelos extends javax.swing.JFrame {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(usuario, contraseña);
-                    }
-                });
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, contraseña);
+            }
+        });
 
         try {
 

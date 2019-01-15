@@ -12,7 +12,7 @@ package vistas;
 public class VistaCiudad extends javax.swing.JFrame {
 
     private static VistaCiudad ventana = new VistaCiudad();
-    
+
     public VistaCiudad() {
         initComponents();
         this.setLocationRelativeTo(null);

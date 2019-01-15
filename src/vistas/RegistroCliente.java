@@ -13,8 +13,7 @@ public class RegistroCliente extends javax.swing.JFrame {
 
     private static RegistroCliente ventana = new RegistroCliente();
     private ClienteData cD = new ClienteData();
-    
-    
+
     public RegistroCliente() {
         initComponents();
         setLocationRelativeTo(null);
@@ -230,14 +229,14 @@ public class RegistroCliente extends javax.swing.JFrame {
     private boolean camposVacios() {
         boolean hayVacias = false;
         if (jTextFieldNombre.getText().equals("") || jTextFieldApellido.getText().equals("")
-            || jTextFieldDni.getText().equals("") || jTextFieldPasaporte.getText().equals("")
-            || jTextFieldMail.getText().equals("") || jTextFieldTarjeta.getText().equals("")
-            || jTextFieldContraseña.getText().equals("") || jTextFieldConfirContra.getText().equals("")) {
+                || jTextFieldDni.getText().equals("") || jTextFieldPasaporte.getText().equals("")
+                || jTextFieldMail.getText().equals("") || jTextFieldTarjeta.getText().equals("")
+                || jTextFieldContraseña.getText().equals("") || jTextFieldConfirContra.getText().equals("")) {
             hayVacias = true;
         }
         return hayVacias;
     }
-    
+
     private void limpiarCampos() {
         jTextFieldNombre.setText("");
         jTextFieldApellido.setText("");
@@ -247,7 +246,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         jTextFieldTarjeta.setText("");
         jTextFieldContraseña.setText("");
     }
-    
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }

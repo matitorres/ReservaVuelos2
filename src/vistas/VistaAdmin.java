@@ -10,7 +10,9 @@ package vistas;
  * @author asus pc
  */
 public class VistaAdmin extends javax.swing.JFrame {
- private static VistaAdmin ventana = new VistaAdmin();
+
+    private static VistaAdmin ventana = new VistaAdmin();
+
     /**
      * Creates new form VistaAdminOpciones
      */
@@ -143,7 +145,7 @@ public class VistaAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public static void visibilidad(boolean estado){
+    public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
     }
     private void jLabelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCerrarMouseClicked
@@ -151,23 +153,23 @@ public class VistaAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelCerrarMouseClicked
 
     private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
-     ventana.setVisible(false);
-     VistaCliente.visibilidad(true);
+        ventana.setVisible(false);
+        VistaCliente.visibilidad(true);
     }//GEN-LAST:event_jButtonClientesActionPerformed
 
     private void jButtonCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCiudadesActionPerformed
-         ventana.setVisible(false);
-     VistaCiudad.visibilidad(true);
+        ventana.setVisible(false);
+        VistaCiudad.visibilidad(true);
     }//GEN-LAST:event_jButtonCiudadesActionPerformed
 
     private void jButtonVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVuelosActionPerformed
-     ventana.setVisible(false);
-     VistaVuelos.visibilidad(true);
+        ventana.setVisible(false);
+        VistaVuelos.visibilidad(true);
     }//GEN-LAST:event_jButtonVuelosActionPerformed
 
     private void jButtonComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprasActionPerformed
-       ventana.setVisible(false);
-       VistaCompra.visibilidad(true);
+        ventana.setVisible(false);
+        VistaCompra.visibilidad(true);
     }//GEN-LAST:event_jButtonComprasActionPerformed
 
     private void jLabelInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelInicioMouseClicked

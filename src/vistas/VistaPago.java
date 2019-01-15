@@ -25,7 +25,7 @@ public class VistaPago extends javax.swing.JFrame {
         jPanelEfectivo.setVisible(false);
         jTextNumero.setText(Integer.toString(LoginCliente.cliente.getTarjeta()));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -317,7 +317,7 @@ public class VistaPago extends javax.swing.JFrame {
         }
         return hayVacias;
     }
-    
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
         jLabelPrecio.setText("$" + Float.toString(VistaPrincipal.asiento.getPrecio()));

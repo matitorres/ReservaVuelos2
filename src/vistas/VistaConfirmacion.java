@@ -11,8 +11,6 @@ import clases.Compra;
 import clasesData.AsientoData;
 import clasesData.CompraData;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -32,7 +30,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
     private static VistaConfirmacion ventana = new VistaConfirmacion();
     private CompraData cD = new CompraData();
     private AsientoData aD = new AsientoData();
-    
+
     public VistaConfirmacion() {
         initComponents();
         setLocationRelativeTo(null);
@@ -200,7 +198,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
                     cD.guardarCompra(compra);
                     asiento.setDisponible(false);
                     aD.actualizarAsiento(asiento);
-                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , cliente.getMail() , "Gracias por su compra" , "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
+                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", cliente.getMail(), "Gracias por su compra", "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
                     JOptionPane.showMessageDialog(null, "La operación se ha realizado con éxito");
                     ventana.setVisible(false);
                     VistaPrincipal.visibilidad(true);
@@ -213,7 +211,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
                     cD.guardarCompra(compra);
                     asiento.setDisponible(false);
                     aD.actualizarAsiento(asiento);
-                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , cliente.getMail() , "Cupón de pago" , "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
+                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", cliente.getMail(), "Cupón de pago", "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
                     JOptionPane.showMessageDialog(null, "La operación se ha realizado con éxito. Enviamos un cupón de pago a su mail.");
                     ventana.setVisible(false);
                     VistaPrincipal.visibilidad(true);
@@ -226,7 +224,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
                     cD.guardarCompra(compra);
                     asiento.setDisponible(false);
                     aD.actualizarAsiento(asiento);
-                    enviarCorreo ("vuelos032@gmail.com" , "vuelos123456" , cliente.getMail() , "Cupón de pago" , "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
+                    enviarCorreo("vuelos032@gmail.com", "vuelos123456", cliente.getMail(), "Cupón de pago", "Estimado cliente. Su compra se ha realizado con éxito. Saludos. Equipo de Vuelos32");
                     JOptionPane.showMessageDialog(null, "La operación se ha realizado con éxito. Enviamos un cupón de pago a su mail.");
                     ventana.setVisible(false);
                     VistaPrincipal.visibilidad(true);
@@ -246,10 +244,10 @@ public class VistaConfirmacion extends javax.swing.JFrame {
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(usuario, contraseña);
-                    }
-                });
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(usuario, contraseña);
+            }
+        });
 
         try {
 
@@ -267,7 +265,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
             throw new RuntimeException(e);
         }
     }
-    
+
     public static void visibilidad(boolean estado) {
         ventana.setVisible(estado);
         if (VistaPago.metodo == "Tarjeta") {
@@ -286,7 +284,7 @@ public class VistaConfirmacion extends javax.swing.JFrame {
             jLabelMetodoE.setText("Método de pago: " + VistaPago.metodo);
         }
     }
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JLabel jLabelCerrar;
